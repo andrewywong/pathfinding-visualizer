@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Node from './components/Node';
+import Node from '../Node/Node';
 
-import './PathfindingVisualizer.css';
+import './Board.css';
 
-export default class PathfindingVisualizer extends Component {
+export default class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,8 +14,8 @@ export default class PathfindingVisualizer extends Component {
   componentDidMount() {
     const nodes = [];
     // Change rows and cols depending on the device width
-    let maxCols = window.innerWidth / 28;
-    let maxRows = Math.round(maxCols / 3);
+    const maxCols = window.innerWidth / 28;
+    const maxRows = Math.round(maxCols / 3);
     console.log(maxRows);
 
     for (let row = 0; row < maxRows; ++row) {
@@ -52,11 +52,7 @@ export default class PathfindingVisualizer extends Component {
               {row.map((node, nodeIdx) => {
                 const { isStart, isFinish } = node;
                 return (
-                  <Node
-                    key={nodeIdx}
-                    isStart={isStart}
-                    isFinish={isFinish}
-                  ></Node>
+                  <Node key={nodeIdx} isStart={isStart} isFinish={isFinish} />
                 );
               })}
             </tr>

@@ -1,12 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import PathfindingVisualizer from './PathfindingVisualizer/PathfindingVisualizer';
+import ContextProvider from './ContextProvider';
+import Home from './components/Home/Home';
 
 function App() {
   return (
     <div className="App">
-      <PathfindingVisualizer></PathfindingVisualizer>
+      <ContextProvider>
+        <Home />
+      </ContextProvider>
     </div>
   );
 }
