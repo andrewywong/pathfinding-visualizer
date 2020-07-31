@@ -3,11 +3,15 @@ import { DELAY_NORMAL, NODE_INITIAL } from './constants';
 
 const Context = React.createContext();
 
-export default class ContextProvider extends Component {
+class ContextProvider extends Component {
   constructor(props) {
     super(props);
     this.delay = DELAY_NORMAL;
-    this.state = { pathExists: true, visualizing: false, helpToggle: false };
+    this.state = {
+      isPathExisting: true,
+      isVisualizing: false,
+      isHelpOn: false,
+    };
   }
 
   componentDidMount() {
@@ -90,6 +94,19 @@ export default class ContextProvider extends Component {
     console.log('Set up board.');
   }
 
+  // public class fields syntax
+  setIsPathExisting = (value) => {
+    this.setState({ isPathExisting: value });
+  };
+
+  setIsVisualizing = (value) => {
+    this.setState({ isVisualizing: value });
+  };
+
+  setIsHelpOn = (value) => {
+    this.setState({ isHelpOn: value });
+  };
+
   render() {
     return (
       <Context.Provider value={this.state}>
@@ -98,3 +115,5 @@ export default class ContextProvider extends Component {
     );
   }
 }
+
+export { Context, ContextProvider };

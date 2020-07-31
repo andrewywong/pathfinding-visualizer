@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Node from '../Node/Node';
+import { Context } from '../../ContextProvider';
 
 import './Board.css';
 
 export default class Board extends Component {
+  static contextType = Context;
   constructor(props) {
     super(props);
     this.state = {
