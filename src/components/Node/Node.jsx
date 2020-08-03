@@ -9,12 +9,17 @@ export default class Node extends Component {
   }
 
   render() {
-    const { isFinish, isStart } = this.props;
-    const extraClassName = isFinish
-      ? 'node-finish'
-      : isStart
-      ? 'node-start'
-      : '';
-    return <td className={`node ${extraClassName}`}></td>;
+    const { rowIdx, colIdx } = this.props;
+    // const extraClassName = rowIdx === 2 && colIdx === 2 ? ' node-start' : '';
+    const extraClassName = '';
+    return (
+      <div
+        className={`node${extraClassName}`}
+        data-rowIdx={rowIdx}
+        data-colIdx={colIdx}
+      >
+        <div className="path" />
+      </div>
+    );
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Board from '../Board/Board';
+import Header from '../Header/Header';
 import { Context } from '../../ContextProvider';
 
 export default class Home extends Component {
@@ -10,6 +11,11 @@ export default class Home extends Component {
   }
 
   render() {
-    return <Board />;
+    return (
+      <React.Fragment>
+        <Header />
+        <Board />
+      </React.Fragment>
+    );
   }
 }

@@ -1,9 +1,12 @@
 .node {
+  display: table-cell;
   width: 25px;
   height: 25px;
-  border-right: 1px solid grey;
-  border-bottom: 1px solid grey;
-  /* display: inline-block; */
+  border: 1px solid grey;
+  /* display: flex;
+  flex: 1; */
+  /* border-right: 1px solid grey;
+  border-bottom: 1px solid grey; */
 }
 
 .node-start {
@@ -19,5 +22,9 @@
 }
 
 .path {
-  display: inline-block;
+  height: 100%;
+  /* display: flex;
+  flex: 1; */
+  /* border-right: 1px solid grey;
+  border-bottom: 1px solid grey; */
 }

@@ -12,6 +12,7 @@ class ContextProvider extends Component {
       isVisualizing: false,
       isHelpOn: false,
     };
+    this.setupBoard();
   }
 
   componentDidMount() {
@@ -29,7 +30,7 @@ class ContextProvider extends Component {
   setupBoard() {
     const nodes = [];
     // Change rows and cols depending on the device width
-    const maxCol = window.innerWidth / 28;
+    const maxCol = window.innerWidth / 26;
     const maxRow = Math.round(maxCol / 3);
 
     // Deep Copy Methods
@@ -66,9 +67,9 @@ class ContextProvider extends Component {
     }
 
     // Initialize board
-    for (let row = 0; row < maxRow; ++row) {
+    for (let rowIdx = 0; rowIdx < maxRow; ++rowIdx) {
       const currentRow = [];
-      for (let col = 0; col < maxCol; ++col) {
+      for (let colIdx = 0; colIdx < maxCol; ++colIdx) {
         const currentNode = {
           type: NODE_INITIAL,
           visited: false,
@@ -81,11 +82,11 @@ class ContextProvider extends Component {
     // Copy over preexisting board
     if (this.board && this.board.length) {
       // board and board.length are truthy
-      for (let row = 0; row < this.board.length; ++row) {
-        for (let col = 0; col < this.board[row].length; ++col) {
+      for (let rowIdx = 0; rowIdx < this.board.length; ++rowIdx) {
+        for (let colIdx = 0; colIdx < this.board[rowIdx].length; ++colIdx) {
           // TODO: PROBABLY NEED TO DEEP COPY INSTEAD
           // nodes[row][col] = Object.assign({}, this.board[row][col]);
-          nodes[row][col] = this.board[row][col];
+          nodes[rowIdx][colIdx] = this.board[rowIdx][colIdx];
         }
       }
     }
@@ -109,7 +110,25 @@ class ContextProvider extends Component {
 
   render() {
     return (
-      <Context.Provider value={this.state}>
+      <Context.Provider
+        value={{
+          // State
+          isPathExisting: this.state.isPathExisting,
+          isVisualizing: this.state.isVisualizing,
+          isHelpOn: this.state.isHelpOn,
+
+          // Functions
+          setIsPathExisting: this.setIsPathExisting,
+          setIsVisualizing: this.setIsVisualizing,
+          setIsHelpOn: this.setIsHelpOn,
+
+          // Variables
+          board: this.board,
+          start: this.start,
+          finish: this.finish,
+          delay: this.delay,
+        }}
+      >
         {this.props.children}
       </Context.Provider>
     );
