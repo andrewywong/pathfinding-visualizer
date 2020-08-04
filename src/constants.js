@@ -1,7 +1,7 @@
 // Node Types
 export const NODE_START = 'node-start';
 export const NODE_FINISH = 'node-finish';
-export const NODE_INITIAL = 'node-initial';
+export const NODE_INITIAL = '';
 export const NODE_WALL = 'node-wall';
 
 export const NODE_VISITED = 'node-visited';
@@ -26,3 +26,6 @@ export const DIJKSTRA = 'dijkstra';
 export const A_STAR = 'a-star';
 export const DFS = 'DFS';
 export const BFS = 'BFS';
+
+// Modes
+export const MODES = { ADD: 'add', ERASE: 'erase' };

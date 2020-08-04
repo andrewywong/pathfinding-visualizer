@@ -3,19 +3,37 @@ import Node from '../Node/Node';
 import { Context } from '../../ContextProvider';
 
 import './Board.css';
+import { MODES } from '../../constants';
 
 export default class Board extends Component {
   static contextType = Context;
   constructor(props) {
     super(props);
     this.state = {
-      isDragging: false,
-      // toggle between erasing/adding walls
+      mode: MODES.ADD,
     };
   }
 
+  handleMouseDown = (e) => {
+    let { start, finish } = this.context;
+    const rowIdx = Number(e.target.dataset.rowIdx);
+    const colIdx = Number(e.target.dataset.colIdx);
+  };
+  // handleTouchStart
+
+  handleMouseUp = (e) => {
+    console.log('this is:', this);
+  };
+  // handleTouchEnd
+
+  handleMouseMove = (e) => {};
+  // handleTouchMove
+
+  handleMouseOut = (e) => {};
+  // handleTouchEnd
+
   render() {
-    let { board, start, finish, isVisualizing } = this.context;
+    let { board } = this.context;
 
     return (
       <div className="board">

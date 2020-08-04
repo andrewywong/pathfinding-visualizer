@@ -7,6 +7,7 @@ class ContextProvider extends Component {
   constructor(props) {
     super(props);
     this.delay = DELAY_NORMAL;
+    this.updateNodeCache = new Map();
     this.state = {
       isPathExisting: true,
       isVisualizing: false,
@@ -50,18 +51,18 @@ class ContextProvider extends Component {
       };
     } else {
       // Use preexisting start and finish values
-      if (this.start.x >= maxRow) {
-        this.start.x = maxRow - 1;
+      if (this.start.y >= maxRow) {
+        this.start.y = maxRow - 1;
       }
-      if (this.start.y >= maxCol) {
-        this.start.y = maxCol - 1;
+      if (this.start.x >= maxCol) {
+        this.start.x = maxCol - 1;
       }
 
-      if (this.finish.x >= maxRow) {
-        this.finish.x = maxRow - 1;
+      if (this.finish.y >= maxRow) {
+        this.finish.y = maxRow - 1;
       }
-      if (this.finish.y >= maxCol) {
-        this.finish.y = maxCol - 1;
+      if (this.finish.x >= maxCol) {
+        this.finish.x = maxCol - 1;
       }
       // TODO: Handle issue of overlapping start and finish values
     }
@@ -85,8 +86,8 @@ class ContextProvider extends Component {
       for (let rowIdx = 0; rowIdx < this.board.length; ++rowIdx) {
         for (let colIdx = 0; colIdx < this.board[rowIdx].length; ++colIdx) {
           // TODO: PROBABLY NEED TO DEEP COPY INSTEAD
-          // nodes[row][col] = Object.assign({}, this.board[row][col]);
-          nodes[rowIdx][colIdx] = this.board[rowIdx][colIdx];
+          nodes[rowIdx][colIdx] = Object.assign({}, this.board[rowIdx][colIdx]);
+          // nodes[rowIdx][colIdx] = this.board[rowIdx][colIdx];
         }
       }
     }
@@ -108,6 +109,10 @@ class ContextProvider extends Component {
     this.setState({ isHelpOn: value });
   };
 
+  updateNode = (rowIdx, colIdx, nodeType = NODE_INITIAL) => {
+    this.board[rowIdx][colIdx].type = nodeType;
+  };
+
   render() {
     return (
       <Context.Provider
@@ -127,6 +132,7 @@ class ContextProvider extends Component {
           start: this.start,
           finish: this.finish,
           delay: this.delay,
+          updateNodeCache: this.updateNodeCache,
         }}
       >
         {this.props.children}
