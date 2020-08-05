@@ -14,13 +14,13 @@ export default class Node extends Component {
   static contextType = Context;
   constructor(props, context) {
     super(props, context);
-    this.state = { type: NODE_INITIAL, visited: false, shortest: false };
+    this.state = { type: NODE_INITIAL, isVisited: false, isShortest: false };
     const { rowIdx, colIdx } = this.props;
     let { updateNodeCache } = this.context;
     updateNodeCache.set(`${rowIdx}-${colIdx}`, {
       setType: this.setType,
-      setVisited: this.setVisited,
-      setShortest: this.setShortest,
+      setIsVisited: this.setIsVisited,
+      setIsShortest: this.setIsShortest,
     });
   }
 
@@ -28,12 +28,12 @@ export default class Node extends Component {
     this.setState({ type: value });
   };
 
-  setVisited = (value) => {
-    this.setState({ visited: value });
+  setIsVisited = (value) => {
+    this.setState({ isVisited: value });
   };
 
-  setShortest = (value) => {
-    this.setState({ shortest: value });
+  setIsShortest = (value) => {
+    this.setState({ isShortest: value });
   };
 
   getNodeClassNames() {
@@ -53,11 +53,11 @@ export default class Node extends Component {
 
   getPathClassNames() {
     let extraClassNames = '';
-    if (this.state.visited) {
+    if (this.state.isVisited) {
       extraClassNames += ' ';
       extraClassNames += NODE_VISITED;
     }
-    if (this.state.shortest) {
+    if (this.state.isShortest) {
       extraClassNames += ' ';
       extraClassNames += NODE_SHORTEST;
     }

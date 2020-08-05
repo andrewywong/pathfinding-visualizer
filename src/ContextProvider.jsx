@@ -11,7 +11,7 @@ class ContextProvider extends Component {
     this.state = {
       isPathVisualized: false,
       isVisualizing: false,
-      isHelpOn: false,
+      isHelpShown: false,
     };
     this.setupBoard();
   }
@@ -21,6 +21,7 @@ class ContextProvider extends Component {
 
     // TODO: Add event listener for 'resize' to resize board
     // https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
+    // Could throttle this event to optimize performance
     // window.addEventListener('resize', this.setupBoard);
   }
 
@@ -33,11 +34,6 @@ class ContextProvider extends Component {
     // Change rows and cols depending on the device width
     const maxCol = window.innerWidth / 26;
     const maxRow = window.innerHeight / 40;
-
-    // Deep Copy Methods
-    // https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
-    // JSON.parse(JSON.stringify(this.start));
-    // Object.assign({}, this.start);
 
     if (!this.start || !this.finish) {
       // Assign new start and finish values
@@ -88,6 +84,9 @@ class ContextProvider extends Component {
         this.board[0].length < nodes[0].length ? this.board : nodes;
       for (let rowIdx = 0; rowIdx < shorterRow.length; ++rowIdx) {
         for (let colIdx = 0; colIdx < shorterCol[rowIdx].length; ++colIdx) {
+          // Deep Copy Methods
+          // JSON.parse(JSON.stringify(this.start));
+          // Object.assign({}, this.start);
           // TODO: PROBABLY NEED TO DEEP COPY INSTEAD
           nodes[rowIdx][colIdx] = Object.assign({}, this.board[rowIdx][colIdx]);
           // nodes[rowIdx][colIdx] = this.board[rowIdx][colIdx];
@@ -108,8 +107,8 @@ class ContextProvider extends Component {
     this.setState({ isVisualizing: value });
   };
 
-  setIsHelpOn = (value) => {
-    this.setState({ isHelpOn: value });
+  setIsHelpShown = (value) => {
+    this.setState({ isHelpShown: value });
   };
 
   updateNode = (rowIdx, colIdx, value) => {};
@@ -118,11 +117,11 @@ class ContextProvider extends Component {
     this.board[rowIdx][colIdx].type = nodeType;
   };
 
-  updateNodeVisited = (rowIdx, colIdx, visited = false) => {
-    this.board[rowIdx][colIdx].visited = visited;
+  updateNodeIsVisited = (rowIdx, colIdx, isVisited = false) => {
+    this.board[rowIdx][colIdx].visited = isVisited;
   };
 
-  updateNodeShortest = (rowIdx, colIdx, shortest = false) => {};
+  updateNodeIsShortest = (rowIdx, colIdx, isShortest = false) => {};
 
   render() {
     return (
@@ -131,15 +130,15 @@ class ContextProvider extends Component {
           // State
           isPathVisualized: this.state.isPathVisualized,
           isVisualizing: this.state.isVisualizing,
-          isHelpOn: this.state.isHelpOn,
+          isHelpShown: this.state.isHelpShown,
 
           // Functions
           updateNodeType: this.updateNodeType,
-          updateNodeVisited: this.updateNodeVisited,
-          updateNodeShortest: this.updateNodeShortest,
+          updateNodeIsVisited: this.updateNodeIsVisited,
+          updateNodeIsShortest: this.updateNodeIsShortest,
           setIsPathVisualized: this.setIsPathVisualized,
           setIsVisualizing: this.setIsVisualizing,
-          setIsHelpOn: this.setIsHelpOn,
+          setIsHelpShown: this.setIsHelpShown,
 
           // Variables
           board: this.board,

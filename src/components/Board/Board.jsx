@@ -3,20 +3,36 @@ import Node from '../Node/Node';
 import { Context } from '../../ContextProvider';
 
 import './Board.css';
-import { MODES } from '../../constants';
+import { EDITING_MODES } from '../../constants';
 
 export default class Board extends Component {
   static contextType = Context;
   constructor(props) {
     super(props);
     this.state = {
-      mode: MODES.ADD,
-      isDragging: { start: false, finish: false },
-      isEditing: false,
+      mode: EDITING_MODES.IDLE,
     };
+    this.prevPos = { x: -1, y: -1 };
+  }
+
+  isStartPos(posX, posY, start) {
+    return posX === start.x && posY === start.y;
+  }
+
+  isFinishPos(posX, posY, finish) {
+    return posX === finish.x && posY === finish.y;
+  }
+
+  isStartOrFinishPos(posX, posY, start, finish) {
+    return (
+      this.isStartPos(posX, posY, start) || this.isFinishPos(posX, posY, finish)
+    );
   }
 
   handleMouseDown = (e) => {
+    // targetElement.classList.forEach((element) => {
+    //   console.log(element);
+    // });
     const { start, finish, isVisualizing } = this.context;
     if (isVisualizing) {
       return;
@@ -27,56 +43,63 @@ export default class Board extends Component {
       return;
     }
     const targetElement = isParentNode ? e.target.parentElement : e.target;
-    targetElement.classList.forEach((element) => {
-      console.log(element);
-    });
 
     const rowIdx = Number(targetElement.dataset.rowIdx);
     const colIdx = Number(targetElement.dataset.colIdx);
-    if (rowIdx === start.y && colIdx === start.x) {
-      this.setState({ isDragging: { start: true, finish: false } });
-    } else if (rowIdx === finish.y && colIdx === finish.x) {
-      this.setState({ isDragging: { start: false, finish: true } });
+    if (this.isStartPos(colIdx, rowIdx, start)) {
+      this.setState({ mode: EDITING_MODES.DRAGGING_START });
+    } else if (this.isFinishPos(colIdx, rowIdx, finish)) {
+      this.setState({ mode: EDITING_MODES.DRAGGING_FINISH });
     } else {
       if (targetElement.className === 'node') {
-        this.setState({ mode: MODES.add });
+        this.setState({ mode: EDITING_MODES.ADDING });
+        //updateNodeType()
       } else {
-        this.setState({ mode: MODES.erase });
+        this.setState({ mode: EDITING_MODES.ERASING });
+        //updateNodeType()
       }
     }
   };
   // handleTouchStart
 
+  // Lift event to App component
   handleMouseUp = (e) => {
     this.setState({
-      isDragging: { start: false, finish: false },
-      isEditing: false,
+      mode: EDITING_MODES.IDLE,
     });
   };
   // handleTouchEnd
 
+  // Could throttle this function to optimize performance
   handleMouseMove = (e) => {
-    let { start, finish, isVisualizing } = this.context;
+    const { start, finish, isVisualizing } = this.context;
     // e.target.parentElement.className.indexOf('node') !== -1
     if (isVisualizing) {
       return;
     }
-    if (
-      !this.state.isEditing ||
-      !e.target.parentElement.classList.contains('node')
-    ) {
+
+    const isParentNode = e.target.parentElement.classList.contains('node');
+    if (!isParentNode && !e.target.classList.contains('node')) {
       return;
     }
-    const rowIdx = Number(e.target.parentElement.dataset.rowIdx);
-    const colIdx = Number(e.target.parentElement.dataset.colIdx);
-    if (this.state.mode === MODES.add) {
-    } else {
+    const targetElement = isParentNode ? e.target.parentElement : e.target;
+
+    const rowIdx = Number(targetElement.dataset.rowIdx);
+    const colIdx = Number(targetElement.dataset.colIdx);
+    if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
+      return;
+    }
+
+    // if (prevPos.y === rowIdx && prevPos.x === colIdx) return;
+
+    switch (this.state.mode) {
     }
   };
   // handleTouchMove
 
   render() {
-    let { board } = this.context;
+    // Could pass in board lengths instead for optimizing performance
+    const { board } = this.context;
 
     return (
       <div

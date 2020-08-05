@@ -28,4 +28,10 @@ export const DFS = 'DFS';
 export const BFS = 'BFS';
 
 // Modes
-export const MODES = { ADD: 'add', ERASE: 'erase' };
+export const EDITING_MODES = {
+  IDLE: 'idle',
+  DRAGGING_START: 'dragging-start',
+  DRAGGING_FINISH: 'dragging-finish',
+  ADDING: 'adding',
+  ERASING: 'erasing',
+};
