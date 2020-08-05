@@ -45,6 +45,9 @@ export default class Node extends Component {
     if (rowIdx === finish.y && colIdx === finish.x) {
       return ' ' + NODE_FINISH;
     }
+    if (this.state.type === NODE_INITIAL) {
+      return '';
+    }
     return ' ' + this.state.type;
   }
 

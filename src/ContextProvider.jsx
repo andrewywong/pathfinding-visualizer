@@ -9,7 +9,7 @@ class ContextProvider extends Component {
     this.delay = DELAY_NORMAL;
     this.updateNodeCache = new Map();
     this.state = {
-      isPathExisting: true,
+      isPathVisualized: false,
       isVisualizing: false,
       isHelpOn: false,
     };
@@ -32,7 +32,7 @@ class ContextProvider extends Component {
     const nodes = [];
     // Change rows and cols depending on the device width
     const maxCol = window.innerWidth / 26;
-    const maxRow = Math.round(maxCol / 3);
+    const maxRow = window.innerHeight / 40;
 
     // Deep Copy Methods
     // https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
@@ -83,8 +83,11 @@ class ContextProvider extends Component {
     // Copy over preexisting board
     if (this.board && this.board.length) {
       // board and board.length are truthy
-      for (let rowIdx = 0; rowIdx < this.board.length; ++rowIdx) {
-        for (let colIdx = 0; colIdx < this.board[rowIdx].length; ++colIdx) {
+      const shorterRow = this.board.length < nodes.length ? this.board : nodes;
+      const shorterCol =
+        this.board[0].length < nodes[0].length ? this.board : nodes;
+      for (let rowIdx = 0; rowIdx < shorterRow.length; ++rowIdx) {
+        for (let colIdx = 0; colIdx < shorterCol[rowIdx].length; ++colIdx) {
           // TODO: PROBABLY NEED TO DEEP COPY INSTEAD
           nodes[rowIdx][colIdx] = Object.assign({}, this.board[rowIdx][colIdx]);
           // nodes[rowIdx][colIdx] = this.board[rowIdx][colIdx];
@@ -97,8 +100,8 @@ class ContextProvider extends Component {
   }
 
   // public class fields syntax
-  setIsPathExisting = (value) => {
-    this.setState({ isPathExisting: value });
+  setIsPathVisualized = (value) => {
+    this.setState({ isPathVisualized: value });
   };
 
   setIsVisualizing = (value) => {
@@ -109,21 +112,32 @@ class ContextProvider extends Component {
     this.setState({ isHelpOn: value });
   };
 
-  updateNode = (rowIdx, colIdx, nodeType = NODE_INITIAL) => {
+  updateNode = (rowIdx, colIdx, value) => {};
+
+  updateNodeType = (rowIdx, colIdx, nodeType = NODE_INITIAL) => {
     this.board[rowIdx][colIdx].type = nodeType;
   };
+
+  updateNodeVisited = (rowIdx, colIdx, visited = false) => {
+    this.board[rowIdx][colIdx].visited = visited;
+  };
+
+  updateNodeShortest = (rowIdx, colIdx, shortest = false) => {};
 
   render() {
     return (
       <Context.Provider
         value={{
           // State
-          isPathExisting: this.state.isPathExisting,
+          isPathVisualized: this.state.isPathVisualized,
           isVisualizing: this.state.isVisualizing,
           isHelpOn: this.state.isHelpOn,
 
           // Functions
-          setIsPathExisting: this.setIsPathExisting,
+          updateNodeType: this.updateNodeType,
+          updateNodeVisited: this.updateNodeVisited,
+          updateNodeShortest: this.updateNodeShortest,
+          setIsPathVisualized: this.setIsPathVisualized,
           setIsVisualizing: this.setIsVisualizing,
           setIsHelpOn: this.setIsHelpOn,
 
