@@ -84,7 +84,6 @@ export default class Board extends Component {
 
   // Could throttle this function to optimize performance
   handleMouseMove = (e) => {
-    e.preventDefault();
     let { start, finish } = this.context;
     const { isVisualizing, updateNodeType } = this.context;
     if (isVisualizing) {
