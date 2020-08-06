@@ -14,13 +14,19 @@ export default class Node extends Component {
   static contextType = Context;
   constructor(props, context) {
     super(props, context);
-    this.state = { type: NODE_INITIAL, isVisited: false, isShortest: false };
+    this.state = {
+      type: NODE_INITIAL,
+      isVisited: false,
+      isShortest: false,
+    };
+
     // const { rowIdx, colIdx } = this.props;
     // let { updateNodeCache } = this.context;
     // updateNodeCache.set(`${rowIdx}-${colIdx}`, {
     //   setType: this.setType,
     //   setIsVisited: this.setIsVisited,
     //   setIsShortest: this.setIsShortest,
+    //   forceNodeUpdate: this.forceNodeUpdate,
     // });
   }
 
@@ -31,6 +37,7 @@ export default class Node extends Component {
       setType: this.setType,
       setIsVisited: this.setIsVisited,
       setIsShortest: this.setIsShortest,
+      forceNodeUpdate: this.forceNodeUpdate,
     });
   }
 
@@ -44,6 +51,10 @@ export default class Node extends Component {
 
   setIsShortest = (value) => {
     this.setState({ isShortest: value });
+  };
+
+  forceNodeUpdate = (value) => {
+    this.forceUpdate();
   };
 
   getNodeClassNames() {
@@ -75,7 +86,7 @@ export default class Node extends Component {
   }
 
   render() {
-    // console.log('node rendered');
+    console.log('node rendered');
     const { rowIdx, colIdx } = this.props;
     return (
       <div

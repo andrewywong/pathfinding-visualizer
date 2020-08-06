@@ -16,16 +16,15 @@ export default class Board extends Component {
     this.prevPos = { x: -1, y: -1 };
   }
 
-  // Switch to React Fragment if working
-  // componentDidMount() {
-  //   window.addEventListener('mouseup', this.handleMouseUp);
-  //   window.addEventListener('touchend', this.handleTouchEnd);
-  // }
+  componentDidMount() {
+    window.addEventListener('mouseup', this.handleMouseUp);
+    window.addEventListener('touchend', this.handleTouchEnd);
+  }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener('mouseup', this.handleMouseUp);
-  //   window.removeEventListener('touchend', this.handleTouchEnd);
-  // }
+  componentWillUnmount() {
+    window.removeEventListener('mouseup', this.handleMouseUp);
+    window.removeEventListener('touchend', this.handleTouchEnd);
+  }
 
   isStartPos(posX, posY, start) {
     return posX === start.x && posY === start.y;
@@ -45,6 +44,7 @@ export default class Board extends Component {
     // e.target.classList.forEach((element) => {
     //   console.log(element);
     // });
+    e.preventDefault();
     const { start, finish, isVisualizing, updateNodeType } = this.context;
     if (isVisualizing) {
       return;
@@ -71,6 +71,8 @@ export default class Board extends Component {
         updateNodeType(rowIdx, colIdx, NODE_INITIAL);
       }
     }
+    this.prevPos.y = rowIdx;
+    this.prevPos.x = colIdx;
   };
   handleTouchStart = this.handleMouseDown;
 
@@ -81,11 +83,12 @@ export default class Board extends Component {
 
   // Could throttle this function to optimize performance
   handleMouseMove = (e) => {
-    const { start, finish, isVisualizing, updateNodeType } = this.context;
+    let { start, finish } = this.context;
+    const { isVisualizing, updateNodeType } = this.context;
     if (isVisualizing) {
       return;
     }
-    // if (this.state.mode === EDITING_MODES.IDLE) return;
+    // if (this.mode === EDITING_MODES.IDLE) return;
 
     // e.target.parentElement.className.indexOf('node') !== -1
     const isParentNode = e.target.parentElement.classList.contains('node');
@@ -96,23 +99,44 @@ export default class Board extends Component {
 
     const rowIdx = Number(targetElement.dataset.rowIdx);
     const colIdx = Number(targetElement.dataset.colIdx);
-    if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
+    if (this.prevPos.y === rowIdx && this.prevPos.x === colIdx) {
       return;
     }
-    // if (this.prevPos.y === rowIdx && this.prevPos.x === colIdx) return;
 
     switch (this.mode) {
       case EDITING_MODES.DRAGGING_START:
+        if (this.isFinishPos(colIdx, rowIdx, finish)) {
+          return;
+        }
+        this.dragNode(rowIdx, colIdx, start);
         break;
       case EDITING_MODES.DRAGGING_FINISH:
+        if (this.isStartPos(colIdx, rowIdx, start)) {
+          return;
+        }
+        this.dragNode(rowIdx, colIdx, finish);
         break;
       case EDITING_MODES.ADDING:
+        updateNodeType(rowIdx, colIdx, NODE_WALL);
         break;
       case EDITING_MODES.ERASING:
+        updateNodeType(rowIdx, colIdx, NODE_INITIAL);
         break;
     }
+    this.prevPos.y = rowIdx;
+    this.prevPos.x = colIdx;
   };
   handleTouchMove = this.handleMouseMove;
+
+  dragNode = (rowIdx, colIdx, nodePos) => {
+    const { updateNodeCache } = this.context;
+    const prevX = nodePos.x; // this.prevPos.x
+    const prevY = nodePos.y; // this.prevPos.y
+    nodePos.y = rowIdx;
+    nodePos.x = colIdx;
+    updateNodeCache.get(`${prevY}-${prevX}`).forceNodeUpdate();
+    updateNodeCache.get(`${rowIdx}-${colIdx}`).forceNodeUpdate();
+  };
 
   render() {
     console.log('board rendered');

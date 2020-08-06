@@ -6,8 +6,9 @@ const Context = React.createContext();
 class ContextProvider extends Component {
   constructor(props) {
     super(props);
-    this.delay = DELAY_NORMAL;
+    this.board = [];
     this.updateNodeCache = new Map();
+    this.delay = DELAY_NORMAL;
     this.state = {
       isPathVisualized: false,
       isVisualizing: false,
@@ -20,15 +21,15 @@ class ContextProvider extends Component {
   //   // this.setupBoard();
   //   // TODO: HANDLE ISSUE OF BOARD NOT RERENDERING
   //   // https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
-  //   // Could throttle this event to optimize performance
-  //   window.addEventListener('resize', this.setupBoard);
+  //   // Should throttle this event to optimize performance
+  //   // window.addEventListener('resize', this.setupBoard);
   // }
 
   // componentWillUnmount() {
   //   window.removeEventListener('resize', this.setupBoard);
   // }
 
-  setupBoard() {
+  setupBoard = () => {
     const nodes = [];
     // Change rows and cols depending on the device width
     const maxCol = window.innerWidth / 26;
@@ -86,7 +87,6 @@ class ContextProvider extends Component {
           // Deep Copy Methods
           // JSON.parse(JSON.stringify(this.start));
           // Object.assign({}, this.start);
-          // TODO: PROBABLY NEED TO DEEP COPY INSTEAD
           nodes[rowIdx][colIdx] = Object.assign({}, this.board[rowIdx][colIdx]);
           // nodes[rowIdx][colIdx] = this.board[rowIdx][colIdx];
         }
@@ -94,11 +94,10 @@ class ContextProvider extends Component {
     }
 
     this.board = nodes;
-    this.boardMaxRow = maxRow;
-    this.boardMaxCol = maxCol;
     console.log('Set up board.');
-    console.log('numRows:' + this.board.length);
-  }
+
+    // this.forceUpdate();
+  };
 
   // public class fields syntax
   setIsPathVisualized = (value) => {
@@ -156,6 +155,7 @@ class ContextProvider extends Component {
 
   render() {
     return (
+      // React Context Caveats
       <Context.Provider
         value={{
           // State
@@ -173,8 +173,6 @@ class ContextProvider extends Component {
 
           // Variables
           board: this.board,
-          // boardMaxRow: this.boardMaxRow,
-          // boardMaxCol: this.boardMaxCol,
           start: this.start,
           finish: this.finish,
           delay: this.delay,
