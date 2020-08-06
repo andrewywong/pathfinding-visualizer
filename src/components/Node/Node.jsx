@@ -94,7 +94,7 @@ export default class Node extends Component {
         className={`node${this.getNodeClassNames()}`}
         data-row-idx={rowIdx}
         data-col-idx={colIdx}
-        // data-type={this.state.type}
+        data-type={this.state.type}
       >
         <div className={`path${this.getPathClassNames()}`} />
       </div>

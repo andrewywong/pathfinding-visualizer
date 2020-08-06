@@ -10,9 +10,9 @@ export default class Board extends Component {
   constructor(props) {
     super(props);
     this.mode = EDITING_MODES.IDLE;
-    this.state = {
-      mode: EDITING_MODES.IDLE,
-    };
+    // this.state = {
+    //   mode: EDITING_MODES.IDLE,
+    // };
     this.prevPos = { x: -1, y: -1 };
   }
 
@@ -63,7 +63,8 @@ export default class Board extends Component {
     } else if (this.isFinishPos(colIdx, rowIdx, finish)) {
       this.mode = EDITING_MODES.DRAGGING_FINISH;
     } else {
-      if (targetElement.className === 'node') {
+      // targetElement.className === 'node'
+      if (targetElement.dataset.type === NODE_INITIAL) {
         this.mode = EDITING_MODES.ADDING;
         updateNodeType(rowIdx, colIdx, NODE_WALL);
       } else {
@@ -71,8 +72,8 @@ export default class Board extends Component {
         updateNodeType(rowIdx, colIdx, NODE_INITIAL);
       }
     }
-    this.prevPos.y = rowIdx;
-    this.prevPos.x = colIdx;
+    // this.prevPos.y = rowIdx;
+    // this.prevPos.x = colIdx;
   };
   handleTouchStart = this.handleMouseDown;
 
@@ -83,6 +84,7 @@ export default class Board extends Component {
 
   // Could throttle this function to optimize performance
   handleMouseMove = (e) => {
+    e.preventDefault();
     let { start, finish } = this.context;
     const { isVisualizing, updateNodeType } = this.context;
     if (isVisualizing) {
@@ -99,32 +101,38 @@ export default class Board extends Component {
 
     const rowIdx = Number(targetElement.dataset.rowIdx);
     const colIdx = Number(targetElement.dataset.colIdx);
-    if (this.prevPos.y === rowIdx && this.prevPos.x === colIdx) {
-      return;
-    }
+    // if (this.prevPos.y === rowIdx && this.prevPos.x === colIdx) {
+    //   return;
+    // }
 
     switch (this.mode) {
       case EDITING_MODES.DRAGGING_START:
-        if (this.isFinishPos(colIdx, rowIdx, finish)) {
+        if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
           return;
         }
         this.dragNode(rowIdx, colIdx, start);
         break;
       case EDITING_MODES.DRAGGING_FINISH:
-        if (this.isStartPos(colIdx, rowIdx, start)) {
+        if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
           return;
         }
         this.dragNode(rowIdx, colIdx, finish);
         break;
       case EDITING_MODES.ADDING:
+        if (targetElement.dataset.type === NODE_WALL) {
+          return;
+        }
         updateNodeType(rowIdx, colIdx, NODE_WALL);
         break;
       case EDITING_MODES.ERASING:
+        if (targetElement.dataset.type === NODE_INITIAL) {
+          return;
+        }
         updateNodeType(rowIdx, colIdx, NODE_INITIAL);
         break;
     }
-    this.prevPos.y = rowIdx;
-    this.prevPos.x = colIdx;
+    // this.prevPos.y = rowIdx;
+    // this.prevPos.x = colIdx;
   };
   handleTouchMove = this.handleMouseMove;
 
@@ -147,6 +155,7 @@ export default class Board extends Component {
         id="board"
         onMouseDown={this.handleMouseDown}
         onMouseMove={this.handleMouseMove}
+        // TODO: Handle issue of touch controls not working properly
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
       >
