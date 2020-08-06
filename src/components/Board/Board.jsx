@@ -3,7 +3,7 @@ import Node from '../Node/Node';
 import { Context } from '../../ContextProvider';
 
 import './Board.css';
-import { EDITING_MODES } from '../../constants';
+import { EDITING_MODES, NODE_WALL, NODE_INITIAL } from '../../constants';
 
 export default class Board extends Component {
   static contextType = Context;
@@ -33,7 +33,7 @@ export default class Board extends Component {
     // e.target.classList.forEach((element) => {
     //   console.log(element);
     // });
-    const { start, finish, isVisualizing } = this.context;
+    const { start, finish, isVisualizing, updateNodeType } = this.context;
     if (isVisualizing) {
       return;
     }
@@ -53,10 +53,10 @@ export default class Board extends Component {
     } else {
       if (targetElement.className === 'node') {
         this.setState({ mode: EDITING_MODES.ADDING });
-        //updateNodeType()
+        updateNodeType(rowIdx, colIdx, NODE_WALL);
       } else {
         this.setState({ mode: EDITING_MODES.ERASING });
-        //updateNodeType()
+        updateNodeType(rowIdx, colIdx, NODE_INITIAL);
       }
     }
   };
@@ -78,7 +78,7 @@ export default class Board extends Component {
     if (isVisualizing) {
       return;
     }
-    // if (this.state.mode === MODES.IDLE) return;
+    // if (this.state.mode === EDITING_MODES.IDLE) return;
 
     const isParentNode = e.target.parentElement.classList.contains('node');
     if (!isParentNode && !e.target.classList.contains('node')) {
@@ -94,13 +94,13 @@ export default class Board extends Component {
     // if (prevPos.y === rowIdx && prevPos.x === colIdx) return;
 
     switch (this.state.mode) {
-      case DRAGGING_START:
+      case EDITING_MODES.DRAGGING_START:
         break;
-      case DRAGGING_FINISH:
+      case EDITING_MODES.DRAGGING_FINISH:
         break;
-      case ADDING:
+      case EDITING_MODES.ADDING:
         break;
-      case ERASING:
+      case EDITING_MODES.ERASING:
         break;
     }
   };
@@ -115,8 +115,8 @@ export default class Board extends Component {
         id="board"
         onMouseDown={this.handleMouseDown}
         onMouseMove={this.handleMouseMove}
-        // onTouchStart={this.handleTouchStart}
-        // onTouchMove={this.handleTouchMove}
+        onTouchStart={this.handleTouchStart}
+        onTouchMove={this.handleTouchMove}
       >
         {board.map((row, rowIdx) => {
           return (

@@ -111,17 +111,46 @@ class ContextProvider extends Component {
     this.setState({ isHelpShown: value });
   };
 
-  updateNode = (rowIdx, colIdx, value) => {};
+  updateNode = (value, callback, timeCounter) => {
+    if (timeCounter) {
+    } else {
+      callback(value);
+    }
+  };
 
-  updateNodeType = (rowIdx, colIdx, nodeType = NODE_INITIAL) => {
+  updateNodeType = (
+    rowIdx,
+    colIdx,
+    nodeType = NODE_INITIAL,
+    timeCounter = 0
+  ) => {
     this.board[rowIdx][colIdx].type = nodeType;
+    const setType = this.updateNodeCache.get(`${rowIdx}-${colIdx}`).setType;
+    this.updateNode(nodeType, setType, timeCounter);
   };
 
-  updateNodeIsVisited = (rowIdx, colIdx, isVisited = false) => {
+  updateNodeIsVisited = (
+    rowIdx,
+    colIdx,
+    isVisited = false,
+    timeCounter = 0
+  ) => {
     this.board[rowIdx][colIdx].visited = isVisited;
+    const setIsVisited = this.updateNodeCache.get(`${rowIdx}-${colIdx}`)
+      .setIsVisited;
+    this.updateNode(isVisited, setIsVisited, timeCounter);
   };
 
-  updateNodeIsShortest = (rowIdx, colIdx, isShortest = false) => {};
+  updateNodeIsShortest = (
+    rowIdx,
+    colIdx,
+    isShortest = false,
+    timeCounter = 0
+  ) => {
+    const setIsShortest = this.updateNodeCache.get(`${rowIdx}-${colIdx}`)
+      .setIsShortest;
+    this.updateNode(isShortest, setIsShortest, timeCounter);
+  };
 
   render() {
     return (

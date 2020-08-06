@@ -21,7 +21,7 @@ export default class Home extends Component {
       <div
         id="home"
         onMouseUp={this.handleMouseUp}
-        // onTouchEnd={this.handleTouchEnd}
+        onTouchEnd={this.handleTouchEnd}
       >
         <Header />
         <Board ref={this.child} />
