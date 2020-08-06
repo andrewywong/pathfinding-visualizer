@@ -9,11 +9,23 @@ export default class Board extends Component {
   static contextType = Context;
   constructor(props) {
     super(props);
+    this.mode = EDITING_MODES.IDLE;
     this.state = {
       mode: EDITING_MODES.IDLE,
     };
     this.prevPos = { x: -1, y: -1 };
   }
+
+  // Switch to React Fragment if working
+  // componentDidMount() {
+  //   window.addEventListener('mouseup', this.handleMouseUp);
+  //   window.addEventListener('touchend', this.handleTouchEnd);
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('mouseup', this.handleMouseUp);
+  //   window.removeEventListener('touchend', this.handleTouchEnd);
+  // }
 
   isStartPos(posX, posY, start) {
     return posX === start.x && posY === start.y;
@@ -47,15 +59,15 @@ export default class Board extends Component {
     const rowIdx = Number(targetElement.dataset.rowIdx);
     const colIdx = Number(targetElement.dataset.colIdx);
     if (this.isStartPos(colIdx, rowIdx, start)) {
-      this.setState({ mode: EDITING_MODES.DRAGGING_START });
+      this.mode = EDITING_MODES.DRAGGING_START;
     } else if (this.isFinishPos(colIdx, rowIdx, finish)) {
-      this.setState({ mode: EDITING_MODES.DRAGGING_FINISH });
+      this.mode = EDITING_MODES.DRAGGING_FINISH;
     } else {
       if (targetElement.className === 'node') {
-        this.setState({ mode: EDITING_MODES.ADDING });
+        this.mode = EDITING_MODES.ADDING;
         updateNodeType(rowIdx, colIdx, NODE_WALL);
       } else {
-        this.setState({ mode: EDITING_MODES.ERASING });
+        this.mode = EDITING_MODES.ERASING;
         updateNodeType(rowIdx, colIdx, NODE_INITIAL);
       }
     }
@@ -63,23 +75,19 @@ export default class Board extends Component {
   handleTouchStart = this.handleMouseDown;
 
   handleMouseUp = () => {
-    this.setState({
-      mode: EDITING_MODES.IDLE,
-    });
+    this.mode = EDITING_MODES.IDLE;
   };
+  handleTouchEnd = this.handleMouseUp;
 
   // Could throttle this function to optimize performance
   handleMouseMove = (e) => {
-    // e.target.classList.forEach((element) => {
-    //   console.log(element);
-    // });
-    const { start, finish, isVisualizing } = this.context;
-    // e.target.parentElement.className.indexOf('node') !== -1
+    const { start, finish, isVisualizing, updateNodeType } = this.context;
     if (isVisualizing) {
       return;
     }
     // if (this.state.mode === EDITING_MODES.IDLE) return;
 
+    // e.target.parentElement.className.indexOf('node') !== -1
     const isParentNode = e.target.parentElement.classList.contains('node');
     if (!isParentNode && !e.target.classList.contains('node')) {
       return;
@@ -91,9 +99,9 @@ export default class Board extends Component {
     if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
       return;
     }
-    // if (prevPos.y === rowIdx && prevPos.x === colIdx) return;
+    // if (this.prevPos.y === rowIdx && this.prevPos.x === colIdx) return;
 
-    switch (this.state.mode) {
+    switch (this.mode) {
       case EDITING_MODES.DRAGGING_START:
         break;
       case EDITING_MODES.DRAGGING_FINISH:
@@ -107,9 +115,9 @@ export default class Board extends Component {
   handleTouchMove = this.handleMouseMove;
 
   render() {
+    console.log('board rendered');
     // Could pass in board lengths instead for optimizing performance
     const { board } = this.context;
-
     return (
       <div
         id="board"

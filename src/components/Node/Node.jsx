@@ -75,6 +75,7 @@ export default class Node extends Component {
   }
 
   render() {
+    // console.log('node rendered');
     const { rowIdx, colIdx } = this.props;
     return (
       <div

@@ -18,6 +18,7 @@ export default class Home extends Component {
 
   render() {
     return (
+      // React Fragment
       <div
         id="home"
         onMouseUp={this.handleMouseUp}

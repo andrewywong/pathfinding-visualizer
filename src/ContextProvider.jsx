@@ -16,14 +16,13 @@ class ContextProvider extends Component {
     this.setupBoard();
   }
 
-  componentDidMount() {
-    this.setupBoard();
-
-    // TODO: Add event listener for 'resize' to resize board
-    // https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
-    // Could throttle this event to optimize performance
-    // window.addEventListener('resize', this.setupBoard);
-  }
+  // componentDidMount() {
+  //   // this.setupBoard();
+  //   // TODO: HANDLE ISSUE OF BOARD NOT RERENDERING
+  //   // https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
+  //   // Could throttle this event to optimize performance
+  //   window.addEventListener('resize', this.setupBoard);
+  // }
 
   // componentWillUnmount() {
   //   window.removeEventListener('resize', this.setupBoard);
@@ -95,7 +94,10 @@ class ContextProvider extends Component {
     }
 
     this.board = nodes;
+    this.boardMaxRow = maxRow;
+    this.boardMaxCol = maxCol;
     console.log('Set up board.');
+    console.log('numRows:' + this.board.length);
   }
 
   // public class fields syntax
@@ -171,6 +173,8 @@ class ContextProvider extends Component {
 
           // Variables
           board: this.board,
+          // boardMaxRow: this.boardMaxRow,
+          // boardMaxCol: this.boardMaxCol,
           start: this.start,
           finish: this.finish,
           delay: this.delay,
