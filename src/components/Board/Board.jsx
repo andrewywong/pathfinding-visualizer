@@ -30,7 +30,7 @@ export default class Board extends Component {
   }
 
   handleMouseDown = (e) => {
-    // targetElement.classList.forEach((element) => {
+    // e.target.classList.forEach((element) => {
     //   console.log(element);
     // });
     const { start, finish, isVisualizing } = this.context;
@@ -60,23 +60,25 @@ export default class Board extends Component {
       }
     }
   };
-  // handleTouchStart
+  handleTouchStart = this.handleMouseDown;
 
-  // Lift event to App component
-  handleMouseUp = (e) => {
+  handleMouseUp = () => {
     this.setState({
       mode: EDITING_MODES.IDLE,
     });
   };
-  // handleTouchEnd
 
   // Could throttle this function to optimize performance
   handleMouseMove = (e) => {
+    // e.target.classList.forEach((element) => {
+    //   console.log(element);
+    // });
     const { start, finish, isVisualizing } = this.context;
     // e.target.parentElement.className.indexOf('node') !== -1
     if (isVisualizing) {
       return;
     }
+    // if (this.state.mode === MODES.IDLE) return;
 
     const isParentNode = e.target.parentElement.classList.contains('node');
     if (!isParentNode && !e.target.classList.contains('node')) {
@@ -89,13 +91,20 @@ export default class Board extends Component {
     if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
       return;
     }
-
     // if (prevPos.y === rowIdx && prevPos.x === colIdx) return;
 
     switch (this.state.mode) {
+      case DRAGGING_START:
+        break;
+      case DRAGGING_FINISH:
+        break;
+      case ADDING:
+        break;
+      case ERASING:
+        break;
     }
   };
-  // handleTouchMove
+  handleTouchMove = this.handleMouseMove;
 
   render() {
     // Could pass in board lengths instead for optimizing performance
@@ -103,14 +112,15 @@ export default class Board extends Component {
 
     return (
       <div
-        className="board"
+        id="board"
         onMouseDown={this.handleMouseDown}
-        onMouseUp={this.handleMouseUp}
         onMouseMove={this.handleMouseMove}
+        // onTouchStart={this.handleTouchStart}
+        // onTouchMove={this.handleTouchMove}
       >
         {board.map((row, rowIdx) => {
           return (
-            <div key={rowIdx} className="row">
+            <div key={rowIdx} id={`row-${rowIdx}`} className="row">
               {row.map((col, colIdx) => {
                 return (
                   <Node

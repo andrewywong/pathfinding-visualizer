@@ -15,6 +15,16 @@ export default class Node extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = { type: NODE_INITIAL, isVisited: false, isShortest: false };
+    // const { rowIdx, colIdx } = this.props;
+    // let { updateNodeCache } = this.context;
+    // updateNodeCache.set(`${rowIdx}-${colIdx}`, {
+    //   setType: this.setType,
+    //   setIsVisited: this.setIsVisited,
+    //   setIsShortest: this.setIsShortest,
+    // });
+  }
+
+  componentDidMount() {
     const { rowIdx, colIdx } = this.props;
     let { updateNodeCache } = this.context;
     updateNodeCache.set(`${rowIdx}-${colIdx}`, {
@@ -68,9 +78,11 @@ export default class Node extends Component {
     const { rowIdx, colIdx } = this.props;
     return (
       <div
+        id={`node-${rowIdx}-${colIdx}`}
         className={`node${this.getNodeClassNames()}`}
-        data-rowIdx={rowIdx}
-        data-colIdx={colIdx}
+        data-row-idx={rowIdx}
+        data-col-idx={colIdx}
+        // data-type={this.state.type}
       >
         <div className={`path${this.getPathClassNames()}`} />
       </div>

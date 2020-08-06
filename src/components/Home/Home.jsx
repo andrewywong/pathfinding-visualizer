@@ -8,14 +8,24 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.child = React.createRef();
   }
+
+  handleMouseUp = () => {
+    this.child.current.handleMouseUp();
+  };
+  handleTouchEnd = this.handleMouseUp;
 
   render() {
     return (
-      <React.Fragment>
+      <div
+        id="home"
+        onMouseUp={this.handleMouseUp}
+        // onTouchEnd={this.handleTouchEnd}
+      >
         <Header />
-        <Board />
-      </React.Fragment>
+        <Board ref={this.child} />
+      </div>
     );
   }
 }

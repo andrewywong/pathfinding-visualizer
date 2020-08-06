@@ -6,11 +6,9 @@ import Home from './components/Home/Home';
 
 function App() {
   return (
-    <div className="App">
-      <ContextProvider>
-        <Home />
-      </ContextProvider>
-    </div>
+    <ContextProvider>
+      <Home />
+    </ContextProvider>
   );
 }
 
