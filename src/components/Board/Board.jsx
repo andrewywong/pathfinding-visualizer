@@ -118,15 +118,9 @@ export default class Board extends Component {
         this.dragNode(rowIdx, colIdx, finish);
         break;
       case EDITING_MODES.ADDING:
-        if (targetElement.dataset.type === NODE_WALL) {
-          return;
-        }
         updateNodeType(rowIdx, colIdx, NODE_WALL);
         break;
       case EDITING_MODES.ERASING:
-        if (targetElement.dataset.type === NODE_INITIAL) {
-          return;
-        }
         updateNodeType(rowIdx, colIdx, NODE_INITIAL);
         break;
     }

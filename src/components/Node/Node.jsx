@@ -10,7 +10,7 @@ import {
 } from '../../constants';
 import { Context } from '../../ContextProvider';
 
-export default class Node extends Component {
+export default class Node extends React.PureComponent {
   static contextType = Context;
   constructor(props, context) {
     super(props, context);
@@ -53,7 +53,7 @@ export default class Node extends Component {
     this.setState({ isShortest: value });
   };
 
-  forceNodeUpdate = (value) => {
+  forceNodeUpdate = () => {
     this.forceUpdate();
   };
 
