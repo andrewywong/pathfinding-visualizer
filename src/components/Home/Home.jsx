@@ -7,14 +7,13 @@ export default class Home extends Component {
   static contextType = Context;
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { isVisualizing: false };
     this.child = React.createRef();
   }
 
-  handleMouseUp = () => {
-    this.child.current.handleMouseUp();
+  setIsVisualizing = (value) => {
+    this.setState({ isVisualizing: value });
   };
-  handleTouchEnd = this.handleMouseUp;
 
   render() {
     return (

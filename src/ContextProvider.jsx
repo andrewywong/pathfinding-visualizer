@@ -8,7 +8,7 @@ class ContextProvider extends Component {
     super(props);
     this.board = [];
     this.updateNodeCache = new Map();
-    this.delay = DELAY_NORMAL;
+    this.delayInterval = DELAY_NORMAL;
     this.state = {
       isPathVisualized: false,
       isVisualizing: false,
@@ -69,7 +69,7 @@ class ContextProvider extends Component {
       for (let colIdx = 0; colIdx < maxCol; ++colIdx) {
         const currentNode = {
           type: NODE_INITIAL,
-          visited: false,
+          // visited: false,
         };
         currentRow.push(currentNode);
       }
@@ -136,7 +136,7 @@ class ContextProvider extends Component {
     isVisited = false,
     timeCounter = 0
   ) => {
-    this.board[rowIdx][colIdx].visited = isVisited;
+    // this.board[rowIdx][colIdx].visited = isVisited;
     const setIsVisited = this.updateNodeCache.get(`${rowIdx}-${colIdx}`)
       .setIsVisited;
     this.updateNode(isVisited, setIsVisited, timeCounter);
@@ -175,7 +175,7 @@ class ContextProvider extends Component {
           board: this.board,
           start: this.start,
           finish: this.finish,
-          delay: this.delay,
+          delayInterval: this.delayInterval,
           updateNodeCache: this.updateNodeCache,
         }}
       >

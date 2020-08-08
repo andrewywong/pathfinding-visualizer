@@ -5,7 +5,7 @@ import { Context } from '../../ContextProvider';
 import './Board.css';
 import { EDITING_MODES, NODE_WALL, NODE_INITIAL } from '../../constants';
 
-export default class Board extends Component {
+export default class Board extends React.PureComponent {
   static contextType = Context;
   constructor(props) {
     super(props);
@@ -65,7 +65,7 @@ export default class Board extends Component {
     } else {
       // targetElement.className === 'node'
       if (targetElement.dataset.type === NODE_INITIAL) {
-        this.mode = EDITING_MODES.ADDING;
+        this.mode = EDITING_MODES.DRAWING;
         updateNodeType(rowIdx, colIdx, NODE_WALL);
       } else {
         this.mode = EDITING_MODES.ERASING;
@@ -117,7 +117,7 @@ export default class Board extends Component {
         }
         this.dragNode(rowIdx, colIdx, finish);
         break;
-      case EDITING_MODES.ADDING:
+      case EDITING_MODES.DRAWING:
         updateNodeType(rowIdx, colIdx, NODE_WALL);
         break;
       case EDITING_MODES.ERASING:

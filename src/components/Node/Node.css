@@ -2,7 +2,7 @@
   display: table-cell;
   width: 25px;
   height: 25px;
-  border: 1px solid grey;
+  border: 1px solid rgb(175, 210, 250);
   /* display: flex;
   flex: 1; */
   /* border-right: 1px solid grey;
@@ -27,4 +27,12 @@
   flex: 1; */
   /* border-right: 1px solid grey;
   border-bottom: 1px solid grey; */
+}
+
+.node-visited {
+  background-color: rgba(0, 190, 220, 0.5);
+}
+
+.node-shortest-path {
+  background-color: rgba(255, 255, 55, 0.5);
 }

@@ -16,7 +16,7 @@ export const NODE_TYPES = [
   'shortest',
 ];
 
-// Delay
+// Delay Interval
 export const DELAY_SLOW = 300;
 export const DELAY_NORMAL = 150;
 export const DELAY_FAST = 50;
@@ -32,6 +32,6 @@ export const EDITING_MODES = {
   IDLE: 'idle',
   DRAGGING_START: 'dragging-start',
   DRAGGING_FINISH: 'dragging-finish',
-  ADDING: 'adding',
+  DRAWING: 'drawing',
   ERASING: 'erasing',
 };
