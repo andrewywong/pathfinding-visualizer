@@ -12,7 +12,6 @@ class ContextProvider extends Component {
     this.state = {
       isPathVisualized: false,
       isVisualizing: false,
-      isHelpShown: false,
     };
     this.setupBoard();
   }
@@ -69,7 +68,7 @@ class ContextProvider extends Component {
       for (let colIdx = 0; colIdx < maxCol; ++colIdx) {
         const currentNode = {
           type: NODE_INITIAL,
-          // visited: false,
+          visited: false,
         };
         currentRow.push(currentNode);
       }
@@ -108,10 +107,6 @@ class ContextProvider extends Component {
     this.setState({ isVisualizing: value });
   };
 
-  setIsHelpShown = (value) => {
-    this.setState({ isHelpShown: value });
-  };
-
   updateNode = (value, callback, timeCounter) => {
     if (timeCounter) {
     } else {
@@ -136,7 +131,7 @@ class ContextProvider extends Component {
     isVisited = false,
     timeCounter = 0
   ) => {
-    // this.board[rowIdx][colIdx].visited = isVisited;
+    this.board[rowIdx][colIdx].visited = isVisited;
     const setIsVisited = this.updateNodeCache.get(`${rowIdx}-${colIdx}`)
       .setIsVisited;
     this.updateNode(isVisited, setIsVisited, timeCounter);
@@ -153,6 +148,33 @@ class ContextProvider extends Component {
     this.updateNode(isShortest, setIsShortest, timeCounter);
   };
 
+  clear = () => {
+    //pathfinding.clearTimers()
+    const currentBoard = this.board;
+    currentBoard.forEach((row, rowIdx) => {
+      row.forEach((col, colIdx) => {
+        this.updateNodeType(rowIdx, colIdx, NODE_INITIAL);
+        this.updateNodeIsVisited(rowIdx, colIdx, false);
+        this.updateNodeIsShortest(rowIdx, colIdx, false);
+      });
+    });
+    //setIsPathVisualized(false);
+    //setIsVisualizing(false);
+  };
+
+  clearPath = () => {
+    //pathfinding.clearTimers()
+    const currentBoard = this.board;
+    currentBoard.forEach((row, rowIdx) => {
+      row.forEach((col, colIdx) => {
+        this.updateNodeIsVisited(rowIdx, colIdx, false);
+        this.updateNodeIsShortest(rowIdx, colIdx, false);
+      });
+    });
+    //setIsPathVisualized(false);
+    //setIsVisualizing(false);
+  };
+
   render() {
     return (
       // React Context Caveats
@@ -161,7 +183,6 @@ class ContextProvider extends Component {
           // State
           isPathVisualized: this.state.isPathVisualized,
           isVisualizing: this.state.isVisualizing,
-          isHelpShown: this.state.isHelpShown,
 
           // Functions
           updateNodeType: this.updateNodeType,
@@ -169,7 +190,6 @@ class ContextProvider extends Component {
           updateNodeIsShortest: this.updateNodeIsShortest,
           setIsPathVisualized: this.setIsPathVisualized,
           setIsVisualizing: this.setIsVisualizing,
-          setIsHelpShown: this.setIsHelpShown,
 
           // Variables
           board: this.board,

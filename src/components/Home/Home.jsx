@@ -7,7 +7,8 @@ export default class Home extends Component {
   static contextType = Context;
   constructor(props) {
     super(props);
-    this.state = { isVisualizing: false };
+    this.isVisualizing = false;
+    this.state = { isVisualizing: false, isHelpShowing: false };
     this.child = React.createRef();
   }
 

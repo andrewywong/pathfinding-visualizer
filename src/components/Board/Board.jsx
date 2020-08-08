@@ -77,13 +77,15 @@ export default class Board extends React.PureComponent {
   };
   handleTouchStart = this.handleMouseDown;
 
-  handleMouseUp = () => {
+  handleMouseUp = (e) => {
+    e.preventDefault();
     this.mode = EDITING_MODES.IDLE;
   };
   handleTouchEnd = this.handleMouseUp;
 
   // Could throttle this function to optimize performance
   handleMouseMove = (e) => {
+    e.preventDefault();
     let { start, finish } = this.context;
     const { isVisualizing, updateNodeType } = this.context;
     if (isVisualizing) {
@@ -110,6 +112,7 @@ export default class Board extends React.PureComponent {
           return;
         }
         this.dragNode(rowIdx, colIdx, start);
+        //if isPathVisualized
         break;
       case EDITING_MODES.DRAGGING_FINISH:
         if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
