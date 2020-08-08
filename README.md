@@ -13,9 +13,9 @@ npm start
 
 - Dijkstra's algorithm
 
-- Breadth-first Search
+- Breadth-first search
 
-- Depth-first Search
+- Depth-first search
 
 - A\* search algorithm
 
