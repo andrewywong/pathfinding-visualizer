@@ -1,3 +1,3 @@
-import PathFinder from './PathFinder';
+import Pathfinder from './Pathfinder';
 
-export default class AStar extends PathFinder {}
+export default class AStar extends Pathfinder {}

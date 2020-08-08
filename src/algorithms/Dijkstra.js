@@ -1,3 +1,3 @@
-import PathFinder from './PathFinder';
+import Pathfinder from './Pathfinder';
 
-export default class Dijkstra extends PathFinder {}
+export default class Dijkstra extends Pathfinder {}

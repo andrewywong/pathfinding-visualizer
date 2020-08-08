@@ -1,3 +1,3 @@
-import PathFinder from './PathFinder';
+import Pathfinder from './Pathfinder';
 
-export default class DepthFirstSearch extends PathFinder {}
+export default class DepthFirstSearch extends Pathfinder {}
