@@ -8,31 +8,18 @@ import {
   NODE_START,
   NODE_FINISH,
 } from '../../constants';
-import { Context } from '../../ContextProvider';
 
 export default class Node extends React.PureComponent {
-  static contextType = Context;
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       type: NODE_INITIAL,
       isVisited: false,
       isShortest: false,
     };
 
-    // const { rowIdx, colIdx } = this.props;
-    // let { updateNodeCache } = this.context;
-    // updateNodeCache.set(`${rowIdx}-${colIdx}`, {
-    //   setType: this.setType,
-    //   setIsVisited: this.setIsVisited,
-    //   setIsShortest: this.setIsShortest,
-    //   forceNodeUpdate: this.forceNodeUpdate,
-    // });
-  }
-
-  componentDidMount() {
     const { rowIdx, colIdx } = this.props;
-    let { updateNodeCache } = this.context;
+    let { updateNodeCache } = this.props;
     updateNodeCache.set(`${rowIdx}-${colIdx}`, {
       setType: this.setType,
       setIsVisited: this.setIsVisited,
@@ -40,6 +27,17 @@ export default class Node extends React.PureComponent {
       forceNodeUpdate: this.forceNodeUpdate,
     });
   }
+
+  // componentDidMount() {
+  //   const { rowIdx, colIdx } = this.props;
+  //   let { updateNodeCache } = this.props;
+  //   updateNodeCache.set(`${rowIdx}-${colIdx}`, {
+  //     setType: this.setType,
+  //     setIsVisited: this.setIsVisited,
+  //     setIsShortest: this.setIsShortest,
+  //     forceNodeUpdate: this.forceNodeUpdate,
+  //   });
+  // }
 
   setType = (value) => {
     this.setState({ type: value });
@@ -58,8 +56,7 @@ export default class Node extends React.PureComponent {
   };
 
   getNodeClassNames() {
-    const { rowIdx, colIdx } = this.props;
-    const { start, finish } = this.context;
+    const { rowIdx, colIdx, start, finish } = this.props;
     if (rowIdx === start.y && colIdx === start.x) {
       return ' ' + NODE_START;
     }

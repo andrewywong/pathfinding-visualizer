@@ -1,12 +1,10 @@
 import React from 'react';
 import Node from '../Node/Node';
-import { Context } from '../../ContextProvider';
 
 import './Board.css';
 import { EDITING_MODES, NODE_WALL, NODE_INITIAL } from '../../constants';
 
 export default class Board extends React.PureComponent {
-  static contextType = Context;
   constructor(props) {
     super(props);
     this.mode = EDITING_MODES.IDLE;
@@ -45,7 +43,7 @@ export default class Board extends React.PureComponent {
     //   console.log(element);
     // });
     e.preventDefault();
-    const { start, finish, isVisualizing, updateNodeType } = this.context;
+    const { start, finish, isVisualizing, updateNodeType } = this.props;
     if (isVisualizing) {
       return;
     }
@@ -86,8 +84,8 @@ export default class Board extends React.PureComponent {
   // Could throttle this function to optimize performance
   handleMouseMove = (e) => {
     e.preventDefault();
-    let { start, finish } = this.context;
-    const { isVisualizing, updateNodeType } = this.context;
+    let { start, finish } = this.props;
+    const { isVisualizing, updateNodeType } = this.props;
     if (isVisualizing) {
       return;
     }
@@ -133,9 +131,7 @@ export default class Board extends React.PureComponent {
   handleTouchMove = this.handleMouseMove;
 
   dragNode = (rowIdx, colIdx, nodePos) => {
-    const { updateNodeCache } = this.context;
-    let { test } = this.props;
-    console.log('Before Board: ' + test.x + ' ' + test.y);
+    const { updateNodeCache } = this.props;
     const prevX = nodePos.x; // this.prevPos.x
     const prevY = nodePos.y; // this.prevPos.y
     nodePos.y = rowIdx;
@@ -147,7 +143,7 @@ export default class Board extends React.PureComponent {
   render() {
     console.log('board rendered');
     // Could pass in board lengths instead for optimizing performance
-    const { board } = this.context;
+    const { board, start, finish, updateNodeCache } = this.props;
     return (
       <div
         id="board"
@@ -166,6 +162,9 @@ export default class Board extends React.PureComponent {
                     key={`${rowIdx}-${colIdx}`}
                     rowIdx={rowIdx}
                     colIdx={colIdx}
+                    start={start}
+                    finish={finish}
+                    updateNodeCache={updateNodeCache}
                   />
                 );
               })}
