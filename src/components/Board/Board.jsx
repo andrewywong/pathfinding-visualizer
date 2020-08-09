@@ -113,7 +113,6 @@ export default class Board extends React.PureComponent {
         }
         this.dragNode(rowIdx, colIdx, start);
         //if isPathVisualized
-        console.log(start.x + ' ' + start.y);
         break;
       case EDITING_MODES.DRAGGING_FINISH:
         if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
@@ -139,12 +138,10 @@ export default class Board extends React.PureComponent {
     console.log('Before Board: ' + test.x + ' ' + test.y);
     const prevX = nodePos.x; // this.prevPos.x
     const prevY = nodePos.y; // this.prevPos.y
-    // nodePos.y = rowIdx;
-    // nodePos.x = colIdx;
-    test = { x: colIdx, y: rowIdx };
+    nodePos.y = rowIdx;
+    nodePos.x = colIdx;
     updateNodeCache.get(`${prevY}-${prevX}`).forceNodeUpdate();
     updateNodeCache.get(`${rowIdx}-${colIdx}`).forceNodeUpdate();
-    console.log('After Board: ' + test.x + ' ' + test.y);
   };
 
   render() {
