@@ -149,7 +149,7 @@ class ContextProvider extends Component {
   };
 
   clear = () => {
-    //pathfinding.clearTimers()
+    //pathfinder.clearTimers()
     const currentBoard = this.board;
     currentBoard.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
@@ -163,7 +163,7 @@ class ContextProvider extends Component {
   };
 
   clearPath = () => {
-    //pathfinding.clearTimers()
+    //pathfinder.clearTimers()
     const currentBoard = this.board;
     currentBoard.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {

@@ -27,11 +27,9 @@ export const A_STAR = 'a-star';
 export const DFS = 'DFS';
 export const BFS = 'BFS';
 
-// Modes
-export const EDITING_MODES = {
-  IDLE: 'idle',
-  DRAGGING_START: 'dragging-start',
-  DRAGGING_FINISH: 'dragging-finish',
-  DRAWING: 'drawing',
-  ERASING: 'erasing',
-};
+// Editing Modes
+export const IDLE = 'idle';
+export const DRAGGING_START = 'dragging-start';
+export const DRAGGING_FINISH = 'dragging-finish';
+export const DRAWING = 'drawing';
+export const ERASING = 'erasing';

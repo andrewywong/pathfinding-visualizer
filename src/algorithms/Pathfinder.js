@@ -1,10 +1,18 @@
 import Timer from './Timer';
 export default class Pathfinder {
-  constructor(start, finish, board, updateNodeVisited, updateNodeShortest) {
+  constructor(
+    start,
+    finish,
+    board,
+    updateNodeVisited,
+    updateNodeShortest,
+    hasDelay = true
+  ) {
     this.start = start;
     this.finish = finish;
     this.updateNodeVisited = updateNodeVisited;
     this.updateNodeShortest = updateNodeShortest;
+    this.hasDelay = hasDelay;
     this.board = board;
     this.timers = [];
   }
@@ -24,5 +32,6 @@ export default class Pathfinder {
     this.timers.forEach((timer) => timer.resume());
   }
 
-  drawShortestPath = () => {};
+  // returns latest timeCounter
+  drawShortestPath = (timeCounter) => {};
 }

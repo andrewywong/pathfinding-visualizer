@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { isVisualizing: false, pause: false };
+    this.state = { pause: false };
   }
 
   setIsVisualizing = (value) => {

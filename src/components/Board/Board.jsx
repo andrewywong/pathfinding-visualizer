@@ -2,15 +2,20 @@ import React from 'react';
 import Node from '../Node/Node';
 
 import './Board.css';
-import { EDITING_MODES, NODE_WALL, NODE_INITIAL } from '../../constants';
+import {
+  IDLE,
+  DRAGGING_START,
+  DRAGGING_FINISH,
+  DRAWING,
+  ERASING,
+  NODE_WALL,
+  NODE_INITIAL,
+} from '../../constants';
 
 export default class Board extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.mode = EDITING_MODES.IDLE;
-    // this.state = {
-    //   mode: EDITING_MODES.IDLE,
-    // };
+    this.mode = IDLE;
     this.prevPos = { x: -1, y: -1 };
   }
 
@@ -57,16 +62,16 @@ export default class Board extends React.PureComponent {
     const rowIdx = Number(targetElement.dataset.rowIdx);
     const colIdx = Number(targetElement.dataset.colIdx);
     if (this.isStartPos(colIdx, rowIdx, start)) {
-      this.mode = EDITING_MODES.DRAGGING_START;
+      this.mode = DRAGGING_START;
     } else if (this.isFinishPos(colIdx, rowIdx, finish)) {
-      this.mode = EDITING_MODES.DRAGGING_FINISH;
+      this.mode = DRAGGING_FINISH;
     } else {
       // targetElement.className === 'node'
       if (targetElement.dataset.type === NODE_INITIAL) {
-        this.mode = EDITING_MODES.DRAWING;
+        this.mode = DRAWING;
         updateNodeType(rowIdx, colIdx, NODE_WALL);
       } else {
-        this.mode = EDITING_MODES.ERASING;
+        this.mode = ERASING;
         updateNodeType(rowIdx, colIdx, NODE_INITIAL);
       }
     }
@@ -77,7 +82,7 @@ export default class Board extends React.PureComponent {
 
   handleMouseUp = (e) => {
     e.preventDefault();
-    this.mode = EDITING_MODES.IDLE;
+    this.mode = IDLE;
   };
   handleTouchEnd = this.handleMouseUp;
 
@@ -89,7 +94,7 @@ export default class Board extends React.PureComponent {
     if (isVisualizing) {
       return;
     }
-    // if (this.mode === EDITING_MODES.IDLE) return;
+    // if (this.mode === IDLE) return;
 
     // e.target.parentElement.className.indexOf('node') !== -1
     const isParentNode = e.target.parentElement.classList.contains('node');
@@ -105,23 +110,23 @@ export default class Board extends React.PureComponent {
     // }
 
     switch (this.mode) {
-      case EDITING_MODES.DRAGGING_START:
+      case DRAGGING_START:
         if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
           return;
         }
         this.dragNode(rowIdx, colIdx, start);
         //if isPathVisualized
         break;
-      case EDITING_MODES.DRAGGING_FINISH:
+      case DRAGGING_FINISH:
         if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
           return;
         }
         this.dragNode(rowIdx, colIdx, finish);
         break;
-      case EDITING_MODES.DRAWING:
+      case DRAWING:
         updateNodeType(rowIdx, colIdx, NODE_WALL);
         break;
-      case EDITING_MODES.ERASING:
+      case ERASING:
         updateNodeType(rowIdx, colIdx, NODE_INITIAL);
         break;
     }
@@ -143,7 +148,13 @@ export default class Board extends React.PureComponent {
   render() {
     console.log('board rendered');
     // Could pass in board lengths instead for optimizing performance
-    const { board, start, finish, updateNodeCache } = this.props;
+    const {
+      board,
+      start,
+      finish,
+      updateNodeCache,
+      isPathVisualized,
+    } = this.props;
     return (
       <div
         id="board"
@@ -165,6 +176,7 @@ export default class Board extends React.PureComponent {
                     start={start}
                     finish={finish}
                     updateNodeCache={updateNodeCache}
+                    isPathVisualized={isPathVisualized}
                   />
                 );
               })}

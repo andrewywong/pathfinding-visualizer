@@ -70,14 +70,21 @@ export default class Node extends React.PureComponent {
   }
 
   getPathClassNames() {
+    const { isPathVisualized } = this.props;
     let extraClassNames = '';
     if (this.state.isVisited) {
       extraClassNames += ' ';
       extraClassNames += NODE_VISITED;
+      if (isPathVisualized.current) {
+        extraClassNames += '-plain';
+      }
     }
     if (this.state.isShortest) {
       extraClassNames += ' ';
       extraClassNames += NODE_SHORTEST;
+      if (isPathVisualized.current) {
+        extraClassNames += '-plain';
+      }
     }
     return extraClassNames;
   }

@@ -36,3 +36,11 @@
 .node-shortest-path {
   background-color: rgba(255, 255, 55, 0.5);
 }
+
+.node-visited-plain {
+  background-color: rgba(0, 190, 220, 0.5);
+}
+
+.node-shortest-path-plain {
+  background-color: rgba(255, 255, 55, 0.5);
+}

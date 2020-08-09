@@ -14,7 +14,7 @@ export default class Home extends Component {
     this.isPathVisualized = { current: false };
     this.state = {
       isVisualizing: false,
-      isHelpShowing: false,
+      isHelpShown: false,
       delayInterval: DELAY_NORMAL,
     };
     this.setupBoard();
@@ -150,7 +150,7 @@ export default class Home extends Component {
   };
 
   clear = () => {
-    //pathfinding.clearTimers()
+    //if (pathfinder) pathfinder.clearTimers()
     const currentBoard = this.board;
     currentBoard.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
@@ -164,7 +164,7 @@ export default class Home extends Component {
   };
 
   clearPath = () => {
-    //pathfinding.clearTimers()
+    //if (pathfinder) pathfinder.clearTimers()
     const currentBoard = this.board;
     currentBoard.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
@@ -179,11 +179,11 @@ export default class Home extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header />
+        <Header isVisualizing={this.state.isVisualizing} />
         <Board
           board={this.board}
           isVisualizing={this.isVisualizing}
-          isPathVisualized={this.isPathVisualized.current}
+          isPathVisualized={this.isPathVisualized}
           updateNodeType={this.updateNodeType}
           start={this.start}
           finish={this.finish}
