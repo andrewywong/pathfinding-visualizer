@@ -14,7 +14,7 @@ export default class Timer {
   resume = () => {
     this.start = Date.now();
     clearTimeout(this.timerId);
-    this.id = setTimeout(callback, remaining);
+    this.id = setTimeout(this.callback, this.remaining);
   };
 
   clear = () => {

@@ -3,12 +3,8 @@ import React, { Component } from 'react';
 export default class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { pause: false };
+    this.state = { pause: false, isAlgorithmComplete: false };
   }
-
-  setIsVisualizing = (value) => {
-    this.setState({ isVisualizing: value });
-  };
 
   render() {
     return <div />;

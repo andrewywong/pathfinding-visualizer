@@ -6,16 +6,19 @@ export default class Pathfinder {
     board,
     updateNodeVisited,
     updateNodeShortest,
-    hasDelay = true
+    iterativeDelay
   ) {
     this.start = start;
     this.finish = finish;
     this.updateNodeVisited = updateNodeVisited;
     this.updateNodeShortest = updateNodeShortest;
-    this.hasDelay = hasDelay;
+    this.iterativeDelay = iterativeDelay;
     this.board = board;
     this.timers = [];
   }
+
+  static dx = [0, 0, 1, -1];
+  static dy = [1, -1, 0, 0];
 
   clearTimers() {
     this.timers.forEach((timer) => {

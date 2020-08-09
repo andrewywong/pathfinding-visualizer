@@ -37,10 +37,10 @@
   background-color: rgba(255, 255, 55, 0.5);
 }
 
-.node-visited-plain {
+.node-visited-unanimated {
   background-color: rgba(0, 190, 220, 0.5);
 }
 
-.node-shortest-path-plain {
+.node-shortest-path-unanimated {
   background-color: rgba(255, 255, 55, 0.5);
 }

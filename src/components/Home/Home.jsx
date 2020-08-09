@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import Board from '../Board/Board';
 import Header from '../Header/Header';
-import { DELAY_NORMAL, NODE_INITIAL } from '../../constants';
+import { DELAY_NORMAL, NODE_INITIAL, DIJKSTRA } from '../../constants';
+import Timer from '../../algorithms/Timer';
+import PathfinderMapping from '../../algorithms/factory';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.board = [];
     this.updateNodeCache = new Map();
-    this.pathfinder = {};
+    this.pathfinder = { current: {} };
 
     this.isVisualizing = false;
     this.isPathVisualized = { current: false };
@@ -16,6 +18,7 @@ export default class Home extends Component {
       isVisualizing: false,
       isHelpShown: false,
       delayInterval: DELAY_NORMAL,
+      algorithmType: DIJKSTRA,
     };
     this.setupBoard();
   }
@@ -108,10 +111,15 @@ export default class Home extends Component {
     this.setState({ isVisualizing: value });
   };
 
-  updateNode = (value, callback, timeCounter) => {
+  updateNode = (value, updateNodeState, timeCounter) => {
     if (timeCounter) {
+      const timer = new Timer({
+        callback: () => updateNodeState(value),
+        delay: timeCounter * this.state.delayInterval,
+      });
+      // pathfinder.current.timers.push(timer);
     } else {
-      callback(value);
+      updateNodeState(value);
     }
   };
 
@@ -149,12 +157,13 @@ export default class Home extends Component {
     this.updateNode(isShortest, setIsShortest, timeCounter);
   };
 
-  clear = () => {
+  clear = (clearingPath = false) => {
     //if (pathfinder) pathfinder.clearTimers()
-    const currentBoard = this.board;
-    currentBoard.forEach((row, rowIdx) => {
+    this.board.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
-        this.updateNodeType(rowIdx, colIdx, NODE_INITIAL);
+        if (!clearingPath) {
+          this.updateNodeType(rowIdx, colIdx, NODE_INITIAL);
+        }
         this.updateNodeIsVisited(rowIdx, colIdx, false);
         this.updateNodeIsShortest(rowIdx, colIdx, false);
       });
@@ -163,23 +172,28 @@ export default class Home extends Component {
     //setIsVisualizing(false);
   };
 
-  clearPath = () => {
-    //if (pathfinder) pathfinder.clearTimers()
-    const currentBoard = this.board;
-    currentBoard.forEach((row, rowIdx) => {
-      row.forEach((col, colIdx) => {
-        this.updateNodeIsVisited(rowIdx, colIdx, false);
-        this.updateNodeIsShortest(rowIdx, colIdx, false);
-      });
-    });
-    //setIsPathVisualized(false);
-    //setIsVisualizing(false);
+  initPathfinder = (iterativeDelay = true) => {
+    this.pathfinder.current = new PathfinderMapping[this.state.algorithmType](
+      this.start,
+      this.finish,
+      this.board,
+      this.updateNodeIsVisited,
+      this.updateNodeIsShortest,
+      iterativeDelay
+    );
   };
 
   render() {
     return (
       <React.Fragment>
-        <Header isVisualizing={this.state.isVisualizing} />
+        <Header
+          isVisualizing={this.state.isVisualizing}
+          delayInterval={this.state.delayInterval}
+          algorithmType={this.state.algorithmType}
+          pathfinder={this.pathfinder}
+          clear={this.clear}
+          initPathfinder={this.initPathfinder}
+        />
         <Board
           board={this.board}
           isVisualizing={this.isVisualizing}

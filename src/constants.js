@@ -21,7 +21,7 @@ export const DELAY_SLOW = 300;
 export const DELAY_NORMAL = 150;
 export const DELAY_FAST = 50;
 
-// Algorithms
+// Pathfinding Algorithms
 export const DIJKSTRA = 'dijkstra';
 export const A_STAR = 'a-star';
 export const DFS = 'DFS';
