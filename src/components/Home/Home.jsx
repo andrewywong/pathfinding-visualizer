@@ -10,6 +10,7 @@ export default class Home extends Component {
     this.isVisualizing = false;
     this.state = { isVisualizing: false, isHelpShowing: false };
     this.child = React.createRef();
+    this.test = { x: -1, y: -1 };
   }
 
   setIsVisualizing = (value) => {
@@ -20,7 +21,7 @@ export default class Home extends Component {
     return (
       <React.Fragment>
         <Header />
-        <Board ref={this.child} />
+        <Board ref={this.child} test={this.test} />
       </React.Fragment>
     );
   }
