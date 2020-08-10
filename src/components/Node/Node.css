@@ -1,12 +1,11 @@
-.node {
+.board__node {
   display: table-cell;
   width: 25px;
   height: 25px;
   border: 1px solid rgb(175, 210, 250);
+  box-sizing: border-box;
   /* display: flex;
   flex: 1; */
-  /* border-right: 1px solid grey;
-  border-bottom: 1px solid grey; */
 }
 
 .node-start {
@@ -21,7 +20,7 @@
   background-color: rgb(12, 53, 71);
 }
 
-.path {
+.board__path {
   height: 100%;
   /* display: flex;
   flex: 1; */

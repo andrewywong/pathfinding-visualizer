@@ -38,7 +38,7 @@ export default class Home extends Component {
   setupBoard = () => {
     const nodes = [];
     // Change rows and cols depending on the device width
-    const maxCol = window.innerWidth / 26;
+    const maxCol = window.innerWidth / 25;
     const maxRow = window.innerHeight / 40;
 
     if (!this.start || !this.finish) {

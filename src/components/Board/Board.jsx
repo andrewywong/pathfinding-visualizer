@@ -53,8 +53,10 @@ export default class Board extends React.PureComponent {
       return;
     }
 
-    const isParentNode = e.target.parentElement.classList.contains('node');
-    if (!isParentNode && !e.target.classList.contains('node')) {
+    const isParentNode = e.target.parentElement.classList.contains(
+      'board__node'
+    );
+    if (!isParentNode && !e.target.classList.contains('board__node')) {
       return;
     }
     const targetElement = isParentNode ? e.target.parentElement : e.target;
@@ -66,7 +68,7 @@ export default class Board extends React.PureComponent {
     } else if (this.isFinishPos(colIdx, rowIdx, finish)) {
       this.mode = DRAGGING_FINISH;
     } else {
-      // targetElement.className === 'node'
+      // targetElement.className === 'board__node'
       if (targetElement.dataset.type === NODE_INITIAL) {
         this.mode = DRAWING;
         updateNodeType(rowIdx, colIdx, NODE_WALL);
@@ -96,9 +98,11 @@ export default class Board extends React.PureComponent {
     }
     // if (this.mode === IDLE) return;
 
-    // e.target.parentElement.className.indexOf('node') !== -1
-    const isParentNode = e.target.parentElement.classList.contains('node');
-    if (!isParentNode && !e.target.classList.contains('node')) {
+    // e.target.parentElement.className.indexOf('board__node') !== -1
+    const isParentNode = e.target.parentElement.classList.contains(
+      'board__node'
+    );
+    if (!isParentNode && !e.target.classList.contains('board__node')) {
       return;
     }
     const targetElement = isParentNode ? e.target.parentElement : e.target;
@@ -173,7 +177,7 @@ export default class Board extends React.PureComponent {
       >
         {board.map((row, rowIdx) => {
           return (
-            <div key={rowIdx} id={`row-${rowIdx}`} className="row">
+            <div key={rowIdx} id={`row-${rowIdx}`} className="board__row">
               {row.map((col, colIdx) => {
                 return (
                   <Node

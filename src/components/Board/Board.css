@@ -6,6 +6,6 @@
   border-top: 1px solid grey; */
 }
 
-.row {
+.board__row {
   display: table-row;
 }
