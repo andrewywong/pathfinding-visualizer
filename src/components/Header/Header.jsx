@@ -42,7 +42,7 @@ export default class Header extends Component {
       pathfinder.current.clearTimers();
     }
     if (this.state.pause) {
-      // setPause(false);
+      this.setState({ pause: false });
     }
 
     clearBoard(clearWalls);
@@ -62,10 +62,10 @@ export default class Header extends Component {
       return;
     }
     if (this.state.pause) {
-      // setPause(false);
+      this.setState({ pause: false });
       pathfinder.current.resumeTimers();
     } else {
-      // setPause(true);
+      this.setState({ pause: true });
       pathfinder.current.pauseTimers();
     }
   };

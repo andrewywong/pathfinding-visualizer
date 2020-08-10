@@ -111,6 +111,10 @@ export default class Home extends Component {
     this.setState({ isVisualizing: value });
   };
 
+  setIsPathVisualized = (value) => {
+    this.isPathVisualized.current = value;
+  };
+
   updateNode = (value, updateNodeState, timeCounter) => {
     if (timeCounter) {
       const timer = new Timer({
@@ -168,8 +172,8 @@ export default class Home extends Component {
         this.updateNodeIsShortest(rowIdx, colIdx, false);
       });
     });
-    //setIsPathVisualized(false);
-    //setIsVisualizing(false);
+    this.setIsPathVisualized(false);
+    this.setIsVisualizing(false);
   };
 
   initPathfinder = (delayIteration = true) => {
@@ -194,6 +198,7 @@ export default class Home extends Component {
           setIsVisualizing={this.setIsVisualizing}
           clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
+          setIsPathVisualized={this.setIsPathVisualized}
         />
         <Board
           board={this.board}
