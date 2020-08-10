@@ -73,15 +73,13 @@ export default class Node extends React.PureComponent {
     const { isPathVisualized } = this.props;
     let extraClassNames = '';
     if (this.state.isVisited) {
-      extraClassNames += ' ';
-      extraClassNames += NODE_VISITED;
+      extraClassNames += ' ' + NODE_VISITED;
       if (isPathVisualized.current) {
         extraClassNames += '-unanimated';
       }
     }
     if (this.state.isShortest) {
-      extraClassNames += ' ';
-      extraClassNames += NODE_SHORTEST;
+      extraClassNames += ' ' + NODE_SHORTEST;
       if (isPathVisualized.current) {
         extraClassNames += '-unanimated';
       }
