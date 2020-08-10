@@ -120,12 +120,9 @@ export default class Board extends React.PureComponent {
         }
         this.dragNode(rowIdx, colIdx, start);
         //if isPathVisualized
-        //clearBoard(false);
-        //setIsPathVisualized(true);
-        //setIsVisualizing(true);
+        //clearBoard(false, true);
         //initPathfinder(false);
         //pathfinder.current.run();
-        //setIsVisualizing(false);
 
         break;
       case DRAGGING_FINISH:

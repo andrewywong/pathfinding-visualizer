@@ -5,7 +5,7 @@ import Timer from '../../algorithms/Timer';
 export default class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { pause: false, isAlgorithmComplete: false };
+    this.state = { pause: false };
   }
 
   onVisualize = () => {
@@ -15,6 +15,7 @@ export default class Header extends Component {
       setIsVisualizing,
       initPathfinder,
       pathfinder,
+      setIsPathVisualized,
       delayInterval,
     } = this.props;
     if (isVisualizing) {
@@ -26,22 +27,20 @@ export default class Header extends Component {
     initPathfinder();
     const finalCounter = pathfinder.current.run();
     const timer = new Timer({
-      callback: () => setIsVisualizing(false), //setIsPathVisualized(true) //pathfinder.clearTimers()
+      callback: () => {
+        setIsPathVisualized(true);
+        setIsVisualizing(false);
+      }, //pathfinder.clearTimers()
       delay: finalCounter * delayInterval,
     });
     pathfinder.current.timers.push(timer);
-    this.setState({ isAlgorithmComplete: true });
   };
 
   onClear = (clearWalls) => {
-    const { isVisualizing, clearBoard, pathfinder } = this.props;
-    if (isVisualizing && !this.state.isAlgorithmComplete) {
-      return;
-    }
-    if (pathfinder.current && isVisualizing) {
+    const { clearBoard, pathfinder } = this.props;
+    if (pathfinder.current) {
       pathfinder.current.clearTimers();
     }
-    this.setState({ isAlgorithmComplete: false });
     if (this.state.pause) {
       // setPause(false);
     }
@@ -59,7 +58,9 @@ export default class Header extends Component {
 
   onPause = () => {
     const { isVisualizing, pathfinder } = this.props;
-    if (!isVisualizing || !this.state.isAlgorithmComplete) return;
+    if (!isVisualizing) {
+      return;
+    }
     if (this.state.pause) {
       // setPause(false);
       pathfinder.current.resumeTimers();
