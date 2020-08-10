@@ -12,7 +12,7 @@ export default class Home extends Component {
     this.updateNodeCache = new Map();
     this.pathfinder = { current: {} };
 
-    this.isVisualizing = false;
+    this.isVisualizing = { current: false };
     this.isPathVisualized = { current: false };
     this.state = {
       isVisualizing: false,
@@ -107,7 +107,7 @@ export default class Home extends Component {
 
   // public class fields syntax
   setIsVisualizing = (value) => {
-    this.isVisualizing = value;
+    this.isVisualizing.current = value;
     this.setState({ isVisualizing: value });
   };
 
@@ -117,7 +117,7 @@ export default class Home extends Component {
         callback: () => updateNodeState(value),
         delay: timeCounter * this.state.delayInterval,
       });
-      // pathfinder.current.timers.push(timer);
+      this.pathfinder.current.timers.push(timer);
     } else {
       updateNodeState(value);
     }
@@ -157,13 +157,13 @@ export default class Home extends Component {
     this.updateNode(isShortest, setIsShortest, timeCounter);
   };
 
-  clear = (clearingPath = false) => {
-    //if (pathfinder) pathfinder.clearTimers()
+  clearBoard = (clearWalls = true) => {
     this.board.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
-        if (!clearingPath) {
+        if (clearWalls) {
           this.updateNodeType(rowIdx, colIdx, NODE_INITIAL);
         }
+        //clearing path
         this.updateNodeIsVisited(rowIdx, colIdx, false);
         this.updateNodeIsShortest(rowIdx, colIdx, false);
       });
@@ -172,14 +172,14 @@ export default class Home extends Component {
     //setIsVisualizing(false);
   };
 
-  initPathfinder = (iterativeDelay = true) => {
+  initPathfinder = (delayIteration = true) => {
     this.pathfinder.current = new PathfinderMapping[this.state.algorithmType](
       this.start,
       this.finish,
       this.board,
       this.updateNodeIsVisited,
       this.updateNodeIsShortest,
-      iterativeDelay
+      delayIteration
     );
   };
 
@@ -191,7 +191,8 @@ export default class Home extends Component {
           delayInterval={this.state.delayInterval}
           algorithmType={this.state.algorithmType}
           pathfinder={this.pathfinder}
-          clear={this.clear}
+          setIsVisualizing={this.setIsVisualizing}
+          clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
         />
         <Board

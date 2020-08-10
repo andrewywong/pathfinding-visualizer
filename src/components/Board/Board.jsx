@@ -49,7 +49,7 @@ export default class Board extends React.PureComponent {
     // });
     e.preventDefault();
     const { start, finish, isVisualizing, updateNodeType } = this.props;
-    if (isVisualizing) {
+    if (isVisualizing.current) {
       return;
     }
 
@@ -91,7 +91,7 @@ export default class Board extends React.PureComponent {
     e.preventDefault();
     let { start, finish } = this.props;
     const { isVisualizing, updateNodeType } = this.props;
-    if (isVisualizing) {
+    if (isVisualizing.current) {
       return;
     }
     // if (this.mode === IDLE) return;
@@ -116,6 +116,13 @@ export default class Board extends React.PureComponent {
         }
         this.dragNode(rowIdx, colIdx, start);
         //if isPathVisualized
+        //clearBoard(false);
+        //setIsPathVisualized(true);
+        //setIsVisualizing(true);
+        //initPathfinder(false);
+        //pathfinder.current.run();
+        //setIsVisualizing(false);
+
         break;
       case DRAGGING_FINISH:
         if (this.isStartOrFinishPos(colIdx, rowIdx, start, finish)) {
