@@ -17,11 +17,11 @@ npm start
 
 - Depth-first search
 
-- A\* search algorithm
+- A\* search algorithm (Manhattan distance heuristic)
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/andrewywong/pathfinding-visualizer/blob/master/LICENSE)
 
 ## Thanks
 

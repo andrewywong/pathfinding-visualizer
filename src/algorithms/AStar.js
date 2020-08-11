@@ -1,5 +1,6 @@
 import TinyQueue from 'tinyqueue';
 import Pathfinder from './Pathfinder';
+import { NODE_WALL } from '../constants';
 
 export default class AStar extends Pathfinder {
   constructor(...args) {
@@ -10,10 +11,8 @@ export default class AStar extends Pathfinder {
   }
 
   // Manhattan distance
-  calculateHeuristic(nodePos) {
-    return (
-      Math.abs(nodePos.x - this.finish.x) + Math.abs(nodePos.y - this.finish.y)
-    );
+  calculateHeuristic(posX, posY) {
+    return Math.abs(posX - this.finish.x) + Math.abs(posY - this.finish.y);
   }
 
   run() {
@@ -33,7 +32,63 @@ export default class AStar extends Pathfinder {
     if (start.x === finish.x && start.y === finish.y) {
       return counter;
     }
-    counter += 1;
+
+    // f = g + h, initial g is 0
+    const startF = calculateHeuristic(start.x, start.y);
+    pq.push({ x: start.x, y: start.y, f: startF });
+    dist[start.y][start.x] = 0;
+
+    while (pq.length) {
+      const current = pq.pop();
+      const currentX = current.x;
+      const currentY = current.y;
+
+      if (closed[currentY][currentX]) {
+        continue;
+      }
+      counter += 1;
+      closed[currentY][currentX] = true;
+      if (currentX === finish.x && currentY === finish.y) {
+        return this.traceShortestPath();
+      }
+      // Don't update node-visited for start/finish nodes
+      if (!(currentX === start.x && currentY === start.y)) {
+        updateNodeIsVisited(currentY, currentX, true, counter);
+      }
+
+      for (let i = 0; i < Pathfinder.dx.length; ++i) {
+        const nextX = currentX + Pathfinder.dx[i];
+        const nextY = currentY + Pathfinder.dy[i];
+        if (
+          nextX < 0 ||
+          nextX >= board[0].length ||
+          nextY < 0 ||
+          nextY >= board.length
+        ) {
+          continue;
+        }
+        if (closed[nextY][nextX]) {
+          continue;
+        }
+        if (
+          board[nextY][nextX] === NODE_WALL &&
+          !(nextX === finish.x && nextY === finish.y)
+        ) {
+          continue;
+        }
+
+        const weight = 1;
+        const g = dist[currentY][currentX] + weight;
+        // f = g + h
+        const nextF = g + calculateHeuristic(nextX, nextY);
+        // if there is a shorter path to nextPos
+        if (g < dist[nextY][nextX]) {
+          dist[nextY][nextX] = g;
+          prev[nextY][nextX] = { x: currentX, y: currentY };
+          pq.push({ x: nextX, y: nextY, f: nextF });
+        }
+      }
+    }
 
     return counter;
   }
