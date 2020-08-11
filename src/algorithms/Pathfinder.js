@@ -1,19 +1,20 @@
 import Timer from './Timer';
 export default class Pathfinder {
   constructor(
+    board,
     start,
     finish,
-    board,
-    updateNodeVisited,
-    updateNodeShortest,
+    updateNodeIsVisited,
+    updateNodeIsShortest,
     delayIteration
   ) {
     this.start = start;
     this.finish = finish;
-    this.updateNodeVisited = updateNodeVisited;
-    this.updateNodeShortest = updateNodeShortest;
+    this.updateNodeIsVisited = updateNodeIsVisited;
+    this.updateNodeIsShortest = updateNodeIsShortest;
     this.delayIteration = delayIteration;
     this._init(board);
+    this.board = board;
     this.timers = [];
   }
 
@@ -21,16 +22,21 @@ export default class Pathfinder {
   static dy = [1, -1, 0, 0];
 
   _init(board) {
-    this.board = [];
+    // this.board = [];
+    this.dist = [];
+    this.visited = [];
     this.prev = [];
     for (let i = 0; i < board.length; ++i) {
-      this.board[i] = [];
+      // this.board[i] = [];
       this.prev[i] = [];
       for (let j = 0; j < board[i].length; ++j) {
-        this.board[i][j] = { type: board[i][j].type };
+        // this.board[i][j] = { type: board[i][j].type };
+        this.dist[i][j] = Infinity;
+        this.visited[i][j] = false;
         this.prev[i][j] = { x: -1, y: -1 };
       }
     }
+    this.closed = this.visited;
   }
 
   clearTimers() {
@@ -49,5 +55,5 @@ export default class Pathfinder {
   }
 
   // returns latest timeCounter
-  drawShortestPath = (timeCounter) => {};
+  traceShortestPath = (timeCounter) => {};
 }

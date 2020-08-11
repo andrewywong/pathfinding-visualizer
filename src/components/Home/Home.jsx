@@ -181,9 +181,9 @@ export default class Home extends Component {
 
   initPathfinder = (delayIteration = true) => {
     this.pathfinder.current = new PathfinderMapping[this.state.algorithmType](
+      this.board,
       this.start,
       this.finish,
-      this.board,
       this.updateNodeIsVisited,
       this.updateNodeIsShortest,
       delayIteration
