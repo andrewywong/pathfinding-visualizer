@@ -28,19 +28,16 @@ export default class Header extends Component {
     const finalCounter = pathfinder.current.run();
     const timer = new Timer({
       callback: () => {
-        setIsPathVisualized(true);
         setIsVisualizing(false);
       }, //pathfinder.clearTimers()
       delay: finalCounter * delayInterval,
     });
     pathfinder.current.timers.push(timer);
+    setIsPathVisualized(true);
   };
 
   onClear = (clearWalls) => {
-    const { clearBoard, pathfinder } = this.props;
-    if (pathfinder.current) {
-      pathfinder.current.clearTimers();
-    }
+    const { clearBoard } = this.props;
     if (this.state.pause) {
       this.setState({ pause: false });
     }

@@ -71,15 +71,13 @@ export default class Home extends Component {
 
     // Initialize board
     for (let rowIdx = 0; rowIdx < maxRow; ++rowIdx) {
-      const currentRow = [];
+      nodes[rowIdx] = [];
       for (let colIdx = 0; colIdx < maxCol; ++colIdx) {
         const currentNode = {
           type: NODE_INITIAL,
-          visited: false,
         };
-        currentRow.push(currentNode);
+        nodes[rowIdx].push(currentNode);
       }
-      nodes.push(currentRow);
     }
 
     // Copy over preexisting board
@@ -93,8 +91,9 @@ export default class Home extends Component {
           // Deep Copy Methods
           // JSON.parse(JSON.stringify(this.start));
           // Object.assign({}, this.start);
-          nodes[rowIdx][colIdx] = Object.assign({}, this.board[rowIdx][colIdx]);
-          // nodes[rowIdx][colIdx] = this.board[rowIdx][colIdx];
+
+          // nodes[rowIdx][colIdx] = Object.assign({}, this.board[rowIdx][colIdx]);
+          nodes[rowIdx][colIdx] = { type: this.board[rowIdx][colIdx].type };
         }
       }
     }
@@ -144,7 +143,6 @@ export default class Home extends Component {
     isVisited = false,
     timeCounter = 0
   ) => {
-    this.board[rowIdx][colIdx].visited = isVisited;
     const setIsVisited = this.updateNodeCache.get(`${rowIdx}-${colIdx}`)
       .setIsVisited;
     this.updateNode(isVisited, setIsVisited, timeCounter);
@@ -161,7 +159,10 @@ export default class Home extends Component {
     this.updateNode(isShortest, setIsShortest, timeCounter);
   };
 
-  clearBoard = (clearWalls = true) => {
+  clearBoard = (clearWalls = true, delayIteration = true) => {
+    if (this.pathfinder.current) {
+      this.pathfinder.current.clearTimers();
+    }
     this.board.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
         if (clearWalls) {
@@ -172,7 +173,9 @@ export default class Home extends Component {
         this.updateNodeIsShortest(rowIdx, colIdx, false);
       });
     });
-    this.setIsPathVisualized(false);
+    if (delayIteration) {
+      this.setIsPathVisualized(false);
+    }
     this.setIsVisualizing(false);
   };
 
