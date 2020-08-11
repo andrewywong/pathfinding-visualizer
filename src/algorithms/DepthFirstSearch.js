@@ -24,8 +24,8 @@ export default class DepthFirstSearch extends Pathfinder {
       return counter;
     }
 
-    const dxReverse = [0, 0, 1, -1];
-    const dyReverse = [1, -1, 0, 0];
+    const dxReverse = [0, 0, -1, 1];
+    const dyReverse = [-1, 1, 0, 0];
 
     stk.push({ x: start.x, y: start.y });
     while (stk.length) {

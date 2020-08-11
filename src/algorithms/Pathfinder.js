@@ -1,4 +1,5 @@
 import Timer from './Timer';
+import { findByDisplayValue } from '@testing-library/react';
 export default class Pathfinder {
   constructor(
     board,
@@ -55,5 +56,26 @@ export default class Pathfinder {
   }
 
   // returns latest timeCounter
-  traceShortestPath = (timeCounter) => {};
+  traceShortestPath = (timeCounter) => {
+    const { finish, prev, updateNodeIsShortest } = this;
+
+    const path = [];
+    let { x, y } = prev[finish.y][finish.x];
+
+    while (prev[y][x].x !== -1 && prev[y][x].y !== -1) {
+      path.push({ x, y });
+      const tempX = x;
+      const tempY = y;
+      x = prev[tempY][tempX].x;
+      y = prev[tempY][tempX].y;
+    }
+
+    for (let i = path.length - 1; i >= 0; --i) {
+      x = path[i].x;
+      y = path[i].y;
+      updateNodeIsShortest(y, x, true, timeCounter);
+      timeCounter += 1;
+    }
+    return timeCounter;
+  };
 }
