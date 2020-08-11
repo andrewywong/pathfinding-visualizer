@@ -44,7 +44,7 @@ export default class BreadthFirstSearch extends Pathfinder {
           continue;
         }
         if (
-          board[nextY][nextX] === NODE_WALL &&
+          board[nextY][nextX].type === NODE_WALL &&
           !(nextX === finish.x && nextY === finish.y)
         ) {
           continue;
@@ -56,7 +56,11 @@ export default class BreadthFirstSearch extends Pathfinder {
         if (nextX === finish.x && nextY === finish.y) {
           return this.traceShortestPath(counter);
         }
-        updateNodeIsVisited(nextY, nextX, true, counter);
+        if (this.delayIteration) {
+          updateNodeIsVisited(nextY, nextX, true, counter);
+        } else {
+          updateNodeIsVisited(nextY, nextX, true);
+        }
         q.push({ x: nextX, y: nextY });
       }
     }

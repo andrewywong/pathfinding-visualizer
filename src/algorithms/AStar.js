@@ -11,9 +11,9 @@ export default class AStar extends Pathfinder {
   }
 
   // Manhattan distance
-  calculateHeuristic(posX, posY) {
+  calculateHeuristic = (posX, posY) => {
     return Math.abs(posX - this.finish.x) + Math.abs(posY - this.finish.y);
-  }
+  };
 
   run() {
     const {
@@ -49,11 +49,15 @@ export default class AStar extends Pathfinder {
       counter += 1;
       closed[currentY][currentX] = true;
       if (currentX === finish.x && currentY === finish.y) {
-        return this.traceShortestPath();
+        return this.traceShortestPath(counter);
       }
       // Don't update node-visited for start/finish nodes
       if (!(currentX === start.x && currentY === start.y)) {
-        updateNodeIsVisited(currentY, currentX, true, counter);
+        if (this.delayIteration) {
+          updateNodeIsVisited(currentY, currentX, true, counter);
+        } else {
+          updateNodeIsVisited(currentY, currentX, true);
+        }
       }
 
       for (let i = 0; i < Pathfinder.dx.length; ++i) {
@@ -71,7 +75,7 @@ export default class AStar extends Pathfinder {
           continue;
         }
         if (
-          board[nextY][nextX] === NODE_WALL &&
+          board[nextY][nextX].type === NODE_WALL &&
           !(nextX === finish.x && nextY === finish.y)
         ) {
           continue;

@@ -151,10 +151,17 @@ export default class Board extends React.PureComponent {
   };
 
   dragVisualize = () => {
-    //if isPathVisualized
-    //clearBoard(false, false);
-    //initPathfinder(false);
-    //pathfinder.current.run();
+    const {
+      isPathVisualized,
+      clearBoard,
+      initPathfinder,
+      pathfinder,
+    } = this.props;
+    if (isPathVisualized.current) {
+      clearBoard(false, false);
+      initPathfinder(false);
+      pathfinder.current.run();
+    }
   };
 
   render() {

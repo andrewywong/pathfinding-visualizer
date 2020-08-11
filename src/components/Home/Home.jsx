@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Board from '../Board/Board';
 import Header from '../Header/Header';
-import { DELAY_NORMAL, NODE_INITIAL, DIJKSTRA } from '../../constants';
+import { NODE_INITIAL, DIJKSTRA, DELAY_FAST } from '../../constants';
 import Timer from '../../algorithms/Timer';
 import PathfinderMapping from '../../algorithms/factory';
 
@@ -17,7 +17,7 @@ export default class Home extends Component {
     this.state = {
       isVisualizing: false,
       isHelpShown: false,
-      delayInterval: DELAY_NORMAL,
+      delayInterval: DELAY_FAST,
       algorithmType: DIJKSTRA,
     };
     this.setupBoard();
@@ -73,10 +73,10 @@ export default class Home extends Component {
     for (let rowIdx = 0; rowIdx < maxRow; ++rowIdx) {
       nodes[rowIdx] = [];
       for (let colIdx = 0; colIdx < maxCol; ++colIdx) {
-        const currentNode = {
+        nodes[rowIdx][colIdx] = {
           type: NODE_INITIAL,
         };
-        nodes[rowIdx][colIdx] = currentNode;
+        // nodes[rowIdx][colIdx] = NODE_INITIAL;
       }
     }
 
@@ -116,10 +116,10 @@ export default class Home extends Component {
 
   updateNode = (value, updateNodeState, timeCounter) => {
     if (timeCounter) {
-      const timer = new Timer({
-        callback: () => updateNodeState(value),
-        delay: timeCounter * this.state.delayInterval,
-      });
+      const timer = new Timer(
+        () => updateNodeState(value), // callback
+        timeCounter * this.state.delayInterval // delay
+      );
       this.pathfinder.current.timers.push(timer);
     } else {
       updateNodeState(value);
@@ -211,6 +211,9 @@ export default class Home extends Component {
           start={this.start}
           finish={this.finish}
           updateNodeCache={this.updateNodeCache}
+          pathfinder={this.pathfinder}
+          clearBoard={this.clearBoard}
+          initPathfinder={this.initPathfinder}
         />
       </React.Fragment>
     );

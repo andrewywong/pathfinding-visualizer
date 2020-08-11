@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
+import Pathfinder from '../../algorithms/Pathfinder';
 import Timer from '../../algorithms/Timer';
+
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export default class Header extends Component {
   constructor(props) {
@@ -21,18 +24,22 @@ export default class Header extends Component {
     if (isVisualizing) {
       return;
     }
+    // if (pathfinder.current) {
+    //   pathfinder.current.clearTimers();
+    // }
     clearBoard(false);
     setIsVisualizing(true);
 
     initPathfinder();
     const finalCounter = pathfinder.current.run();
-    const timer = new Timer({
-      callback: () => {
+    const timer = new Timer(
+      // callback
+      () => {
         setIsPathVisualized(true);
         setIsVisualizing(false);
       }, //pathfinder.clearTimers()
-      delay: finalCounter * delayInterval,
-    });
+      finalCounter * delayInterval // delay
+    );
     pathfinder.current.timers.push(timer);
     // setIsPathVisualized(true);
   };
@@ -72,6 +79,16 @@ export default class Header extends Component {
   };
 
   render() {
-    return <div />;
+    return (
+      <Container fluid>
+        <Row>
+          <Col className="d-flex justify-content-center">
+            <Button variant="primary" onClick={this.onVisualize}>
+              Visualize
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    );
   }
 }

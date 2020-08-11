@@ -17,9 +17,9 @@ export const NODE_TYPES = [
 ];
 
 // Delay Interval
-export const DELAY_SLOW = 300;
-export const DELAY_NORMAL = 150;
-export const DELAY_FAST = 50;
+export const DELAY_SLOW = 150;
+export const DELAY_NORMAL = 50;
+export const DELAY_FAST = 15;
 
 // Pathfinding Algorithms
 export const DIJKSTRA = 'dijkstra';
