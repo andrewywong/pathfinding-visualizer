@@ -25,6 +25,7 @@ export default class AStar extends Pathfinder {
       start,
       finish,
       updateNodeIsVisited,
+      delayIteration,
       calculateHeuristic,
     } = this;
 
@@ -53,11 +54,13 @@ export default class AStar extends Pathfinder {
       }
       // Don't update node-visited for start/finish nodes
       if (!(currentX === start.x && currentY === start.y)) {
-        if (this.delayIteration) {
-          updateNodeIsVisited(currentY, currentX, true, counter);
-        } else {
-          updateNodeIsVisited(currentY, currentX, true);
-        }
+        updateNodeIsVisited(
+          currentY,
+          currentX,
+          true,
+          counter * delayIteration,
+          delayIteration
+        );
       }
 
       for (let i = 0; i < Pathfinder.dx.length; ++i) {

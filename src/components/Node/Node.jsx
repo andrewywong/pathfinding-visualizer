@@ -16,6 +16,7 @@ export default class Node extends React.PureComponent {
       type: NODE_INITIAL,
       isVisited: false,
       isShortest: false,
+      isAnimated: true,
     };
 
     const { rowIdx, colIdx } = this.props;
@@ -70,17 +71,16 @@ export default class Node extends React.PureComponent {
   }
 
   getPathClassNames() {
-    const { isPathVisualized } = this.props;
     let extraClassNames = '';
     if (this.state.isVisited) {
       extraClassNames += ' ' + NODE_VISITED;
-      if (isPathVisualized.current) {
+      if (!this.state.isAnimated) {
         extraClassNames += '-unanimated';
       }
     }
     if (this.state.isShortest) {
       extraClassNames += ' ' + NODE_SHORTEST;
-      if (isPathVisualized.current) {
+      if (!this.state.isAnimated) {
         extraClassNames += '-unanimated';
       }
     }

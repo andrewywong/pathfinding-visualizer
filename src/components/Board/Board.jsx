@@ -48,10 +48,10 @@ export default class Board extends React.PureComponent {
     //   console.log(element);
     // });
     e.preventDefault();
-    const { start, finish, isVisualizing, updateNodeType } = this.props;
-    if (isVisualizing.current) {
-      return;
-    }
+    const { start, finish, updateNodeType } = this.props;
+    // if (isVisualizing.current) {
+    //   return;
+    // }
 
     const isParentNode = e.target.parentElement.classList.contains(
       'board__node'
@@ -92,10 +92,10 @@ export default class Board extends React.PureComponent {
   handleMouseMove = (e) => {
     e.preventDefault();
     let { start, finish } = this.props;
-    const { isVisualizing, updateNodeType } = this.props;
-    if (isVisualizing.current) {
-      return;
-    }
+    const { updateNodeType } = this.props;
+    // if (isVisualizing.current) {
+    //   return;
+    // }
     // if (this.mode === IDLE) return;
 
     // e.target.parentElement.className.indexOf('board__node') !== -1
@@ -167,13 +167,7 @@ export default class Board extends React.PureComponent {
   render() {
     console.log('board rendered');
     // Could pass in board lengths instead for optimizing performance
-    const {
-      board,
-      start,
-      finish,
-      updateNodeCache,
-      isPathVisualized,
-    } = this.props;
+    const { board, start, finish, updateNodeCache } = this.props;
     return (
       <div
         id="board"
@@ -195,7 +189,6 @@ export default class Board extends React.PureComponent {
                     start={start}
                     finish={finish}
                     updateNodeCache={updateNodeCache}
-                    isPathVisualized={isPathVisualized}
                   />
                 );
               })}

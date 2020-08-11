@@ -10,7 +10,7 @@ export default class Home extends Component {
     super(props);
     this.board = [];
     this.updateNodeCache = new Map();
-    this.pathfinder = { current: {} };
+    this.pathfinder = {};
 
     this.isVisualizing = { current: false };
     this.isPathVisualized = { current: false };
@@ -141,7 +141,8 @@ export default class Home extends Component {
     rowIdx,
     colIdx,
     isVisited = false,
-    timeCounter = 0
+    timeCounter = 0,
+    isAnimated = true
   ) => {
     const setIsVisited = this.updateNodeCache.get(`${rowIdx}-${colIdx}`)
       .setIsVisited;
@@ -152,7 +153,8 @@ export default class Home extends Component {
     rowIdx,
     colIdx,
     isShortest = false,
-    timeCounter = 0
+    timeCounter = 0,
+    isAnimated = true
   ) => {
     const setIsShortest = this.updateNodeCache.get(`${rowIdx}-${colIdx}`)
       .setIsShortest;
@@ -160,9 +162,9 @@ export default class Home extends Component {
   };
 
   clearBoard = (clearWalls = true, delayIteration = true) => {
-    // if (this.pathfinder.current) {
-    //   this.pathfinder.current.clearTimers();
-    // }
+    if (this.pathfinder.current) {
+      this.pathfinder.current.clearTimers();
+    }
     this.board.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
         if (clearWalls) {

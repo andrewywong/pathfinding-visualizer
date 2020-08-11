@@ -21,6 +21,7 @@ export default class Dijkstra extends Pathfinder {
       start,
       finish,
       updateNodeIsVisited,
+      delayIteration,
     } = this;
 
     let counter = 0;
@@ -47,11 +48,13 @@ export default class Dijkstra extends Pathfinder {
       }
       // Don't update node-visited for start/finish nodes
       if (!(currentX === start.x && currentY === start.y)) {
-        if (this.delayIteration) {
-          updateNodeIsVisited(currentY, currentX, true, counter);
-        } else {
-          updateNodeIsVisited(currentY, currentX, true);
-        }
+        updateNodeIsVisited(
+          currentY,
+          currentX,
+          true,
+          counter * delayIteration,
+          delayIteration
+        );
       }
 
       for (let i = 0; i < Pathfinder.dx.length; ++i) {

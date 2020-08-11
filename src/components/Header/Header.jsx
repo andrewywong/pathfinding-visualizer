@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Pathfinder from '../../algorithms/Pathfinder';
 import Timer from '../../algorithms/Timer';
 
 import { Container, Row, Col, Button } from 'react-bootstrap';
@@ -13,7 +12,6 @@ export default class Header extends Component {
 
   onVisualize = () => {
     const {
-      isVisualizing,
       clearBoard,
       setIsVisualizing,
       initPathfinder,
@@ -21,9 +19,9 @@ export default class Header extends Component {
       setIsPathVisualized,
       delayInterval,
     } = this.props;
-    if (isVisualizing) {
-      return;
-    }
+    // if (isVisualizing) {
+    //   return;
+    // }
     // if (pathfinder.current) {
     //   pathfinder.current.clearTimers();
     // }
@@ -35,20 +33,20 @@ export default class Header extends Component {
     const timer = new Timer(
       // callback
       () => {
-        setIsPathVisualized(true);
+        // setIsPathVisualized(true);
         setIsVisualizing(false);
       }, //pathfinder.clearTimers()
       finalCounter * delayInterval // delay
     );
     pathfinder.current.timers.push(timer);
-    // setIsPathVisualized(true);
+    setIsPathVisualized(true);
   };
 
   onClear = (clearWalls) => {
-    const { clearBoard, pathfinder } = this.props;
-    if (pathfinder.current) {
-      pathfinder.current.clearTimers();
-    }
+    const { clearBoard } = this.props;
+    // if (pathfinder.current) {
+    //   pathfinder.current.clearTimers();
+    // }
     if (this.state.pause) {
       this.setState({ pause: false });
     }
@@ -85,6 +83,21 @@ export default class Header extends Component {
           <Col className="d-flex justify-content-center">
             <Button variant="primary" onClick={this.onVisualize}>
               Visualize
+            </Button>
+          </Col>
+          <Col className="d-flex justify-content-center">
+            <Button variant="primary" onClick={this.onVisualize}>
+              Visualize
+            </Button>
+          </Col>
+          <Col className="d-flex justify-content-center">
+            <Button variant="secondary" onClick={this.onClearAll}>
+              Clear All
+            </Button>
+          </Col>
+          <Col className="d-flex justify-content-center">
+            <Button variant="secondary" onClick={this.onClearPath}>
+              Clear Path
             </Button>
           </Col>
         </Row>

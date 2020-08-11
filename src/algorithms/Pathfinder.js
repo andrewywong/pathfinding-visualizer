@@ -1,4 +1,3 @@
-import Timer from './Timer';
 export default class Pathfinder {
   constructor(
     board,
@@ -14,7 +13,7 @@ export default class Pathfinder {
     this.updateNodeIsShortest = updateNodeIsShortest;
     this.delayIteration = delayIteration;
     this._init(board);
-    this.board = board;
+    // this.board = board;
     this.timers = [];
   }
 
@@ -22,17 +21,17 @@ export default class Pathfinder {
   static dy = [-1, 1, 0, 0];
 
   _init(board) {
-    // this.board = [];
+    this.board = [];
     this.dist = [];
     this.visited = [];
     this.prev = [];
     for (let i = 0; i < board.length; ++i) {
-      // this.board[i] = [];
+      this.board[i] = [];
       this.dist[i] = [];
       this.visited[i] = [];
       this.prev[i] = [];
       for (let j = 0; j < board[i].length; ++j) {
-        // this.board[i][j] = { type: board[i][j].type };
+        this.board[i][j] = { type: board[i][j].type };
         this.dist[i][j] = Infinity;
         this.visited[i][j] = false;
         this.prev[i][j] = { x: -1, y: -1 };
@@ -58,7 +57,7 @@ export default class Pathfinder {
 
   // returns latest timeCounter
   traceShortestPath = (timeCounter) => {
-    const { finish, prev, updateNodeIsShortest } = this;
+    const { finish, prev, updateNodeIsShortest, delayIteration } = this;
 
     const path = [];
     let { x, y } = prev[finish.y][finish.x];
@@ -74,11 +73,15 @@ export default class Pathfinder {
     for (let i = path.length - 1; i >= 0; --i) {
       x = path[i].x;
       y = path[i].y;
-      if (this.delayIteration) {
-        updateNodeIsShortest(y, x, true, timeCounter);
-      } else {
-        updateNodeIsShortest(y, x, true);
-      }
+
+      //timeCounter is 0 if delayIteration is false
+      updateNodeIsShortest(
+        y,
+        x,
+        true,
+        timeCounter * delayIteration,
+        delayIteration
+      );
 
       timeCounter += 1;
     }
