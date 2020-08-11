@@ -1,5 +1,4 @@
 import Timer from './Timer';
-import { findByDisplayValue } from '@testing-library/react';
 export default class Pathfinder {
   constructor(
     board,

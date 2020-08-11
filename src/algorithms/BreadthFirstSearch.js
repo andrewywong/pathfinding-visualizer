@@ -40,7 +40,13 @@ export default class BreadthFirstSearch extends Pathfinder {
         ) {
           continue;
         }
-        if (visited[nextY][nextX] || board[nextY][nextX] === NODE_WALL) {
+        if (visited[nextY][nextX]) {
+          continue;
+        }
+        if (
+          board[nextY][nextX] === NODE_WALL &&
+          !(nextX === finish.x && nextY === finish.y)
+        ) {
           continue;
         }
 

@@ -6,7 +6,7 @@ export default class Dijkstra extends Pathfinder {
   constructor(...args) {
     super(...args);
     this.pq = new TinyQueue([], function (a, b) {
-      return a.d - b.d;
+      return a.g - b.g;
     });
   }
 
@@ -23,8 +23,9 @@ export default class Dijkstra extends Pathfinder {
       updateNodeIsVisited,
     } = this;
 
+    let counter = 0;
     if (start.x === finish.x && start.y === finish.y) {
-      return 0;
+      return counter;
     }
 
     pq.push({ x: start.x, y: start.y, g: 0 });
@@ -39,13 +40,14 @@ export default class Dijkstra extends Pathfinder {
       if (closed[currentY][currentX]) {
         continue;
       }
+      counter += 1;
       closed[currentY][currentX] = true;
       if (currentX === finish.x && currentY === finish.y) {
         return this.traceShortestPath();
       }
       // Don't update node-visited for start/finish nodes
       if (!(currentX === start.x && currentY === start.y)) {
-        updateNodeIsVisited(currentY, currentX, true, currentG);
+        updateNodeIsVisited(currentY, currentX, true, counter);
       }
 
       for (let i = 0; i < Pathfinder.dx.length; ++i) {
@@ -59,7 +61,13 @@ export default class Dijkstra extends Pathfinder {
         ) {
           continue;
         }
-        if (closed[nextY][nextX] || board[nextY][nextX] === NODE_WALL) {
+        if (closed[nextY][nextX]) {
+          continue;
+        }
+        if (
+          board[nextY][nextX] === NODE_WALL &&
+          !(nextX === finish.x && nextY === finish.y)
+        ) {
           continue;
         }
 
@@ -73,5 +81,6 @@ export default class Dijkstra extends Pathfinder {
         }
       }
     }
+    return counter;
   }
 }

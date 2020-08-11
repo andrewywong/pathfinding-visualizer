@@ -29,8 +29,12 @@ export default class AStar extends Pathfinder {
       calculateHeuristic,
     } = this;
 
+    let counter = 0;
     if (start.x === finish.x && start.y === finish.y) {
-      return 0;
+      return counter;
     }
+    counter += 1;
+
+    return counter;
   }
 }
