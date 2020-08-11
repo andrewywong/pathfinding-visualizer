@@ -36,7 +36,17 @@ export default class Dijkstra extends Pathfinder {
       const currentY = current.y;
       const currentG = current.g;
 
+      if (closed[currentY][currentX]) {
+        continue;
+      }
       closed[currentY][currentX] = true;
+      if (currentX === finish.x && currentY === finish.y) {
+        return this.traceShortestPath();
+      }
+      // Don't update node-visited for start/finish nodes
+      if (!(currentX === start.x && currentY === start.y)) {
+        updateNodeIsVisited(currentY, currentX, true, currentG);
+      }
 
       for (let i = 0; i < Pathfinder.dx.length; ++i) {
         const nextX = currentX + Pathfinder.dx[i];
@@ -53,17 +63,12 @@ export default class Dijkstra extends Pathfinder {
           continue;
         }
 
-        updateNodeIsVisited(nextY, nextX, true);
-        prev[nextY][nextX] = { x: currentX, y: currentY };
-        if (nextX === finish.x && nextY === finish.y) {
-          return this.traceShortestPath();
-        }
-
         const weight = 1;
         const g = dist[currentY][currentX] + weight;
         // if there is a shorter path to nextPos
         if (g < dist[nextY][nextX]) {
           dist[nextY][nextX] = g;
+          prev[nextY][nextX] = { x: currentX, y: currentY };
           pq.push({ x: nextX, y: nextY, g });
         }
       }

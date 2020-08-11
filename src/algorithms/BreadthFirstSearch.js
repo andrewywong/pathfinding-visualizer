@@ -32,7 +32,6 @@ export default class BreadthFirstSearch extends Pathfinder {
       for (let i = 0; i < Pathfinder.dx.length; ++i) {
         const nextX = current.x + Pathfinder.dx[i];
         const nextY = current.y + Pathfinder.dy[i];
-
         if (
           nextX < 0 ||
           nextX >= board[0].length ||
@@ -48,11 +47,11 @@ export default class BreadthFirstSearch extends Pathfinder {
         counter += 1;
         visited[nextY][nextX] = true;
         prev[nextY][nextX] = { x: current.x, y: current.y };
-        q.push({ x: nextX, y: nextY });
         if (nextX === finish.x && nextY === finish.y) {
           return this.traceShortestPath(counter);
         }
         updateNodeIsVisited(nextY, nextX, true, counter);
+        q.push({ x: nextX, y: nextY });
       }
     }
     return counter;

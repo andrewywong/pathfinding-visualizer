@@ -28,5 +28,9 @@ export default class AStar extends Pathfinder {
       updateNodeIsVisited,
       calculateHeuristic,
     } = this;
+
+    if (start.x === finish.x && start.y === finish.y) {
+      return 0;
+    }
   }
 }
