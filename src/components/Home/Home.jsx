@@ -76,7 +76,7 @@ export default class Home extends Component {
         const currentNode = {
           type: NODE_INITIAL,
         };
-        nodes[rowIdx].push(currentNode);
+        nodes[rowIdx][colIdx] = currentNode;
       }
     }
 
@@ -160,9 +160,9 @@ export default class Home extends Component {
   };
 
   clearBoard = (clearWalls = true, delayIteration = true) => {
-    if (this.pathfinder.current) {
-      this.pathfinder.current.clearTimers();
-    }
+    // if (this.pathfinder.current) {
+    //   this.pathfinder.current.clearTimers();
+    // }
     this.board.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
         if (clearWalls) {

@@ -49,9 +49,9 @@ export default class Board extends React.PureComponent {
     // });
     e.preventDefault();
     const { start, finish, isVisualizing, updateNodeType } = this.props;
-    // if (isVisualizing.current) {
-    //   return;
-    // }
+    if (isVisualizing.current) {
+      return;
+    }
 
     const isParentNode = e.target.parentElement.classList.contains(
       'board__node'
@@ -93,9 +93,9 @@ export default class Board extends React.PureComponent {
     e.preventDefault();
     let { start, finish } = this.props;
     const { isVisualizing, updateNodeType } = this.props;
-    // if (isVisualizing.current) {
-    //   return;
-    // }
+    if (isVisualizing.current) {
+      return;
+    }
     // if (this.mode === IDLE) return;
 
     // e.target.parentElement.className.indexOf('board__node') !== -1
