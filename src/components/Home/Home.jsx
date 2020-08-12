@@ -3,7 +3,7 @@ import Board from '../Board/Board';
 import Header from '../Header/Header';
 import { NODE_INITIAL, DIJKSTRA, DELAY_FAST } from '../../constants';
 import Timer from '../../algorithms/Timer';
-import { PathfinderMapping } from '../../algorithms/factory';
+import { PathfinderMapping } from '../../factory';
 import { IoLogoGithub } from 'react-icons/io';
 
 import {
@@ -183,7 +183,7 @@ export default class Home extends Component {
     this.updateNode({ isShortest, isAnimated }, setIsShortest, timeCounter);
   };
 
-  clearBoard = (clearWalls = true, delayIteration = true) => {
+  clearBoard = (clearWalls = true, delayedIteration = true) => {
     if (this.pathfinder.current) {
       this.pathfinder.current.clearTimers();
     }
@@ -198,21 +198,21 @@ export default class Home extends Component {
         this.updateNodeIsShortest(rowIdx, colIdx, false);
       });
     });
-    if (delayIteration) {
+    if (delayedIteration) {
       this.setIsPathVisualized(false);
     }
     this.setIsVisualizing(false);
     this.setState({ pause: false });
   };
 
-  initPathfinder = (delayIteration = true) => {
+  initPathfinder = (delayedIteration = true) => {
     this.pathfinder.current = new PathfinderMapping[this.state.algorithmType](
       this.board,
       this.start,
       this.finish,
       this.updateNodeIsVisited,
       this.updateNodeIsShortest,
-      delayIteration
+      delayedIteration
     );
   };
 

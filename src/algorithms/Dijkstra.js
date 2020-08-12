@@ -21,7 +21,7 @@ export default class Dijkstra extends Pathfinder {
       start,
       finish,
       updateNodeIsVisited,
-      delayIteration,
+      delayedIteration,
     } = this;
 
     let counter = 0;
@@ -52,8 +52,8 @@ export default class Dijkstra extends Pathfinder {
           currentY,
           currentX,
           true,
-          counter * delayIteration,
-          delayIteration
+          counter * delayedIteration,
+          delayedIteration
         );
       }
 

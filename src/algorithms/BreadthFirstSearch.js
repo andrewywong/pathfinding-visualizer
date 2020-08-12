@@ -17,7 +17,7 @@ export default class BreadthFirstSearch extends Pathfinder {
       start,
       finish,
       updateNodeIsVisited,
-      delayIteration,
+      delayedIteration,
     } = this;
 
     let counter = 0;
@@ -61,8 +61,8 @@ export default class BreadthFirstSearch extends Pathfinder {
           nextY,
           nextX,
           true,
-          counter * delayIteration,
-          delayIteration
+          counter * delayedIteration,
+          delayedIteration
         );
 
         q.push({ x: nextX, y: nextY });

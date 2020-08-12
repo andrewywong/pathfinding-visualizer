@@ -25,7 +25,7 @@ export default class AStar extends Pathfinder {
       start,
       finish,
       updateNodeIsVisited,
-      delayIteration,
+      delayedIteration,
       calculateHeuristic,
     } = this;
 
@@ -58,8 +58,8 @@ export default class AStar extends Pathfinder {
           currentY,
           currentX,
           true,
-          counter * delayIteration,
-          delayIteration
+          counter * delayedIteration,
+          delayedIteration
         );
       }
 

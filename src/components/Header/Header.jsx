@@ -1,7 +1,7 @@
 import React from 'react';
 import Timer from '../../algorithms/Timer';
-import { ALGORITHM_TYPES } from '../../constants';
-import { AlgorithmMapping } from '../../algorithms/factory';
+import { ALGORITHM_TYPES, DELAY_SPEEDS } from '../../constants';
+import { AlgorithmMapping, DelayMapping } from '../../factory';
 import {
   Container,
   Row,
@@ -83,6 +83,8 @@ export default class Header extends React.PureComponent {
       algorithmType,
       setAlgorithmType,
       pause,
+      delayInterval,
+      setDelayInterval,
     } = this.props;
     return (
       <Container fluid>
@@ -107,13 +109,32 @@ export default class Header extends React.PureComponent {
             </DropdownButton>
           </Col>
           <Col className="d-flex justify-content-center">
+            <DropdownButton
+              id="dropdown-speed"
+              title={DelayMapping[delayInterval]}
+              onSelect={setDelayInterval}
+              disabled={isVisualizing}
+            >
+              {DELAY_SPEEDS.map((delay) => {
+                return (
+                  <Dropdown.Item
+                    eventKey={delay}
+                    active={delayInterval === delay}
+                  >
+                    {DelayMapping[delay]}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
+          </Col>
+          <Col className="d-flex justify-content-center">
             <Button variant="primary" onClick={this.onVisualize}>
               Visualize
             </Button>
           </Col>
           <Col className="d-flex justify-content-center">
             <Button variant="secondary" onClick={this.onClearAll}>
-              Clear All
+              Clear Board
             </Button>
           </Col>
           <Col className="d-flex justify-content-center">

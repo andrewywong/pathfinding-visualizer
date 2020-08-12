@@ -8,9 +8,11 @@ export const NODE_VISITED = 'node-visited';
 export const NODE_SHORTEST = 'node-shortest-path';
 
 // Delay Interval
-export const DELAY_SLOW = 150;
+export const DELAY_SLOW = 300;
 export const DELAY_NORMAL = 50;
 export const DELAY_FAST = 25;
+
+export const DELAY_SPEEDS = [DELAY_SLOW, DELAY_NORMAL, DELAY_FAST];
 
 // Pathfinding Algorithms
 export const DIJKSTRA = 'Dijkstra';

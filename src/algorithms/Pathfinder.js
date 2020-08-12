@@ -5,13 +5,13 @@ export default class Pathfinder {
     finish,
     updateNodeIsVisited,
     updateNodeIsShortest,
-    delayIteration
+    delayedIteration
   ) {
     this.start = start;
     this.finish = finish;
     this.updateNodeIsVisited = updateNodeIsVisited;
     this.updateNodeIsShortest = updateNodeIsShortest;
-    this.delayIteration = delayIteration;
+    this.delayedIteration = delayedIteration;
     this._init(board);
     // this.board = board;
     this.timers = [];
@@ -57,7 +57,7 @@ export default class Pathfinder {
 
   // returns latest timeCounter
   traceShortestPath = (timeCounter) => {
-    const { finish, prev, updateNodeIsShortest, delayIteration } = this;
+    const { finish, prev, updateNodeIsShortest, delayedIteration } = this;
 
     const path = [];
     let { x, y } = prev[finish.y][finish.x];
@@ -74,13 +74,13 @@ export default class Pathfinder {
       x = path[i].x;
       y = path[i].y;
 
-      //timeCounter is 0 if delayIteration is false
+      //timeCounter is 0 if delayedIteration is false
       updateNodeIsShortest(
         y,
         x,
         true,
-        timeCounter * delayIteration,
-        delayIteration
+        timeCounter * delayedIteration,
+        delayedIteration
       );
 
       timeCounter += 1;
