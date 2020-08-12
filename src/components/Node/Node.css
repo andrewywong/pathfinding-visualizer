@@ -10,14 +10,29 @@
 
 .node-start {
   background-color: green;
+  animation-name: drag-node;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  /* animation-direction: alternate;
+  animation-fill-mode: forwards; */
 }
 
 .node-finish {
   background-color: red;
+  animation-name: drag-node;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  /* animation-direction: alternate;
+  animation-fill-mode: forwards; */
 }
 
 .node-wall {
   background-color: rgb(12, 53, 71);
+  animation-name: draw-wall;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  /* animation-direction: alternate;
+  animation-fill-mode: forwards; */
 }
 
 .board__path {
@@ -42,4 +57,28 @@
 
 .node-shortest-path-unanimated {
   background-color: rgba(255, 255, 55, 0.5);
+}
+
+@keyframes draw-wall {
+  0% {
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes drag-node {
+  0% {
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

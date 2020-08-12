@@ -99,6 +99,7 @@ export default class Header extends React.PureComponent {
               {ALGORITHM_TYPES.map((algorithm) => {
                 return (
                   <Dropdown.Item
+                    key={algorithm}
                     eventKey={algorithm}
                     active={algorithmType === algorithm}
                   >
@@ -118,6 +119,7 @@ export default class Header extends React.PureComponent {
               {DELAY_SPEEDS.map((delay) => {
                 return (
                   <Dropdown.Item
+                    key={delay}
                     eventKey={delay}
                     active={delayInterval === delay}
                   >

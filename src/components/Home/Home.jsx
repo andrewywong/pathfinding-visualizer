@@ -38,7 +38,7 @@ export default class Home extends Component {
   //   // TODO: HANDLE ISSUE OF BOARD NOT RERENDERING
   //   // https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
   //   // Should throttle this event to optimize performance
-  //   // window.addEventListener('resize', this.setupBoard);
+  //   window.addEventListener('resize', this.setupBoard);
   // }
 
   // componentWillUnmount() {
@@ -50,6 +50,7 @@ export default class Home extends Component {
     // Change rows and cols depending on the device width
     const maxCol = window.innerWidth / 25;
     const maxRow = window.innerHeight / 40;
+    // Note: maxRow and maxCol can be floats
 
     if (!this.start || !this.finish) {
       // Assign new start and finish values
@@ -63,18 +64,18 @@ export default class Home extends Component {
       };
     } else {
       // Use preexisting start and finish values
-      if (this.start.y >= maxRow) {
-        this.start.y = maxRow - 1;
+      if (this.start.y > maxRow) {
+        this.start.y = Math.trunc(maxRow);
       }
-      if (this.start.x >= maxCol) {
-        this.start.x = maxCol - 1;
+      if (this.start.x > maxCol) {
+        this.start.x = Math.trunc(maxCol);
       }
 
-      if (this.finish.y >= maxRow) {
-        this.finish.y = maxRow - 1;
+      if (this.finish.y > maxRow) {
+        this.finish.y = Math.trunc(maxRow);
       }
-      if (this.finish.x >= maxCol) {
-        this.finish.x = maxCol - 1;
+      if (this.finish.x > maxCol) {
+        this.finish.x = Math.trunc(maxCol);
       }
       // TODO: Handle issue of overlapping start and finish values
     }
@@ -106,12 +107,16 @@ export default class Home extends Component {
           nodes[rowIdx][colIdx] = { type: this.board[rowIdx][colIdx].type };
         }
       }
+
+      this.updateNodeCache
+        .get(`${this.finish.y}-${this.finish.x}`)
+        .forceNodeUpdate();
+      this.forceUpdate();
     }
 
     this.board = nodes;
     console.log('Set up board.');
-
-    // this.forceUpdate();
+    console.log(maxCol - 1);
   };
 
   // public class fields syntax
