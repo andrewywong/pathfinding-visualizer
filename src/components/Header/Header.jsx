@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Timer from '../../algorithms/Timer';
 
@@ -6,12 +6,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import { IoIosPause, IoIosPlay } from 'react-icons/io';
 
-export default class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { pause: false };
-  }
-
+export default class Header extends React.PureComponent {
   onVisualize = () => {
     const {
       clearBoard,
@@ -49,9 +44,6 @@ export default class Header extends Component {
     // if (pathfinder.current) {
     //   pathfinder.current.clearTimers();
     // }
-    if (this.state.pause) {
-      this.setState({ pause: false });
-    }
 
     clearBoard(clearWalls);
   };
@@ -65,21 +57,22 @@ export default class Header extends Component {
   };
 
   onPause = () => {
-    const { isVisualizing, pathfinder } = this.props;
+    const { isVisualizing, pathfinder, pause, setPause } = this.props;
     if (!isVisualizing) {
       return;
     }
-    if (this.state.pause) {
-      this.setState({ pause: false });
+    if (pause) {
+      setPause(false);
       pathfinder.current.resumeTimers();
     } else {
-      this.setState({ pause: true });
+      setPause(true);
       pathfinder.current.pauseTimers();
     }
   };
 
   render() {
-    const { isVisualizing } = this.props;
+    console.log('header rendered');
+    const { isVisualizing, pause } = this.props;
     return (
       <Container fluid>
         <Row>
@@ -104,7 +97,7 @@ export default class Header extends Component {
               onClick={this.onPause}
               disabled={!isVisualizing}
             >
-              {this.state.pause ? <IoIosPlay /> : <IoIosPause />}
+              {pause ? <IoIosPlay /> : <IoIosPause />}
             </Button>
           </Col>
         </Row>

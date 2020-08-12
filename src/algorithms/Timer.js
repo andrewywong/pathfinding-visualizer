@@ -2,7 +2,7 @@ export default class Timer {
   constructor(callback, delay) {
     this.id = setTimeout(callback, delay);
     this.callback = callback;
-    this.start = Date.now(); // Date.now()
+    this.start = Date.now();
     this.delay = delay;
     this.remaining = delay;
   }

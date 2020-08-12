@@ -28,6 +28,7 @@ export default class Home extends Component {
       isHelpShown: false,
       delayInterval: DELAY_FAST,
       algorithmType: DIJKSTRA,
+      pause: false,
     };
     this.setupBoard();
   }
@@ -123,6 +124,10 @@ export default class Home extends Component {
     this.isPathVisualized.current = value;
   };
 
+  setPause = (value) => {
+    this.setState({ pause: value });
+  };
+
   updateNode = (value, updateNodeState, timeCounter) => {
     if (timeCounter) {
       const timer = new Timer(
@@ -174,6 +179,7 @@ export default class Home extends Component {
     if (this.pathfinder.current) {
       this.pathfinder.current.clearTimers();
     }
+
     this.board.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
         if (clearWalls) {
@@ -188,6 +194,7 @@ export default class Home extends Component {
       this.setIsPathVisualized(false);
     }
     this.setIsVisualizing(false);
+    this.setState({ pause: false });
   };
 
   initPathfinder = (delayIteration = true) => {
@@ -222,11 +229,13 @@ export default class Home extends Component {
           isVisualizing={this.state.isVisualizing}
           delayInterval={this.state.delayInterval}
           algorithmType={this.state.algorithmType}
+          pause={this.state.pause}
           pathfinder={this.pathfinder}
           setIsVisualizing={this.setIsVisualizing}
+          setIsPathVisualized={this.setIsPathVisualized}
+          setPause={this.setPause}
           clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
-          setIsPathVisualized={this.setIsPathVisualized}
         />
         <Board
           board={this.board}
