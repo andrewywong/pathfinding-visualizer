@@ -10,7 +10,7 @@
 
 .node-start {
   background-color: green;
-  animation-name: drag-node;
+  animation-name: draw-start;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
   /* animation-direction: alternate;
@@ -19,7 +19,7 @@
 
 .node-finish {
   background-color: red;
-  animation-name: drag-node;
+  animation-name: draw-finish;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
   /* animation-direction: alternate;
@@ -44,39 +44,83 @@
 }
 
 .node-visited {
-  background-color: rgba(0, 190, 220, 0.5);
+  background-color: rgba(0, 190, 220, 0.6);
+  animation-name: draw-visited;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  /* animation-direction: alternate;
+  animation-fill-mode: forwards; */
 }
 
 .node-shortest-path {
-  background-color: rgba(255, 255, 55, 0.5);
+  background-color: rgba(255, 255, 55, 0.6);
+  animation-name: draw-shortest;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  /* animation-direction: alternate;
+  animation-fill-mode: forwards; */
 }
 
 .node-visited-unanimated {
-  background-color: rgba(0, 190, 220, 0.5);
+  background-color: rgba(0, 190, 220, 0.6);
 }
 
 .node-shortest-path-unanimated {
-  background-color: rgba(255, 255, 55, 0.5);
+  background-color: rgba(255, 255, 55, 0.6);
 }
 
-@keyframes draw-wall {
+@keyframes draw-start {
   0% {
     transform: scale(0.3);
-  }
-  50% {
-    transform: scale(1.1);
   }
   100% {
     transform: scale(1);
   }
 }
 
-@keyframes drag-node {
+@keyframes draw-finish {
   0% {
     transform: scale(0.3);
   }
-  50% {
-    transform: scale(1.1);
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes draw-wall {
+  0% {
+    transform: scale(0.3);
+  }
+  /* 75% {
+    transform: scale(1.2);
+  } */
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes draw-visited {
+  0% {
+    transform: scale(0.3);
+    border-radius: 100%;
+  }
+  /* 50% {
+    transform: scale(0.6);
+  } */
+  75% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes draw-shortest {
+  0% {
+    transform: scale(0.6);
+  }
+  75% {
+    transform: scale(1.2);
   }
   100% {
     transform: scale(1);

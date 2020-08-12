@@ -116,7 +116,6 @@ export default class Home extends Component {
 
     this.board = nodes;
     console.log('Set up board.');
-    console.log(maxCol - 1);
   };
 
   // public class fields syntax
