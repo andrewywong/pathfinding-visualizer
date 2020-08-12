@@ -4,6 +4,8 @@ import Timer from '../../algorithms/Timer';
 
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
+import { IoIosPause, IoIosPlay } from 'react-icons/io';
+
 export default class Header extends Component {
   constructor(props) {
     super(props);
@@ -77,14 +79,10 @@ export default class Header extends Component {
   };
 
   render() {
+    const { isVisualizing } = this.props;
     return (
       <Container fluid>
         <Row>
-          <Col className="d-flex justify-content-center">
-            <Button variant="primary" onClick={this.onVisualize}>
-              Visualize
-            </Button>
-          </Col>
           <Col className="d-flex justify-content-center">
             <Button variant="primary" onClick={this.onVisualize}>
               Visualize
@@ -98,6 +96,15 @@ export default class Header extends Component {
           <Col className="d-flex justify-content-center">
             <Button variant="secondary" onClick={this.onClearPath}>
               Clear Path
+            </Button>
+          </Col>
+          <Col className="d-flex justify-content-center">
+            <Button
+              variant="info"
+              onClick={this.onPause}
+              disabled={!isVisualizing}
+            >
+              {this.state.pause ? <IoIosPlay /> : <IoIosPause />}
             </Button>
           </Col>
         </Row>

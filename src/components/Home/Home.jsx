@@ -4,6 +4,15 @@ import Header from '../Header/Header';
 import { NODE_INITIAL, DIJKSTRA, DELAY_FAST } from '../../constants';
 import Timer from '../../algorithms/Timer';
 import PathfinderMapping from '../../algorithms/factory';
+import { IoLogoGithub } from 'react-icons/io';
+
+import {
+  Navbar,
+  NavbarBrand,
+  OverlayTrigger,
+  Tooltip,
+  Nav,
+} from 'react-bootstrap';
 
 export default class Home extends Component {
   constructor(props) {
@@ -146,7 +155,7 @@ export default class Home extends Component {
   ) => {
     const setIsVisited = this.updateNodeCache.get(`${rowIdx}-${colIdx}`)
       .setIsVisited;
-    this.updateNode(isVisited, setIsVisited, timeCounter);
+    this.updateNode({ isVisited, isAnimated }, setIsVisited, timeCounter);
   };
 
   updateNodeIsShortest = (
@@ -158,7 +167,7 @@ export default class Home extends Component {
   ) => {
     const setIsShortest = this.updateNodeCache.get(`${rowIdx}-${colIdx}`)
       .setIsShortest;
-    this.updateNode(isShortest, setIsShortest, timeCounter);
+    this.updateNode({ isShortest, isAnimated }, setIsShortest, timeCounter);
   };
 
   clearBoard = (clearWalls = true, delayIteration = true) => {
@@ -195,6 +204,20 @@ export default class Home extends Component {
   render() {
     return (
       <React.Fragment>
+        <Navbar bg="dark" variant="dark">
+          <NavbarBrand href="./">Pathfinding Visualizer</NavbarBrand>
+          <Nav className="ml-auto justify-content-end">
+            <OverlayTrigger
+              placement="bottom"
+              delay={{ show: 200 }}
+              overlay={<Tooltip id={`t-github`}>Github</Tooltip>}
+            >
+              <Nav.Link href="https://github.com/andrewywong/pathfinding-visualizer">
+                <IoLogoGithub />
+              </Nav.Link>
+            </OverlayTrigger>
+          </Nav>
+        </Navbar>
         <Header
           isVisualizing={this.state.isVisualizing}
           delayInterval={this.state.delayInterval}

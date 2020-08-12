@@ -45,11 +45,14 @@ export default class Node extends React.PureComponent {
   };
 
   setIsVisited = (value) => {
-    this.setState({ isVisited: value });
+    this.setState({ isVisited: value.isVisited, isAnimated: value.isAnimated });
   };
 
   setIsShortest = (value) => {
-    this.setState({ isShortest: value });
+    this.setState({
+      isShortest: value.isShortest,
+      isAnimated: value.isAnimated,
+    });
   };
 
   forceNodeUpdate = () => {
