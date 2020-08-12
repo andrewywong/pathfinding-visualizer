@@ -7,25 +7,18 @@ export const NODE_WALL = 'node-wall';
 export const NODE_VISITED = 'node-visited';
 export const NODE_SHORTEST = 'node-shortest-path';
 
-export const NODE_TYPES = [
-  'start',
-  'finish',
-  'initial',
-  'wall',
-  'visited',
-  'shortest',
-];
-
 // Delay Interval
 export const DELAY_SLOW = 150;
 export const DELAY_NORMAL = 50;
-export const DELAY_FAST = 15;
+export const DELAY_FAST = 25;
 
 // Pathfinding Algorithms
-export const DIJKSTRA = 'dijkstra';
-export const A_STAR = 'a-star';
+export const DIJKSTRA = 'Dijkstra';
+export const A_STAR = 'A*';
 export const DFS = 'DFS';
 export const BFS = 'BFS';
+
+export const ALGORITHM_TYPES = [DIJKSTRA, A_STAR, DFS, BFS];
 
 // Editing Modes
 export const IDLE = 'idle';

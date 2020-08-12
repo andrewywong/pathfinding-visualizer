@@ -25,9 +25,6 @@ export default class DepthFirstSearch extends Pathfinder {
       return counter;
     }
 
-    const dxReverse = [0, 0, -1, 1];
-    const dyReverse = [-1, 1, 0, 0];
-
     stk.push({ x: start.x, y: start.y });
     while (stk.length) {
       const current = stk.pop();
@@ -53,9 +50,9 @@ export default class DepthFirstSearch extends Pathfinder {
         );
       }
 
-      for (let i = 0; i < dxReverse.length; ++i) {
-        const nextX = current.x + dxReverse[i];
-        const nextY = current.y + dyReverse[i];
+      for (let i = 0; i < Pathfinder.dx.length; ++i) {
+        const nextX = current.x + Pathfinder.dx[i];
+        const nextY = current.y + Pathfinder.dy[i];
         if (
           nextX < 0 ||
           nextX >= board[0].length ||

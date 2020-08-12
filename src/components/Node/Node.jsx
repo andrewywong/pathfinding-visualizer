@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './Node.css';
 import {
   NODE_INITIAL,

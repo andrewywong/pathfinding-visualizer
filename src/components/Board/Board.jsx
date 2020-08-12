@@ -1,6 +1,5 @@
 import React from 'react';
 import Node from '../Node/Node';
-
 import './Board.css';
 import {
   IDLE,

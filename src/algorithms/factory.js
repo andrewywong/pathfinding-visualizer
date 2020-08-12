@@ -11,4 +11,11 @@ const PathfinderMapping = {
   [DFS]: DepthFirstSearch,
 };
 
-export default PathfinderMapping;
+const AlgorithmMapping = {
+  [DIJKSTRA]: "Dijkstra's algorithm",
+  [A_STAR]: 'A* search',
+  [BFS]: 'Breadth-first search',
+  [DFS]: 'Depth-first search',
+};
+
+export { PathfinderMapping, AlgorithmMapping };

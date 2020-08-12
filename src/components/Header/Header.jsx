@@ -1,9 +1,15 @@
 import React from 'react';
-
 import Timer from '../../algorithms/Timer';
-
-import { Container, Row, Col, Button } from 'react-bootstrap';
-
+import { ALGORITHM_TYPES } from '../../constants';
+import { AlgorithmMapping } from '../../algorithms/factory';
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Dropdown,
+  DropdownButton,
+} from 'react-bootstrap';
 import { IoIosPause, IoIosPlay } from 'react-icons/io';
 
 export default class Header extends React.PureComponent {
@@ -72,10 +78,34 @@ export default class Header extends React.PureComponent {
 
   render() {
     console.log('header rendered');
-    const { isVisualizing, pause } = this.props;
+    const {
+      isVisualizing,
+      algorithmType,
+      setAlgorithmType,
+      pause,
+    } = this.props;
     return (
       <Container fluid>
         <Row>
+          <Col className="d-flex justify-content-center">
+            <DropdownButton
+              id="dropdown-algorithm"
+              title={algorithmType}
+              onSelect={setAlgorithmType}
+              disabled={isVisualizing}
+            >
+              {ALGORITHM_TYPES.map((algorithm) => {
+                return (
+                  <Dropdown.Item
+                    eventKey={algorithm}
+                    active={algorithmType === algorithm}
+                  >
+                    {AlgorithmMapping[algorithm]}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
+          </Col>
           <Col className="d-flex justify-content-center">
             <Button variant="primary" onClick={this.onVisualize}>
               Visualize

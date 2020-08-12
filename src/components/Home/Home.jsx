@@ -3,7 +3,7 @@ import Board from '../Board/Board';
 import Header from '../Header/Header';
 import { NODE_INITIAL, DIJKSTRA, DELAY_FAST } from '../../constants';
 import Timer from '../../algorithms/Timer';
-import PathfinderMapping from '../../algorithms/factory';
+import { PathfinderMapping } from '../../algorithms/factory';
 import { IoLogoGithub } from 'react-icons/io';
 
 import {
@@ -124,6 +124,14 @@ export default class Home extends Component {
     this.isPathVisualized.current = value;
   };
 
+  setAlgorithmType = (value) => {
+    this.setState({ algorithmType: value });
+  };
+
+  setDelayInterval = (value) => {
+    this.setState({ delayInterval: value });
+  };
+
   setPause = (value) => {
     this.setState({ pause: value });
   };
@@ -233,6 +241,8 @@ export default class Home extends Component {
           pathfinder={this.pathfinder}
           setIsVisualizing={this.setIsVisualizing}
           setIsPathVisualized={this.setIsPathVisualized}
+          setDelayInterval={this.setDelayInterval}
+          setAlgorithmType={this.setAlgorithmType}
           setPause={this.setPause}
           clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
