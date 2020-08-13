@@ -41,7 +41,7 @@ export default class Dijkstra extends Pathfinder {
       if (closed[currentY][currentX]) {
         continue;
       }
-      counter += 1;
+      if (!(currentX === start.x && currentY === start.y)) counter += 1;
       closed[currentY][currentX] = true;
       if (currentX === finish.x && currentY === finish.y) {
         return this.traceShortestPath(counter);
