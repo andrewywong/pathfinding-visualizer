@@ -38,7 +38,7 @@ export const ERASING = 'erasing';
 // Node Weight Mapping
 export const WeightMapping = {
   [NODE_INITIAL]: 1,
-  // [NODE_WALL]: Infinity,
+  [NODE_WALL]: Infinity,
   [NODE_LIGHT]: 25,
   [NODE_MEDIUM]: 50,
   [NODE_HEAVY]: 100,

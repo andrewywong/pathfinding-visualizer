@@ -25,7 +25,7 @@ export default class Home extends Component {
     this.drawType = { current: NODE_WALL };
     this.state = {
       isVisualizing: false,
-      isHelpShown: false,
+      helpShow: false,
       delayInterval: DELAY_FAST,
       algorithmType: DIJKSTRA,
       pause: false,
@@ -133,7 +133,7 @@ export default class Home extends Component {
   };
 
   setDelayInterval = (value) => {
-    this.setState({ delayInterval: value });
+    this.setState({ delayInterval: Number(value) });
   };
 
   setPause = (value) => {
@@ -143,6 +143,10 @@ export default class Home extends Component {
   setDrawType = (value) => {
     this.drawType.current = value;
     this.setState({ drawType: value });
+  };
+
+  setHelpShow = (value) => {
+    this.setState({ helpShow: value });
   };
 
   updateNode = (value, updateNodeState, timeCounter) => {

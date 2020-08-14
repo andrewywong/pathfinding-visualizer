@@ -36,15 +36,15 @@
 }
 
 .node-light {
-  background-color: rgb(200, 215, 225);
+  background-color: rgb(151, 165, 175);
 }
 
 .node-medium {
-  background-color: rgb(144, 158, 168);
+  background-color: rgb(115, 128, 138);
 }
 
 .node-heavy {
-  background-color: rgb(101, 111, 121);
+  background-color: rgb(81, 91, 100);
 }
 
 .board__path {
@@ -56,7 +56,7 @@
 }
 
 .node-visited {
-  background-color: rgba(0, 190, 220, 0.6);
+  background-color: rgba(0, 190, 218, 0.75);
   animation-name: draw-visited;
   animation-duration: 1s;
   animation-timing-function: ease-out;
@@ -65,7 +65,7 @@
 }
 
 .node-shortest-path {
-  background-color: rgba(255, 255, 55, 0.6);
+  background-color: rgba(255, 255, 80, 0.75);
   animation-name: draw-shortest;
   animation-duration: 1s;
   animation-timing-function: ease-out;
@@ -74,11 +74,11 @@
 }
 
 .node-visited-unanimated {
-  background-color: rgba(0, 190, 220, 0.6);
+  background-color: rgba(0, 190, 218, 0.75);
 }
 
 .node-shortest-path-unanimated {
-  background-color: rgba(255, 255, 55, 0.6);
+  background-color: rgba(255, 255, 80, 0.75);
 }
 
 @keyframes draw-start {

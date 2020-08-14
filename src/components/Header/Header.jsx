@@ -7,6 +7,7 @@ import {
   AlgorithmMapping,
   DelayMapping,
   DrawMapping,
+  WeightMapping,
 } from '../../constants';
 import {
   Container,
@@ -19,7 +20,7 @@ import {
 import { IoIosPause, IoIosPlay } from 'react-icons/io';
 
 export default class Header extends React.PureComponent {
-  onVisualize = () => {
+  handleVisualize = () => {
     const {
       clearBoard,
       setIsVisualizing,
@@ -51,7 +52,7 @@ export default class Header extends React.PureComponent {
     setIsPathVisualized(true);
   };
 
-  onClear = (clearWalls) => {
+  handleClear = (clearWalls) => {
     const { clearBoard } = this.props;
     // if (pathfinder.current) {
     //   pathfinder.current.clearTimers();
@@ -60,15 +61,7 @@ export default class Header extends React.PureComponent {
     clearBoard(clearWalls);
   };
 
-  onClearAll = () => {
-    this.onClear(true);
-  };
-
-  onClearPath = () => {
-    this.onClear(false);
-  };
-
-  onPause = () => {
+  handlePause = () => {
     const { isVisualizing, pathfinder, pause, setPause } = this.props;
     if (!isVisualizing) {
       return;
@@ -138,24 +131,24 @@ export default class Header extends React.PureComponent {
             </DropdownButton>
           </Col>
           <Col className="d-flex justify-content-center">
-            <Button variant="primary" onClick={this.onVisualize}>
+            <Button variant="primary" onClick={this.handleVisualize}>
               Visualize
             </Button>
           </Col>
           <Col className="d-flex justify-content-center">
-            <Button variant="secondary" onClick={this.onClearAll}>
+            <Button variant="secondary" onClick={() => this.handleClear(true)}>
               Clear Board
             </Button>
           </Col>
           <Col className="d-flex justify-content-center">
-            <Button variant="secondary" onClick={this.onClearPath}>
+            <Button variant="secondary" onClick={() => this.handleClear(false)}>
               Clear Path
             </Button>
           </Col>
           <Col className="d-flex justify-content-center">
             <Button
               variant="info"
-              onClick={this.onPause}
+              onClick={this.handlePause}
               disabled={!isVisualizing}
             >
               {pause ? <IoIosPlay /> : <IoIosPause />}
@@ -174,7 +167,7 @@ export default class Header extends React.PureComponent {
                     eventKey={draw}
                     active={drawType === draw}
                   >
-                    {DrawMapping[draw]}
+                    {'[' + WeightMapping[draw] + '] ' + DrawMapping[draw]}
                   </Dropdown.Item>
                 );
               })}
