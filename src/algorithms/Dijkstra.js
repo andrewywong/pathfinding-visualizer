@@ -78,7 +78,9 @@ export default class Dijkstra extends Pathfinder {
           continue;
         }
 
-        const weight = WeightMapping[board[nextY][nextX].type];
+        const weight = !(nextX === finish.x && nextY === finish.y)
+          ? WeightMapping[board[nextY][nextX].type]
+          : 1;
         const g = dist[currentY][currentX] + weight;
         // if there is a shorter path to nextPos
         if (g < dist[nextY][nextX]) {

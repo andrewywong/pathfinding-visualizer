@@ -11,7 +11,7 @@
 .node-start {
   background-color: green;
   animation-name: draw-start;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   animation-timing-function: ease-out;
   /* animation-direction: alternate;
   animation-fill-mode: forwards; */
@@ -20,7 +20,7 @@
 .node-finish {
   background-color: red;
   animation-name: draw-finish;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   animation-timing-function: ease-out;
   /* animation-direction: alternate;
   animation-fill-mode: forwards; */
@@ -29,10 +29,22 @@
 .node-wall {
   background-color: rgb(12, 53, 71);
   animation-name: draw-wall;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   animation-timing-function: ease-out;
   /* animation-direction: alternate;
   animation-fill-mode: forwards; */
+}
+
+.node-light {
+  background-color: rgb(200, 215, 225);
+}
+
+.node-medium {
+  background-color: rgb(144, 158, 168);
+}
+
+.node-heavy {
+  background-color: rgb(101, 111, 121);
 }
 
 .board__path {

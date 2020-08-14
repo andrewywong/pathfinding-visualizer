@@ -98,7 +98,7 @@ export default class Node extends React.PureComponent {
         className={`board__node${this.getNodeClassNames()}`}
         data-row-idx={rowIdx}
         data-col-idx={colIdx}
-        data-type={this.state.type}
+        // data-type={this.state.type}
       >
         <div className={`board__path${this.getPathClassNames()}`} />
       </div>

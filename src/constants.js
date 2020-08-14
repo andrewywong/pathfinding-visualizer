@@ -11,7 +11,29 @@ export const NODE_LIGHT = 'node-light';
 export const NODE_MEDIUM = 'node-medium';
 export const NODE_HEAVY = 'node-heavy';
 
-export const NODE_TYPES = [NODE_WALL, NODE_LIGHT, NODE_MEDIUM, NODE_HEAVY];
+export const DRAW_TYPES = [NODE_WALL, NODE_LIGHT, NODE_MEDIUM, NODE_HEAVY];
+
+// Delay Interval
+export const DELAY_SLOW = 150;
+export const DELAY_NORMAL = 50;
+export const DELAY_FAST = 25;
+
+export const DELAY_SPEEDS = [DELAY_SLOW, DELAY_NORMAL, DELAY_FAST];
+
+// Pathfinding Algorithms
+export const DIJKSTRA = 'Dijkstra';
+export const A_STAR = 'A*';
+export const BFS = 'BFS';
+export const DFS = 'DFS';
+
+export const ALGORITHM_TYPES = [DIJKSTRA, A_STAR, BFS, DFS];
+
+// Editing Modes
+export const IDLE = 'idle';
+export const DRAGGING_START = 'dragging-start';
+export const DRAGGING_FINISH = 'dragging-finish';
+export const DRAWING = 'drawing';
+export const ERASING = 'erasing';
 
 // Node Weight Mapping
 export const WeightMapping = {
@@ -22,20 +44,13 @@ export const WeightMapping = {
   [NODE_HEAVY]: 100,
 };
 
-// Node Name Mapping
-export const NodeMapping = {
+// Draw Name Mapping
+export const DrawMapping = {
   [NODE_WALL]: 'Wall',
   [NODE_LIGHT]: 'Light',
   [NODE_MEDIUM]: 'Medium',
   [NODE_HEAVY]: 'Heavy',
 };
-
-// Delay Interval
-export const DELAY_SLOW = 150;
-export const DELAY_NORMAL = 50;
-export const DELAY_FAST = 25;
-
-export const DELAY_SPEEDS = [DELAY_SLOW, DELAY_NORMAL, DELAY_FAST];
 
 // Delay Name Mapping
 export const DelayMapping = {
@@ -44,14 +59,6 @@ export const DelayMapping = {
   [DELAY_FAST]: 'Fast',
 };
 
-// Pathfinding Algorithms
-export const DIJKSTRA = 'Dijkstra';
-export const A_STAR = 'A*';
-export const BFS = 'BFS';
-export const DFS = 'DFS';
-
-export const ALGORITHM_TYPES = [DIJKSTRA, A_STAR, BFS, DFS];
-
 // Algorithm Name Mapping
 export const AlgorithmMapping = {
   [DIJKSTRA]: "Dijkstra's algorithm",
@@ -59,10 +66,3 @@ export const AlgorithmMapping = {
   [BFS]: 'Breadth-first search',
   [DFS]: 'Depth-first search',
 };
-
-// Editing Modes
-export const IDLE = 'idle';
-export const DRAGGING_START = 'dragging-start';
-export const DRAGGING_FINISH = 'dragging-finish';
-export const DRAWING = 'drawing';
-export const ERASING = 'erasing';

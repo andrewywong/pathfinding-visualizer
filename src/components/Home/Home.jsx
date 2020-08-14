@@ -247,6 +247,7 @@ export default class Home extends Component {
           delayInterval={this.state.delayInterval}
           algorithmType={this.state.algorithmType}
           pause={this.state.pause}
+          drawType={this.state.drawType}
           pathfinder={this.pathfinder}
           setIsVisualizing={this.setIsVisualizing}
           setIsPathVisualized={this.setIsPathVisualized}
@@ -256,11 +257,11 @@ export default class Home extends Component {
           setDrawType={this.setDrawType}
           clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
-          drawType={this.state.drawType}
         />
         <Board
           board={this.board}
           isPathVisualized={this.isPathVisualized}
+          drawType={this.drawType}
           updateNodeType={this.updateNodeType}
           start={this.start}
           finish={this.finish}
@@ -268,7 +269,6 @@ export default class Home extends Component {
           pathfinder={this.pathfinder}
           clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
-          drawType={this.drawType}
         />
       </React.Fragment>
     );

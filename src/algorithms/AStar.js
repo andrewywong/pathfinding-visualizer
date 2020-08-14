@@ -84,7 +84,9 @@ export default class AStar extends Pathfinder {
           continue;
         }
 
-        const weight = WeightMapping[board[nextY][nextX].type];
+        const weight = !(nextX === finish.x && nextY === finish.y)
+          ? WeightMapping[board[nextY][nextX].type]
+          : 1;
         const g = dist[currentY][currentX] + weight;
         // f = g + h
         const nextF = g + calculateHeuristic(nextX, nextY);

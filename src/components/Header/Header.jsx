@@ -3,8 +3,10 @@ import Timer from '../../algorithms/Timer';
 import {
   ALGORITHM_TYPES,
   DELAY_SPEEDS,
-  DelayMapping,
+  DRAW_TYPES,
   AlgorithmMapping,
+  DelayMapping,
+  DrawMapping,
 } from '../../constants';
 import {
   Container,
@@ -89,6 +91,8 @@ export default class Header extends React.PureComponent {
       pause,
       delayInterval,
       setDelayInterval,
+      drawType,
+      setDrawType,
     } = this.props;
     return (
       <Container fluid>
@@ -156,6 +160,25 @@ export default class Header extends React.PureComponent {
             >
               {pause ? <IoIosPlay /> : <IoIosPause />}
             </Button>
+          </Col>
+          <Col className="d-flex justify-content-center">
+            <DropdownButton
+              id="dropdown-draw"
+              title={DrawMapping[drawType]}
+              onSelect={setDrawType}
+            >
+              {DRAW_TYPES.map((draw) => {
+                return (
+                  <Dropdown.Item
+                    key={draw}
+                    eventKey={draw}
+                    active={drawType === draw}
+                  >
+                    {DrawMapping[draw]}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
           </Col>
         </Row>
       </Container>

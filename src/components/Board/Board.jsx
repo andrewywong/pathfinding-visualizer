@@ -7,7 +7,6 @@ import {
   DRAGGING_FINISH,
   DRAWING,
   ERASING,
-  NODE_WALL,
   NODE_INITIAL,
 } from '../../constants';
 
@@ -64,10 +63,10 @@ export default class Board extends React.PureComponent {
     } else if (this.isFinishPos(colIdx, rowIdx, finish)) {
       this.mode = DRAGGING_FINISH;
     } else {
-      // targetElement.className === 'board__node'
-      if (targetElement.dataset.type === NODE_INITIAL) {
+      // targetElement.dataset.type === NODE_INITIAL
+      if (targetElement.className === 'board__node') {
         this.mode = DRAWING;
-        updateNodeType(rowIdx, colIdx, NODE_WALL);
+        updateNodeType(rowIdx, colIdx, drawType.current); // NODE_WALL
       } else {
         this.mode = ERASING;
         updateNodeType(rowIdx, colIdx, NODE_INITIAL);
