@@ -11,7 +11,13 @@ export const NODE_LIGHT = 'node-light';
 export const NODE_MEDIUM = 'node-medium';
 export const NODE_HEAVY = 'node-heavy';
 
-export const DRAW_TYPES = [NODE_WALL, NODE_LIGHT, NODE_MEDIUM, NODE_HEAVY];
+export const DRAW_TYPES = [
+  NODE_INITIAL,
+  NODE_WALL,
+  NODE_LIGHT,
+  NODE_MEDIUM,
+  NODE_HEAVY,
+];
 
 // Delay Interval
 export const DELAY_SLOW = 150;
@@ -39,13 +45,14 @@ export const ERASING = 'erasing';
 export const WeightMapping = {
   [NODE_INITIAL]: 1,
   [NODE_WALL]: Infinity,
-  [NODE_LIGHT]: 25,
-  [NODE_MEDIUM]: 50,
-  [NODE_HEAVY]: 100,
+  [NODE_LIGHT]: 10,
+  [NODE_MEDIUM]: 30,
+  [NODE_HEAVY]: 50,
 };
 
 // Draw Name Mapping
 export const DrawMapping = {
+  [NODE_INITIAL]: 'None',
   [NODE_WALL]: 'Wall',
   [NODE_LIGHT]: 'Light',
   [NODE_MEDIUM]: 'Medium',
