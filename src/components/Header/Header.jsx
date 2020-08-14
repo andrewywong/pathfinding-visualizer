@@ -1,7 +1,11 @@
 import React from 'react';
 import Timer from '../../algorithms/Timer';
-import { ALGORITHM_TYPES, DELAY_SPEEDS } from '../../constants';
-import { AlgorithmMapping, DelayMapping } from '../../factory';
+import {
+  ALGORITHM_TYPES,
+  DELAY_SPEEDS,
+  DelayMapping,
+  AlgorithmMapping,
+} from '../../constants';
 import {
   Container,
   Row,

@@ -47,10 +47,7 @@ export default class Board extends React.PureComponent {
     //   console.log(element);
     // });
     e.preventDefault();
-    const { start, finish, updateNodeType } = this.props;
-    // if (isVisualizing.current) {
-    //   return;
-    // }
+    const { start, finish, updateNodeType, drawType } = this.props;
 
     const isParentNode = e.target.parentElement.classList.contains(
       'board__node'
@@ -91,10 +88,8 @@ export default class Board extends React.PureComponent {
   handleMouseMove = (e) => {
     e.preventDefault();
     let { start, finish } = this.props;
-    const { updateNodeType } = this.props;
-    // if (isVisualizing.current) {
-    //   return;
-    // }
+    const { updateNodeType, drawType } = this.props;
+
     // if (this.mode === IDLE) return;
 
     // e.target.parentElement.className.indexOf('board__node') !== -1
@@ -128,7 +123,7 @@ export default class Board extends React.PureComponent {
         this.dragVisualize();
         break;
       case DRAWING:
-        updateNodeType(rowIdx, colIdx, NODE_WALL);
+        updateNodeType(rowIdx, colIdx, drawType.current); // NODE_WALL
         break;
       case ERASING:
         updateNodeType(rowIdx, colIdx, NODE_INITIAL);

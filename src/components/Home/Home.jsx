@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Board from '../Board/Board';
 import Header from '../Header/Header';
-import { NODE_INITIAL, DIJKSTRA, DELAY_FAST } from '../../constants';
+import { NODE_INITIAL, NODE_WALL, DIJKSTRA, DELAY_FAST } from '../../constants';
 import Timer from '../../algorithms/Timer';
 import { PathfinderMapping } from '../../factory';
 import { IoLogoGithub } from 'react-icons/io';
@@ -21,14 +21,15 @@ export default class Home extends Component {
     this.updateNodeCache = new Map();
     this.pathfinder = {};
 
-    this.isVisualizing = { current: false };
     this.isPathVisualized = { current: false };
+    this.drawType = { current: NODE_WALL };
     this.state = {
       isVisualizing: false,
       isHelpShown: false,
       delayInterval: DELAY_FAST,
       algorithmType: DIJKSTRA,
       pause: false,
+      drawType: NODE_WALL,
     };
     this.setupBoard();
   }
@@ -120,7 +121,6 @@ export default class Home extends Component {
 
   // public class fields syntax
   setIsVisualizing = (value) => {
-    this.isVisualizing.current = value;
     this.setState({ isVisualizing: value });
   };
 
@@ -138,6 +138,11 @@ export default class Home extends Component {
 
   setPause = (value) => {
     this.setState({ pause: value });
+  };
+
+  setDrawType = (value) => {
+    this.drawType.current = value;
+    this.setState({ drawType: value });
   };
 
   updateNode = (value, updateNodeState, timeCounter) => {
@@ -248,12 +253,13 @@ export default class Home extends Component {
           setDelayInterval={this.setDelayInterval}
           setAlgorithmType={this.setAlgorithmType}
           setPause={this.setPause}
+          setDrawType={this.setDrawType}
           clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
+          drawType={this.state.drawType}
         />
         <Board
           board={this.board}
-          isVisualizing={this.isVisualizing}
           isPathVisualized={this.isPathVisualized}
           updateNodeType={this.updateNodeType}
           start={this.start}
@@ -262,6 +268,7 @@ export default class Home extends Component {
           pathfinder={this.pathfinder}
           clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
+          drawType={this.drawType}
         />
       </React.Fragment>
     );

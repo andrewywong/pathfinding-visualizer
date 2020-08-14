@@ -10,20 +10,15 @@ export default class Timer {
   }
 
   pause = () => {
-    if (this.remaining >= -DELAY_SLOW) {
-      clearTimeout(this.id);
-      this.remaining -= Date.now() - this.start;
-    }
+    clearTimeout(this.id);
+    this.remaining -= Date.now() - this.start;
   };
 
   resume = () => {
     this.start = Date.now();
     clearTimeout(this.id);
-    // console.log('Start: ' + this.start);
-    // console.log('Remaining: ' + this.remaining);
     if (this.remaining >= -DELAY_SLOW) {
       this.id = setTimeout(this.callback, this.remaining);
-      // console.log('Called SetTimeout');
     }
   };
 

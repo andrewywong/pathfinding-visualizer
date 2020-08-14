@@ -1,6 +1,6 @@
 import TinyQueue from 'tinyqueue';
 import Pathfinder from './Pathfinder';
-import { NODE_WALL } from '../constants';
+import { NODE_WALL, WeightMapping } from '../constants';
 
 export default class Dijkstra extends Pathfinder {
   constructor(...args) {
@@ -78,7 +78,7 @@ export default class Dijkstra extends Pathfinder {
           continue;
         }
 
-        const weight = 1;
+        const weight = WeightMapping[board[nextY][nextX].type];
         const g = dist[currentY][currentX] + weight;
         // if there is a shorter path to nextPos
         if (g < dist[nextY][nextX]) {
