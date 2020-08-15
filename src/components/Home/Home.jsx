@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Home.css';
 import Board from '../Board/Board';
 import Header from '../Header/Header';
 import { NODE_INITIAL, NODE_WALL, DIJKSTRA, DELAY_FAST } from '../../constants';
@@ -231,17 +232,20 @@ export default class Home extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="Home">
         <Navbar bg="dark" variant="dark">
           <NavbarBrand href="./">Pathfinding Visualizer</NavbarBrand>
           <Nav className="ml-auto justify-content-end">
             <OverlayTrigger
               placement="bottom"
-              delay={{ show: 200 }}
+              delay={{ show: 250 }}
               overlay={<Tooltip id={`t-github`}>Github</Tooltip>}
             >
-              <Nav.Link href="https://github.com/andrewywong/pathfinding-visualizer">
-                <IoLogoGithub />
+              <Nav.Link
+                href="https://github.com/andrewywong/pathfinding-visualizer"
+                className="d-flex align-items-center p-1"
+              >
+                <IoLogoGithub size={24} />
               </Nav.Link>
             </OverlayTrigger>
           </Nav>
@@ -274,7 +278,7 @@ export default class Home extends Component {
           clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
         />
-      </React.Fragment>
+      </div>
     );
   }
 }

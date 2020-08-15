@@ -88,14 +88,14 @@ export default class Header extends React.PureComponent {
       setDrawType,
     } = this.props;
     return (
-      <Container fluid>
+      <Container fluid className="my-3">
         <Row>
           <Col className="d-flex justify-content-center">
             <DropdownButton
               id="dropdown-algorithm"
               title={algorithmType}
               onSelect={setAlgorithmType}
-              disabled={isVisualizing}
+              // disabled={isVisualizing}
             >
               {ALGORITHM_TYPES.map((algorithm) => {
                 return (
@@ -115,7 +115,7 @@ export default class Header extends React.PureComponent {
               id="dropdown-speed"
               title={DelayMapping[delayInterval]}
               onSelect={setDelayInterval}
-              disabled={isVisualizing}
+              // disabled={isVisualizing}
             >
               {DELAY_SPEEDS.map((delay) => {
                 return (
@@ -150,6 +150,7 @@ export default class Header extends React.PureComponent {
               variant="info"
               onClick={this.handlePause}
               disabled={!isVisualizing}
+              className="d-flex align-items-center"
             >
               {pause ? <IoIosPlay /> : <IoIosPause />}
             </Button>
