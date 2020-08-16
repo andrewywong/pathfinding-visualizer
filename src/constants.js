@@ -11,6 +11,12 @@ export const NODE_LIGHT = 'node-light';
 export const NODE_MEDIUM = 'node-medium';
 export const NODE_HEAVY = 'node-heavy';
 
+export const NODE_WEIGHT_10 = 'node-weight-10';
+export const NODE_WEIGHT_20 = 'node-weight-20';
+export const NODE_WEIGHT_30 = 'node-weight-30';
+export const NODE_WEIGHT_40 = 'node-weight-40';
+export const NODE_WEIGHT_50 = 'node-weight-50';
+
 export const DRAW_TYPES = [NODE_WALL, NODE_LIGHT, NODE_MEDIUM, NODE_HEAVY];
 
 // Delay Interval

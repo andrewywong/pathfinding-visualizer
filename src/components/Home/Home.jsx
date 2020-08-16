@@ -2,18 +2,10 @@ import React, { Component } from 'react';
 import './Home.css';
 import Board from '../Board/Board';
 import Header from '../Header/Header';
+import NavBar from '../NavBar/NavBar';
 import { NODE_INITIAL, NODE_WALL, DIJKSTRA, DELAY_FAST } from '../../constants';
 import Timer from '../../algorithms/Timer';
 import { PathfinderMapping } from '../../factory';
-import { IoLogoGithub } from 'react-icons/io';
-
-import {
-  Navbar,
-  NavbarBrand,
-  OverlayTrigger,
-  Tooltip,
-  Nav,
-} from 'react-bootstrap';
 
 export default class Home extends Component {
   constructor(props) {
@@ -233,23 +225,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="Home">
-        <Navbar bg="dark" variant="dark">
-          <NavbarBrand href="./">Pathfinding Visualizer</NavbarBrand>
-          <Nav className="ml-auto justify-content-end">
-            <OverlayTrigger
-              placement="bottom"
-              delay={{ show: 250 }}
-              overlay={<Tooltip id={`t-github`}>Github</Tooltip>}
-            >
-              <Nav.Link
-                href="https://github.com/andrewywong/pathfinding-visualizer"
-                className="d-flex align-items-center p-1"
-              >
-                <IoLogoGithub size={24} />
-              </Nav.Link>
-            </OverlayTrigger>
-          </Nav>
-        </Navbar>
+        <NavBar />
         <Header
           isVisualizing={this.state.isVisualizing}
           delayInterval={this.state.delayInterval}

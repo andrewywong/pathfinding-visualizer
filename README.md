@@ -11,13 +11,17 @@ npm start
 
 ## Algorithm List
 
+Weighted:
+
 - Dijkstra's algorithm
+
+- A\* search algorithm (Manhattan distance heuristic)
+
+Unweighted:
 
 - Breadth-first search
 
 - Depth-first search
-
-- A\* search algorithm (Manhattan distance heuristic)
 
 ## License
 

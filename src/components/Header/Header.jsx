@@ -9,15 +9,6 @@ import {
   DrawMapping,
   WeightMapping,
 } from '../../constants';
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Dropdown,
-  DropdownButton,
-} from 'react-bootstrap';
-import { IoIosPause, IoIosPlay } from 'react-icons/io';
 
 export default class Header extends React.PureComponent {
   handleVisualize = () => {
@@ -87,95 +78,96 @@ export default class Header extends React.PureComponent {
       drawType,
       setDrawType,
     } = this.props;
-    return (
-      <Container fluid className="my-3">
-        <Row>
-          <Col className="d-flex justify-content-center">
-            <DropdownButton
-              id="dropdown-algorithm"
-              title={algorithmType}
-              onSelect={setAlgorithmType}
-              // disabled={isVisualizing}
-            >
-              {ALGORITHM_TYPES.map((algorithm) => {
-                return (
-                  <Dropdown.Item
-                    key={algorithm}
-                    eventKey={algorithm}
-                    active={algorithmType === algorithm}
-                  >
-                    {AlgorithmMapping[algorithm]}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-          </Col>
-          <Col className="d-flex justify-content-center">
-            <DropdownButton
-              id="dropdown-speed"
-              title={DelayMapping[delayInterval]}
-              onSelect={setDelayInterval}
-              // disabled={isVisualizing}
-            >
-              {DELAY_SPEEDS.map((delay) => {
-                return (
-                  <Dropdown.Item
-                    key={delay}
-                    eventKey={delay}
-                    active={delayInterval === delay}
-                  >
-                    {DelayMapping[delay]}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-          </Col>
-          <Col className="d-flex justify-content-center">
-            <Button variant="primary" onClick={this.handleVisualize}>
-              Visualize
-            </Button>
-          </Col>
-          <Col className="d-flex justify-content-center">
-            <Button variant="secondary" onClick={() => this.handleClear(true)}>
-              Clear Board
-            </Button>
-          </Col>
-          <Col className="d-flex justify-content-center">
-            <Button variant="secondary" onClick={() => this.handleClear(false)}>
-              Clear Path
-            </Button>
-          </Col>
-          <Col className="d-flex justify-content-center">
-            <Button
-              variant="info"
-              onClick={this.handlePause}
-              disabled={!isVisualizing}
-              className="d-flex align-items-center"
-            >
-              {pause ? <IoIosPlay /> : <IoIosPause />}
-            </Button>
-          </Col>
-          <Col className="d-flex justify-content-center">
-            <DropdownButton
-              id="dropdown-draw"
-              title={DrawMapping[drawType]}
-              onSelect={setDrawType}
-            >
-              {DRAW_TYPES.map((draw) => {
-                return (
-                  <Dropdown.Item
-                    key={draw}
-                    eventKey={draw}
-                    active={drawType === draw}
-                  >
-                    {'[' + WeightMapping[draw] + '] ' + DrawMapping[draw]}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-          </Col>
-        </Row>
-      </Container>
-    );
+    return <div></div>;
+    // return (
+    //   <Container fluid className="my-3">
+    //     <Row>
+    //       <Col className="d-flex justify-content-center">
+    //         <DropdownButton
+    //           id="dropdown-algorithm"
+    //           title={algorithmType}
+    //           onSelect={setAlgorithmType}
+    //           // disabled={isVisualizing}
+    //         >
+    //           {ALGORITHM_TYPES.map((algorithm) => {
+    //             return (
+    //               <Dropdown.Item
+    //                 key={algorithm}
+    //                 eventKey={algorithm}
+    //                 active={algorithmType === algorithm}
+    //               >
+    //                 {AlgorithmMapping[algorithm]}
+    //               </Dropdown.Item>
+    //             );
+    //           })}
+    //         </DropdownButton>
+    //       </Col>
+    //       <Col className="d-flex justify-content-center">
+    //         <DropdownButton
+    //           id="dropdown-speed"
+    //           title={DelayMapping[delayInterval]}
+    //           onSelect={setDelayInterval}
+    //           // disabled={isVisualizing}
+    //         >
+    //           {DELAY_SPEEDS.map((delay) => {
+    //             return (
+    //               <Dropdown.Item
+    //                 key={delay}
+    //                 eventKey={delay}
+    //                 active={delayInterval === delay}
+    //               >
+    //                 {DelayMapping[delay]}
+    //               </Dropdown.Item>
+    //             );
+    //           })}
+    //         </DropdownButton>
+    //       </Col>
+    //       <Col className="d-flex justify-content-center">
+    //         <Button variant="primary" onClick={this.handleVisualize}>
+    //           Visualize
+    //         </Button>
+    //       </Col>
+    //       <Col className="d-flex justify-content-center">
+    //         <Button variant="secondary" onClick={() => this.handleClear(true)}>
+    //           Clear Board
+    //         </Button>
+    //       </Col>
+    //       <Col className="d-flex justify-content-center">
+    //         <Button variant="secondary" onClick={() => this.handleClear(false)}>
+    //           Clear Path
+    //         </Button>
+    //       </Col>
+    //       <Col className="d-flex justify-content-center">
+    //         <Button
+    //           variant="info"
+    //           onClick={this.handlePause}
+    //           disabled={!isVisualizing}
+    //           className="d-flex align-items-center"
+    //         >
+    //           {pause ? <IoIosPlay /> : <IoIosPause />}
+    //         </Button>
+    //       </Col>
+    //       <Col className="d-flex justify-content-center">
+    //         <DropdownButton
+    //           id="dropdown-draw"
+    //           title={DrawMapping[drawType]}
+    //           onSelect={setDrawType}
+    //         >
+    //           {DRAW_TYPES.map((draw) => {
+    //             return (
+    //               <Dropdown.Item
+    //                 key={draw}
+    //                 eventKey={draw}
+    //                 active={drawType === draw}
+    //               >
+    //                 {'[' + WeightMapping[draw] + '] ' + DrawMapping[draw]}
+    //               </Dropdown.Item>
+    //             );
+    //           })}
+    //         </DropdownButton>
+    //       </Col>
+    //     </Row>
+    //   </Container>
+    // );
   }
 }
