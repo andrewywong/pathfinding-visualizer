@@ -20,9 +20,9 @@ export const NODE_WEIGHT_50 = 'node-weight-50';
 export const DRAW_TYPES = [NODE_WALL, NODE_LIGHT, NODE_MEDIUM, NODE_HEAVY];
 
 // Delay Interval
-export const DELAY_SLOW = 150;
+export const DELAY_SLOW = 200;
 export const DELAY_NORMAL = 50;
-export const DELAY_FAST = 25;
+export const DELAY_FAST = 20;
 
 export const DELAY_SPEEDS = [
   { value: DELAY_SLOW, name: 'Slow' },

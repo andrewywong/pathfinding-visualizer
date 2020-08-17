@@ -27,7 +27,7 @@ export default class BreadthFirstSearch extends Pathfinder {
 
     q.push({ x: start.x, y: start.y });
     visited[start.y][start.x] = true;
-    while (q.length) {
+    while (!q.isEmpty()) {
       const current = q.shift();
 
       for (let i = 0; i < Pathfinder.dx.length; ++i) {

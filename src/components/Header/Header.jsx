@@ -48,7 +48,8 @@ class Header extends React.PureComponent {
       () => {
         // setIsPathVisualized(true);
         setIsVisualizing(false);
-      }, //pathfinder.clearTimers()
+        pathfinder.current.timers.shift();
+      }, //pathfinder.current.clearTimers()
       finalCounter * delayInterval // delay
     );
     pathfinder.current.timers.push(timer);

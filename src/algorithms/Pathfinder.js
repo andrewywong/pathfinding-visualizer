@@ -1,3 +1,4 @@
+import Denque from 'denque';
 export default class Pathfinder {
   constructor(
     board,
@@ -14,7 +15,7 @@ export default class Pathfinder {
     this.delayedIteration = delayedIteration;
     this._init(board);
     // this.board = board;
-    this.timers = [];
+    this.timers = new Denque();
   }
 
   static dx = [0, 0, -1, 1];
@@ -41,18 +42,23 @@ export default class Pathfinder {
   }
 
   clearTimers = () => {
-    this.timers.forEach((timer) => {
+    // this.timers.toArray().forEach((timer) => {
+    //   timer.clear();
+    // });
+    // this.timers = new Denque();
+    while (!this.timers.isEmpty()) {
+      let timer = this.timers.shift();
       timer.clear();
-    });
-    this.timers = [];
+    }
+    this.timers.clear();
   };
 
   pauseTimers = () => {
-    this.timers.forEach((timer) => timer.pause());
+    this.timers.toArray().forEach((timer) => timer.pause());
   };
 
   resumeTimers = () => {
-    this.timers.forEach((timer) => timer.resume());
+    this.timers.toArray().forEach((timer) => timer.resume());
   };
 
   // returns latest timeCounter

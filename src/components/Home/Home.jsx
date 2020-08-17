@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 import NavBar from '../NavBar/NavBar';
 import { NODE_INITIAL, NODE_WALL, DIJKSTRA, DELAY_FAST } from '../../constants';
 import Timer from '../../algorithms/Timer';
-import { PathfinderMapping } from '../../factory';
+import { PathfinderMapping } from '../../algorithms/factory';
 
 export default class Home extends Component {
   constructor(props) {
@@ -145,7 +145,10 @@ export default class Home extends Component {
   updateNode = (value, updateNodeState, timeCounter) => {
     if (timeCounter) {
       const timer = new Timer(
-        () => updateNodeState(value), // callback
+        () => {
+          updateNodeState(value);
+          this.pathfinder.current.timers.shift();
+        }, // callback
         timeCounter * this.state.delayInterval // delay
       );
       this.pathfinder.current.timers.push(timer);

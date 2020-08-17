@@ -26,7 +26,7 @@ export default class DepthFirstSearch extends Pathfinder {
     }
 
     stk.push({ x: start.x, y: start.y });
-    while (stk.length) {
+    while (!stk.isEmpty()) {
       const current = stk.pop();
       const currentX = current.x;
       const currentY = current.y;

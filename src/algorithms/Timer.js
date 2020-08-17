@@ -2,11 +2,11 @@ import { DELAY_SLOW } from '../constants';
 
 export default class Timer {
   constructor(callback, delay) {
+    this.start = Date.now();
     this.id = setTimeout(callback, delay);
     this.callback = callback;
-    this.start = Date.now();
-    this.delay = delay;
     this.remaining = delay;
+    // this.delay = delay;
   }
 
   pause = () => {
@@ -17,9 +17,7 @@ export default class Timer {
   resume = () => {
     this.start = Date.now();
     clearTimeout(this.id);
-    if (this.remaining >= -DELAY_SLOW) {
-      this.id = setTimeout(this.callback, this.remaining);
-    }
+    this.id = setTimeout(this.callback, this.remaining);
   };
 
   clear = () => {
