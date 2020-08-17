@@ -4,11 +4,18 @@ import {
   ALGORITHM_TYPES,
   DELAY_SPEEDS,
   DRAW_TYPES,
-  AlgorithmMapping,
-  DelayMapping,
   DrawMapping,
   WeightMapping,
 } from '../../constants';
+
+import {
+  Grid,
+  Button,
+  ButtonGroup,
+  Select,
+  InputLabel,
+  FormControl,
+} from '@material-ui/core/';
 
 export default class Header extends React.PureComponent {
   handleVisualize = () => {
@@ -66,19 +73,94 @@ export default class Header extends React.PureComponent {
     }
   };
 
+  handleSelectAlgorithm = (e) => {
+    const { setAlgorithmType } = this.props;
+    setAlgorithmType(e.target.value);
+  };
+
+  handleSelectSpeed = (e) => {
+    const { setDelayInterval } = this.props;
+    setDelayInterval(e.target.value);
+  };
+
   render() {
     console.log('header rendered');
     const {
       isVisualizing,
       algorithmType,
-      setAlgorithmType,
       pause,
       delayInterval,
-      setDelayInterval,
       drawType,
       setDrawType,
     } = this.props;
-    return <div></div>;
+    return (
+      <Grid container justify="center" alignItems="center" spacing={3}>
+        <Grid item>
+          <FormControl>
+            {/* <InputLabel htmlFor="select-algorithm">Algorithm</InputLabel> */}
+            <Select
+              native
+              value={algorithmType}
+              onChange={this.handleSelectAlgorithm}
+              id="select-algorithm"
+              labelId="select-algorithm-label"
+            >
+              {ALGORITHM_TYPES.map((algorithm) => {
+                return (
+                  <option key={algorithm.value} value={algorithm.value}>
+                    {algorithm.name}
+                  </option>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item>
+          <FormControl>
+            {/* <InputLabel htmlFor="select-speed">Speed</InputLabel> */}
+            <Select
+              native
+              value={delayInterval}
+              onChange={this.handleSelectSpeed}
+              id="select-speed"
+              labelId="select-speed-label"
+            >
+              {DELAY_SPEEDS.map((delay) => {
+                return (
+                  <option key={delay.value} value={delay.value}>
+                    {delay.name}
+                  </option>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleVisualize}
+          >
+            Visualize
+          </Button>
+        </Grid>
+        <Grid item>
+          <ButtonGroup color="secondary" aria-label="clear button group">
+            <Button onClick={() => this.handleClear(true)}>Clear Board</Button>
+            <Button onClick={() => this.handleClear(false)}>Clear Path</Button>
+          </ButtonGroup>
+        </Grid>
+        <Grid item>
+          <Button
+            variant="outlined"
+            onClick={this.handlePause}
+            disabled={!isVisualizing}
+          >
+            Pause
+          </Button>
+        </Grid>
+      </Grid>
+    );
     // return (
     //   <Container fluid className="my-3">
     //     <Row>

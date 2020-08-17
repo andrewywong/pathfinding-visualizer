@@ -24,15 +24,24 @@ export const DELAY_SLOW = 150;
 export const DELAY_NORMAL = 50;
 export const DELAY_FAST = 25;
 
-export const DELAY_SPEEDS = [DELAY_SLOW, DELAY_NORMAL, DELAY_FAST];
+export const DELAY_SPEEDS = [
+  { value: DELAY_SLOW, name: 'Slow' },
+  { value: DELAY_NORMAL, name: 'Normal' },
+  { value: DELAY_FAST, name: 'Fast' },
+];
 
 // Pathfinding Algorithms
-export const DIJKSTRA = 'Dijkstra';
-export const A_STAR = 'A*';
+export const DIJKSTRA = 'dijkstra';
+export const A_STAR = 'a-star';
 export const BFS = 'BFS';
 export const DFS = 'DFS';
 
-export const ALGORITHM_TYPES = [DIJKSTRA, A_STAR, BFS, DFS];
+export const ALGORITHM_TYPES = [
+  { value: DIJKSTRA, name: "Dijkstra's algorithm" },
+  { value: A_STAR, name: 'A* search' },
+  { value: BFS, name: 'Breadth-first search' },
+  { value: DFS, name: 'Depth-first search' },
+];
 
 // Editing Modes
 export const IDLE = 'idle';

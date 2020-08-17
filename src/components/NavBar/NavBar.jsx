@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'space-between',
+    // userSelect: 'none',
   },
 }));
 
@@ -23,7 +24,7 @@ export default function NavBar() {
   return (
     <AppBar position="static" elevation={0}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h6">
+        <Typography variant="h6" noWrap>
           <Link href="/" color="inherit" underline="none">
             Pathfinding Visualizer
           </Link>
