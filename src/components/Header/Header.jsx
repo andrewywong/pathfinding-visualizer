@@ -7,7 +7,6 @@ import {
   DrawMapping,
   WeightMapping,
 } from '../../constants';
-
 import {
   Grid,
   Button,
@@ -16,8 +15,17 @@ import {
   InputLabel,
   FormControl,
 } from '@material-ui/core/';
+import { Pause, PlayArrow } from '@material-ui/icons/';
+import { withStyles } from '@material-ui/core/styles';
 
-export default class Header extends React.PureComponent {
+const styles = (theme) => ({
+  grid: {},
+  centergrid: {
+    flexShrink: 2,
+  },
+  pause: { width: '40px', minWidth: '40px' },
+});
+class Header extends React.PureComponent {
   handleVisualize = () => {
     const {
       clearBoard,
@@ -27,9 +35,6 @@ export default class Header extends React.PureComponent {
       setIsPathVisualized,
       delayInterval,
     } = this.props;
-    // if (isVisualizing) {
-    //   return;
-    // }
     // if (pathfinder.current) {
     //   pathfinder.current.clearTimers();
     // }
@@ -86,6 +91,7 @@ export default class Header extends React.PureComponent {
   render() {
     console.log('header rendered');
     const {
+      classes,
       isVisualizing,
       algorithmType,
       pause,
@@ -94,7 +100,13 @@ export default class Header extends React.PureComponent {
       setDrawType,
     } = this.props;
     return (
-      <Grid container justify="center" alignItems="center" spacing={3}>
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        spacing={0}
+        // wrap="nowrap"
+      >
         <Grid item>
           <FormControl>
             {/* <InputLabel htmlFor="select-algorithm">Algorithm</InputLabel> */}
@@ -135,6 +147,7 @@ export default class Header extends React.PureComponent {
             </Select>
           </FormControl>
         </Grid>
+
         <Grid item>
           <Button
             variant="contained"
@@ -144,6 +157,7 @@ export default class Header extends React.PureComponent {
             Visualize
           </Button>
         </Grid>
+
         <Grid item>
           <ButtonGroup color="secondary" aria-label="clear button group">
             <Button onClick={() => this.handleClear(true)}>Clear Board</Button>
@@ -155,8 +169,9 @@ export default class Header extends React.PureComponent {
             variant="outlined"
             onClick={this.handlePause}
             disabled={!isVisualizing}
+            className={classes.pause}
           >
-            Pause
+            {pause ? <PlayArrow /> : <Pause />}
           </Button>
         </Grid>
       </Grid>
@@ -253,3 +268,5 @@ export default class Header extends React.PureComponent {
     // );
   }
 }
+
+export default withStyles(styles)(Header);

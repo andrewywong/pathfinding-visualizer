@@ -82,7 +82,6 @@ export default class Pathfinder {
         timeCounter * delayedIteration,
         delayedIteration
       );
-
       timeCounter += 1;
     }
     return timeCounter;

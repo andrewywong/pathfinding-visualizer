@@ -7,10 +7,10 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core/';
-import { FaGithub } from 'react-icons/fa';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -41,7 +41,7 @@ export default function NavBar() {
             color="inherit"
             edge="end"
           >
-            <FaGithub aria-hidden />
+            <GitHubIcon aria-hidden />
           </IconButton>
         </Tooltip>
       </Toolbar>

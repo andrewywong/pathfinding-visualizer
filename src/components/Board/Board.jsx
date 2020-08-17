@@ -45,7 +45,7 @@ export default class Board extends React.PureComponent {
     // e.target.classList.forEach((element) => {
     //   console.log(element);
     // });
-    e.preventDefault();
+    // e.preventDefault();
     const { start, finish, updateNodeType, drawType } = this.props;
 
     const isParentNode = e.target.parentElement.classList.contains(
@@ -75,17 +75,21 @@ export default class Board extends React.PureComponent {
     // this.prevPos.y = rowIdx;
     // this.prevPos.x = colIdx;
   };
-  handleTouchStart = this.handleMouseDown;
+  handleTouchStart = (e) => {
+    // e.preventDefault();
+    this.handleMouseDown(e);
+  };
 
   handleMouseUp = (e) => {
-    e.preventDefault();
     this.mode = IDLE;
   };
-  handleTouchEnd = this.handleMouseUp;
+  handleTouchEnd = (e) => {
+    // e.preventDefault();
+    this.handleMouseUp(e);
+  };
 
   // Could throttle this function to optimize performance
   handleMouseMove = (e) => {
-    e.preventDefault();
     let { start, finish } = this.props;
     const { updateNodeType, drawType } = this.props;
 
@@ -131,7 +135,10 @@ export default class Board extends React.PureComponent {
     // this.prevPos.y = rowIdx;
     // this.prevPos.x = colIdx;
   };
-  handleTouchMove = this.handleMouseMove;
+  handleTouchMove = (e) => {
+    this.handleMouseMove(e);
+    // e.preventDefault();
+  };
 
   dragNode = (rowIdx, colIdx, nodePos) => {
     const { updateNodeCache } = this.props;
@@ -166,7 +173,7 @@ export default class Board extends React.PureComponent {
         id="board"
         onMouseDown={this.handleMouseDown}
         onMouseMove={this.handleMouseMove}
-        // TODO: Handle issue of touch controls not working properly
+        // TODO: Handle issue of touch events not working properly - note: browser emulator simultaneously calls both mouse and touch events
         onTouchStart={this.handleTouchStart}
         onTouchMove={this.handleTouchMove}
       >
