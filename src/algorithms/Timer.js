@@ -1,5 +1,3 @@
-import { DELAY_SLOW } from '../constants';
-
 export default class Timer {
   constructor(callback, delay) {
     this.start = Date.now();

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './Home.css';
 import Board from '../Board/Board';
 import Header from '../Header/Header';
 import NavBar from '../NavBar/NavBar';
+import HelpModal from '../HelpModal/HelpModal';
 import { NODE_INITIAL, NODE_WALL, DIJKSTRA, DELAY_FAST } from '../../constants';
 import Timer from '../../algorithms/Timer';
 import { PathfinderMapping } from '../../algorithms/factory';
@@ -18,7 +18,7 @@ export default class Home extends Component {
     this.drawType = { current: NODE_WALL };
     this.state = {
       isVisualizing: false,
-      helpShow: false,
+      helpOpen: false,
       delayInterval: DELAY_FAST,
       algorithmType: DIJKSTRA,
       pause: false,
@@ -138,8 +138,8 @@ export default class Home extends Component {
     this.setState({ drawType: value });
   };
 
-  setHelpShow = (value) => {
-    this.setState({ helpShow: value });
+  setHelpOpen = (value) => {
+    this.setState({ helpOpen: value });
   };
 
   updateNode = (value, updateNodeState, timeCounter) => {
@@ -227,8 +227,12 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div className="Home">
-        <NavBar />
+      <React.Fragment>
+        <NavBar handleHelpOpen={() => this.setHelpOpen(true)} />
+        <HelpModal
+          helpOpen={this.state.helpOpen}
+          handleHelpClose={() => this.setHelpOpen(false)}
+        />
         <Header
           isVisualizing={this.state.isVisualizing}
           delayInterval={this.state.delayInterval}
@@ -257,7 +261,7 @@ export default class Home extends Component {
           clearBoard={this.clearBoard}
           initPathfinder={this.initPathfinder}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }

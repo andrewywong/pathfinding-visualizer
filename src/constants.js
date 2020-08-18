@@ -67,18 +67,3 @@ export const DrawMapping = {
   [NODE_MEDIUM]: 'Medium',
   [NODE_HEAVY]: 'Heavy',
 };
-
-// Delay Name Mapping
-export const DelayMapping = {
-  [DELAY_SLOW]: 'Slow',
-  [DELAY_NORMAL]: 'Normal',
-  [DELAY_FAST]: 'Fast',
-};
-
-// Algorithm Name Mapping
-export const AlgorithmMapping = {
-  [DIJKSTRA]: "Dijkstra's algorithm",
-  [A_STAR]: 'A* search',
-  [BFS]: 'Breadth-first search',
-  [DFS]: 'Depth-first search',
-};

@@ -14,8 +14,8 @@ import {
   Select,
   InputLabel,
   FormControl,
-} from '@material-ui/core/';
-import { Pause, PlayArrow } from '@material-ui/icons/';
+} from '@material-ui/core';
+import { Pause, PlayArrow } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
