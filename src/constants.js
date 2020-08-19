@@ -7,17 +7,11 @@ export const NODE_WALL = 'node-wall';
 export const NODE_VISITED = 'node-visited';
 export const NODE_SHORTEST = 'node-shortest-path';
 
-export const NODE_LIGHT = 'node-light';
-export const NODE_MEDIUM = 'node-medium';
-export const NODE_HEAVY = 'node-heavy';
-
 export const NODE_WEIGHT_10 = 'node-weight-10';
 export const NODE_WEIGHT_20 = 'node-weight-20';
 export const NODE_WEIGHT_30 = 'node-weight-30';
 export const NODE_WEIGHT_40 = 'node-weight-40';
 export const NODE_WEIGHT_50 = 'node-weight-50';
-
-export const DRAW_TYPES = [NODE_WALL, NODE_LIGHT, NODE_MEDIUM, NODE_HEAVY];
 
 // Delay Interval
 export const DELAY_SLOW = 200;
@@ -51,19 +45,49 @@ export const DRAWING = 'drawing';
 export const ERASING = 'erasing';
 
 // Node Weight Mapping
-export const WeightMapping = {
+export const WEIGHT_MAPPING = {
   [NODE_INITIAL]: 1,
-  [NODE_WALL]: Infinity,
-  [NODE_LIGHT]: 10,
-  [NODE_MEDIUM]: 30,
-  [NODE_HEAVY]: 50,
+  [NODE_WEIGHT_10]: 10,
+  [NODE_WEIGHT_20]: 20,
+  [NODE_WEIGHT_30]: 30,
+  [NODE_WEIGHT_40]: 40,
+  [NODE_WEIGHT_50]: 50,
+  [NODE_WALL]: 60, // Infinity
 };
 
-// Draw Name Mapping
-export const DrawMapping = {
-  [NODE_INITIAL]: 'None',
-  [NODE_WALL]: 'Wall',
-  [NODE_LIGHT]: 'Light',
-  [NODE_MEDIUM]: 'Medium',
-  [NODE_HEAVY]: 'Heavy',
-};
+// Node Weight Reverse Mapping
+export const WEIGHT_REVERSE = {};
+WEIGHT_REVERSE[10] = NODE_WEIGHT_10;
+WEIGHT_REVERSE[20] = NODE_WEIGHT_20;
+WEIGHT_REVERSE[30] = NODE_WEIGHT_30;
+WEIGHT_REVERSE[40] = NODE_WEIGHT_40;
+WEIGHT_REVERSE[50] = NODE_WEIGHT_50;
+WEIGHT_REVERSE[WEIGHT_MAPPING[NODE_WALL]] = NODE_WALL;
+
+// Marks for weight/wall slider
+export const MARKS = [
+  {
+    value: 10,
+    label: '10',
+  },
+  {
+    value: 20,
+    label: '20',
+  },
+  {
+    value: 30,
+    label: '30',
+  },
+  {
+    value: 40,
+    label: '40',
+  },
+  {
+    value: 50,
+    label: '50',
+  },
+  {
+    value: WEIGHT_MAPPING[NODE_WALL],
+    label: 'Wall',
+  },
+];

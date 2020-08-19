@@ -28,17 +28,6 @@ export default class Node extends React.PureComponent {
     });
   }
 
-  // componentDidMount() {
-  //   const { rowIdx, colIdx } = this.props;
-  //   let { updateNodeCache } = this.props;
-  //   updateNodeCache.set(`${rowIdx}-${colIdx}`, {
-  //     setType: this.setType,
-  //     setIsVisited: this.setIsVisited,
-  //     setIsShortest: this.setIsShortest,
-  //     forceNodeUpdate: this.forceNodeUpdate,
-  //   });
-  // }
-
   setType = (value) => {
     this.setState({ type: value });
   };

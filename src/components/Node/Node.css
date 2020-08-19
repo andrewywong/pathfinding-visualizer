@@ -8,6 +8,10 @@
   flex: 1; */
 }
 
+/* .board__node:hover {
+  opacity: 0.75;
+} */
+
 .node-start {
   background-color: rgb(67, 160, 71);
   animation-name: draw-start;
@@ -35,18 +39,6 @@
   animation-fill-mode: forwards; */
 }
 
-.node-light {
-  background-color: rgb(151, 165, 175);
-}
-
-.node-medium {
-  background-color: rgb(115, 128, 138);
-}
-
-.node-heavy {
-  background-color: rgb(81, 91, 100);
-}
-
 .node-weight-10 {
   background-color: rgb(120, 144, 156);
 }
@@ -69,6 +61,7 @@
 
 .board__path {
   height: 100%;
+  pointer-events: none;
   /* display: flex;
   flex: 1; */
   /* border-right: 1px solid grey;

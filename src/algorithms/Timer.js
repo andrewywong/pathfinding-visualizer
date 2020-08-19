@@ -4,7 +4,6 @@ export default class Timer {
     this.id = setTimeout(callback, delay);
     this.callback = callback;
     this.remaining = delay;
-    // this.delay = delay;
   }
 
   pause = () => {

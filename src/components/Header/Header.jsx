@@ -3,9 +3,10 @@ import Timer from '../../algorithms/Timer';
 import {
   ALGORITHM_TYPES,
   DELAY_SPEEDS,
-  DRAW_TYPES,
-  DrawMapping,
-  WeightMapping,
+  WEIGHT_MAPPING,
+  WEIGHT_REVERSE,
+  MARKS,
+  NODE_WALL,
 } from '../../constants';
 import {
   Grid,
@@ -14,6 +15,8 @@ import {
   Select,
   InputLabel,
   FormControl,
+  Typography,
+  Slider,
 } from '@material-ui/core';
 import { Pause, PlayArrow } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
@@ -24,6 +27,7 @@ const styles = (theme) => ({
     flexShrink: 2,
   },
   pause: { width: '40px', minWidth: '40px' },
+  slider: { width: 200 },
 });
 class Header extends React.PureComponent {
   handleVisualize = () => {
@@ -89,6 +93,16 @@ class Header extends React.PureComponent {
     setDelayInterval(e.target.value);
   };
 
+  handleSelectDrawType = (e, value) => {
+    const { setDrawType } = this.props;
+    setDrawType(WEIGHT_REVERSE[value]);
+  };
+
+  valuetext(value) {
+    if (value === WEIGHT_MAPPING[NODE_WALL]) value = 'Wall';
+    return value;
+  }
+
   render() {
     console.log('header rendered');
     const {
@@ -98,7 +112,6 @@ class Header extends React.PureComponent {
       pause,
       delayInterval,
       drawType,
-      setDrawType,
     } = this.props;
     return (
       <Grid
@@ -175,98 +188,27 @@ class Header extends React.PureComponent {
             {pause ? <PlayArrow /> : <Pause />}
           </Button>
         </Grid>
+        <Grid item>
+          <div className={classes.slider}>
+            <Typography id="weight-slider" gutterBottom>
+              Weight
+            </Typography>
+            <Slider
+              value={WEIGHT_MAPPING[drawType]}
+              onChange={this.handleSelectDrawType}
+              getAriaValueText={this.valuetext}
+              aria-labelledby="weight-slider"
+              step={10}
+              valueLabelDisplay="off"
+              marks={MARKS}
+              min={10}
+              max={60}
+              track={false}
+            />
+          </div>
+        </Grid>
       </Grid>
     );
-    // return (
-    //   <Container fluid className="my-3">
-    //     <Row>
-    //       <Col className="d-flex justify-content-center">
-    //         <DropdownButton
-    //           id="dropdown-algorithm"
-    //           title={algorithmType}
-    //           onSelect={setAlgorithmType}
-    //           // disabled={isVisualizing}
-    //         >
-    //           {ALGORITHM_TYPES.map((algorithm) => {
-    //             return (
-    //               <Dropdown.Item
-    //                 key={algorithm}
-    //                 eventKey={algorithm}
-    //                 active={algorithmType === algorithm}
-    //               >
-    //                 {AlgorithmMapping[algorithm]}
-    //               </Dropdown.Item>
-    //             );
-    //           })}
-    //         </DropdownButton>
-    //       </Col>
-    //       <Col className="d-flex justify-content-center">
-    //         <DropdownButton
-    //           id="dropdown-speed"
-    //           title={DelayMapping[delayInterval]}
-    //           onSelect={setDelayInterval}
-    //           // disabled={isVisualizing}
-    //         >
-    //           {DELAY_SPEEDS.map((delay) => {
-    //             return (
-    //               <Dropdown.Item
-    //                 key={delay}
-    //                 eventKey={delay}
-    //                 active={delayInterval === delay}
-    //               >
-    //                 {DelayMapping[delay]}
-    //               </Dropdown.Item>
-    //             );
-    //           })}
-    //         </DropdownButton>
-    //       </Col>
-    //       <Col className="d-flex justify-content-center">
-    //         <Button variant="primary" onClick={this.handleVisualize}>
-    //           Visualize
-    //         </Button>
-    //       </Col>
-    //       <Col className="d-flex justify-content-center">
-    //         <Button variant="secondary" onClick={() => this.handleClear(true)}>
-    //           Clear Board
-    //         </Button>
-    //       </Col>
-    //       <Col className="d-flex justify-content-center">
-    //         <Button variant="secondary" onClick={() => this.handleClear(false)}>
-    //           Clear Path
-    //         </Button>
-    //       </Col>
-    //       <Col className="d-flex justify-content-center">
-    //         <Button
-    //           variant="info"
-    //           onClick={this.handlePause}
-    //           disabled={!isVisualizing}
-    //           className="d-flex align-items-center"
-    //         >
-    //           {pause ? <IoIosPlay /> : <IoIosPause />}
-    //         </Button>
-    //       </Col>
-    //       <Col className="d-flex justify-content-center">
-    //         <DropdownButton
-    //           id="dropdown-draw"
-    //           title={DrawMapping[drawType]}
-    //           onSelect={setDrawType}
-    //         >
-    //           {DRAW_TYPES.map((draw) => {
-    //             return (
-    //               <Dropdown.Item
-    //                 key={draw}
-    //                 eventKey={draw}
-    //                 active={drawType === draw}
-    //               >
-    //                 {'[' + WeightMapping[draw] + '] ' + DrawMapping[draw]}
-    //               </Dropdown.Item>
-    //             );
-    //           })}
-    //         </DropdownButton>
-    //       </Col>
-    //     </Row>
-    //   </Container>
-    // );
   }
 }
 

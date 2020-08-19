@@ -58,11 +58,10 @@ export default function HelpModal(props) {
         </DialogTitle>
         <DialogContent dividers>
           <Typography>
-            Tips: <br />
             1. Click on the board to add and remove walls/weights. <br />
             2. Click and drag the start/end nodes to move them. <br />
             3. Choose the algorithm and speed from the drop-down menus. <br />
-            4. Choose between adding walls or weights from the switch. <br />
+            4. Choose between adding walls or weights from the slider. <br />
             5. Choose the cost of the weight node from the slider. <br />
             6. Walls are impenetrable, whereas weights are costly to pass
             through. <br />

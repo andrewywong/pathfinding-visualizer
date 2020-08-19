@@ -42,29 +42,23 @@ export default class Board extends React.PureComponent {
   }
 
   handleMouseDown = (e) => {
-    // e.target.classList.forEach((element) => {
-    //   console.log(element);
-    // });
     // e.preventDefault();
     const { start, finish, updateNodeType, drawType } = this.props;
 
-    const isParentNode = e.target.parentElement.classList.contains(
-      'board__node'
-    );
-    if (!isParentNode && !e.target.classList.contains('board__node')) {
+    // e.target.className.indexOf('board__node') !== -1
+    if (!e.target.classList.contains('board__node')) {
       return;
     }
-    const targetElement = isParentNode ? e.target.parentElement : e.target;
 
-    const rowIdx = Number(targetElement.dataset.rowIdx);
-    const colIdx = Number(targetElement.dataset.colIdx);
+    const rowIdx = Number(e.target.dataset.rowIdx);
+    const colIdx = Number(e.target.dataset.colIdx);
     if (this.isStartPos(colIdx, rowIdx, start)) {
       this.mode = DRAGGING_START;
     } else if (this.isFinishPos(colIdx, rowIdx, finish)) {
       this.mode = DRAGGING_FINISH;
     } else {
-      // targetElement.dataset.type === NODE_INITIAL
-      if (targetElement.className === 'board__node') {
+      // e.target.dataset.type === NODE_INITIAL
+      if (e.target.className === 'board__node') {
         this.mode = DRAWING;
         updateNodeType(rowIdx, colIdx, drawType.current); // NODE_WALL
       } else {
@@ -93,19 +87,13 @@ export default class Board extends React.PureComponent {
     let { start, finish } = this.props;
     const { updateNodeType, drawType } = this.props;
 
-    // if (this.mode === IDLE) return;
-
-    // e.target.parentElement.className.indexOf('board__node') !== -1
-    const isParentNode = e.target.parentElement.classList.contains(
-      'board__node'
-    );
-    if (!isParentNode && !e.target.classList.contains('board__node')) {
+    // e.target.className.indexOf('board__node') !== -1
+    if (!e.target.classList.contains('board__node')) {
       return;
     }
-    const targetElement = isParentNode ? e.target.parentElement : e.target;
 
-    const rowIdx = Number(targetElement.dataset.rowIdx);
-    const colIdx = Number(targetElement.dataset.colIdx);
+    const rowIdx = Number(e.target.dataset.rowIdx);
+    const colIdx = Number(e.target.dataset.colIdx);
     // if (this.prevPos.y === rowIdx && this.prevPos.x === colIdx) {
     //   return;
     // }

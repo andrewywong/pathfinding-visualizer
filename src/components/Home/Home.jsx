@@ -5,7 +5,7 @@ import NavBar from '../NavBar/NavBar';
 import HelpModal from '../HelpModal/HelpModal';
 import { NODE_INITIAL, NODE_WALL, DIJKSTRA, DELAY_FAST } from '../../constants';
 import Timer from '../../algorithms/Timer';
-import { PathfinderMapping } from '../../algorithms/factory';
+import PATHFINDER_MAPPING from '../../algorithms/factory';
 
 export default class Home extends Component {
   constructor(props) {
@@ -215,7 +215,7 @@ export default class Home extends Component {
   };
 
   initPathfinder = (delayedIteration = true) => {
-    this.pathfinder.current = new PathfinderMapping[this.state.algorithmType](
+    this.pathfinder.current = new PATHFINDER_MAPPING[this.state.algorithmType](
       this.board,
       this.start,
       this.finish,

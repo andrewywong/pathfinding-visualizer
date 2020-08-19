@@ -1,6 +1,6 @@
 import TinyQueue from 'tinyqueue';
 import Pathfinder from './Pathfinder';
-import { NODE_WALL, WeightMapping } from '../constants';
+import { NODE_WALL, WEIGHT_MAPPING } from '../constants';
 
 export default class AStar extends Pathfinder {
   constructor(...args) {
@@ -85,7 +85,7 @@ export default class AStar extends Pathfinder {
         }
 
         const weight = !(nextX === finish.x && nextY === finish.y)
-          ? WeightMapping[board[nextY][nextX].type]
+          ? WEIGHT_MAPPING[board[nextY][nextX].type]
           : 1;
         const g = dist[currentY][currentX] + weight;
         // f = g + h
