@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   user-select: none;
-  touch-action: none;
+  touch-action: manipulation;
   overflow-x: hidden;
 }
 
