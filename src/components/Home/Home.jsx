@@ -29,8 +29,7 @@ export default class Home extends Component {
 
   // componentDidMount() {
   //   // this.setupBoard();
-  //   // TODO: HANDLE ISSUE OF BOARD NOT RERENDERING
-  //   // https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
+  //   // TODO: Optimize board rerendering
   //   // Should throttle this event to optimize performance
   //   window.addEventListener('resize', this.setupBoard);
   // }
@@ -44,7 +43,6 @@ export default class Home extends Component {
     // Change rows and cols depending on the device width
     const maxCol = Math.trunc(window.innerWidth / 25);
     const maxRow = Math.trunc(window.innerHeight / 35);
-    // Note: maxRow and maxCol can be floats
 
     if (!this.start || !this.finish) {
       // Assign new start and finish values
@@ -58,18 +56,18 @@ export default class Home extends Component {
       };
     } else {
       // Use preexisting start and finish values
-      if (this.start.y > maxRow) {
-        this.start.y = Math.trunc(maxRow);
+      if (this.start.y >= maxRow) {
+        this.start.y = maxRow - 1;
       }
-      if (this.start.x > maxCol) {
-        this.start.x = Math.trunc(maxCol);
+      if (this.start.x >= maxCol) {
+        this.start.x = maxCol - 1;
       }
 
-      if (this.finish.y > maxRow) {
-        this.finish.y = Math.trunc(maxRow);
+      if (this.finish.y >= maxRow) {
+        this.finish.y = maxRow - 1;
       }
-      if (this.finish.x > maxCol) {
-        this.finish.x = Math.trunc(maxCol);
+      if (this.finish.x >= maxCol) {
+        this.finish.x = maxCol - 1;
       }
       // TODO: Handle issue of overlapping start and finish values
     }
@@ -93,7 +91,7 @@ export default class Home extends Component {
         this.board[0].length < nodes[0].length ? this.board : nodes;
       for (let rowIdx = 0; rowIdx < shorterRow.length; ++rowIdx) {
         for (let colIdx = 0; colIdx < shorterCol[rowIdx].length; ++colIdx) {
-          // Deep Copy Methods
+          // Deep Copy Methods:
           // JSON.parse(JSON.stringify(this.start));
           // Object.assign({}, this.start);
 
@@ -102,6 +100,9 @@ export default class Home extends Component {
         }
       }
 
+      this.updateNodeCache
+        .get(`${this.start.y}-${this.start.x}`)
+        .forceNodeUpdate();
       this.updateNodeCache
         .get(`${this.finish.y}-${this.finish.x}`)
         .forceNodeUpdate();
