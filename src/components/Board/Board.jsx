@@ -29,6 +29,7 @@ export default class Board extends React.PureComponent {
     window.removeEventListener('touchcancel', this.handlePointerUp);
   }
 
+  // Helper methods
   isStartPos(posX, posY, start) {
     return posX === start.x && posY === start.y;
   }
@@ -43,6 +44,7 @@ export default class Board extends React.PureComponent {
     );
   }
 
+  // Event handlers
   handlePointerDown = (e) => {
     // e.preventDefault();
     const { start, finish, updateNodeType, drawType } = this.props;
@@ -123,6 +125,7 @@ export default class Board extends React.PureComponent {
     // this.prevPos.x = colIdx;
   };
 
+  // Helper methods
   dragNode = (rowIdx, colIdx, nodePos) => {
     const { updateNodeCache } = this.props;
     const prevX = nodePos.x; // this.prevPos.x
@@ -149,7 +152,7 @@ export default class Board extends React.PureComponent {
 
   render() {
     // console.log('board rendered');
-    // Could pass in board lengths instead for optimizing performance
+    // Could pass in board lengths instead to optimize performance
     const { board, start, finish, updateNodeCache } = this.props;
     return (
       <div

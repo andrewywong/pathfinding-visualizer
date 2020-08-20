@@ -64,7 +64,7 @@ WEIGHT_REVERSE[40] = NODE_WEIGHT_40;
 WEIGHT_REVERSE[50] = NODE_WEIGHT_50;
 WEIGHT_REVERSE[WEIGHT_MAPPING[NODE_WALL]] = NODE_WALL;
 
-// Marks for weight/wall slider
+// Marks array for weight/wall slider
 export const MARKS = [
   {
     value: 10,

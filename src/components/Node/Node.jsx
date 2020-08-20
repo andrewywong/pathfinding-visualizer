@@ -28,6 +28,7 @@ export default class Node extends React.PureComponent {
     });
   }
 
+  // Set state methods
   setType = (value) => {
     this.setState({ type: value });
   };
@@ -47,6 +48,7 @@ export default class Node extends React.PureComponent {
     this.forceUpdate();
   };
 
+  // Helper methods
   getNodeClassNames() {
     const { rowIdx, colIdx, start, finish } = this.props;
     if (rowIdx === start.y && colIdx === start.x) {

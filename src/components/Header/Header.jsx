@@ -29,10 +29,11 @@ const styles = (theme) => ({
   center: {
     flex: '0 2',
   },
-  pause: { width: '40px', minWidth: '40px' },
+  pause: { width: 40, minWidth: 40 },
   slider: { width: 200 },
 });
 class Header extends React.PureComponent {
+  // Event handlers
   handleVisualize = () => {
     const {
       clearBoard,
@@ -42,9 +43,7 @@ class Header extends React.PureComponent {
       setIsPathVisualized,
       delayInterval,
     } = this.props;
-    // if (pathfinder.current) {
-    //   pathfinder.current.clearTimers();
-    // }
+
     clearBoard(false);
     setIsVisualizing(true);
 
@@ -65,9 +64,6 @@ class Header extends React.PureComponent {
 
   handleClear = (clearWalls) => {
     const { clearBoard } = this.props;
-    // if (pathfinder.current) {
-    //   pathfinder.current.clearTimers();
-    // }
 
     clearBoard(clearWalls);
   };

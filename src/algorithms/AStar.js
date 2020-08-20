@@ -47,12 +47,13 @@ export default class AStar extends Pathfinder {
       if (closed[currentY][currentX]) {
         continue;
       }
+      // Increment counter unless start node
       if (!(currentX === start.x && currentY === start.y)) counter += 1;
       closed[currentY][currentX] = true;
       if (currentX === finish.x && currentY === finish.y) {
         return this.traceShortestPath(counter);
       }
-      // Don't update node-visited for start/finish nodes
+      // Don't visually update node-visited for start/finish nodes
       if (!(currentX === start.x && currentY === start.y)) {
         updateNodeIsVisited(
           currentY,

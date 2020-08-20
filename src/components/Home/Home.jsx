@@ -38,6 +38,7 @@ export default class Home extends Component {
   //   window.removeEventListener('resize', this.setupBoard);
   // }
 
+  // public class fields syntax
   setupBoard = () => {
     const nodes = [];
     // Change rows and cols depending on the device width
@@ -95,7 +96,6 @@ export default class Home extends Component {
           // JSON.parse(JSON.stringify(this.start));
           // Object.assign({}, this.start);
 
-          // nodes[rowIdx][colIdx] = Object.assign({}, this.board[rowIdx][colIdx]);
           nodes[rowIdx][colIdx] = { type: this.board[rowIdx][colIdx].type };
         }
       }
@@ -112,7 +112,7 @@ export default class Home extends Component {
     this.board = nodes;
   };
 
-  // public class fields syntax
+  // Set state methods
   setIsVisualizing = (value) => {
     this.setState({ isVisualizing: value });
   };
@@ -142,6 +142,7 @@ export default class Home extends Component {
     this.setState({ helpOpen: value });
   };
 
+  // Update node state methods
   updateNode = (value, updateNodeState, timeCounter) => {
     if (timeCounter) {
       const timer = new Timer(
@@ -192,6 +193,7 @@ export default class Home extends Component {
     this.updateNode({ isShortest, isAnimated }, setIsShortest, timeCounter);
   };
 
+  // Helper methods
   clearBoard = (clearWalls = true, delayedIteration = true) => {
     if (this.pathfinder.current) {
       this.pathfinder.current.clearTimers();
@@ -202,7 +204,7 @@ export default class Home extends Component {
         if (clearWalls) {
           this.updateNodeType(rowIdx, colIdx, NODE_INITIAL);
         }
-        //clearing path
+        // clearing path
         this.updateNodeIsVisited(rowIdx, colIdx, false);
         this.updateNodeIsShortest(rowIdx, colIdx, false);
       });
