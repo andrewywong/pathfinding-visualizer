@@ -18,13 +18,15 @@ export default class Board extends React.PureComponent {
   }
 
   componentDidMount() {
-    window.addEventListener('mouseup', this.handleMouseUp);
-    window.addEventListener('touchend', this.handleTouchEnd);
+    window.addEventListener('mouseup', this.handlePointerUp);
+    window.addEventListener('touchend', this.handlePointerUp);
+    window.addEventListener('touchcancel', this.handlePointerUp);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('mouseup', this.handleMouseUp);
-    window.removeEventListener('touchend', this.handleTouchEnd);
+    window.removeEventListener('mouseup', this.handlePointerUp);
+    window.removeEventListener('touchend', this.handlePointerUp);
+    window.removeEventListener('touchcancel', this.handlePointerUp);
   }
 
   isStartPos(posX, posY, start) {
@@ -41,7 +43,7 @@ export default class Board extends React.PureComponent {
     );
   }
 
-  handleMouseDown = (e) => {
+  handlePointerDown = (e) => {
     // e.preventDefault();
     const { start, finish, updateNodeType, drawType } = this.props;
 
@@ -69,31 +71,28 @@ export default class Board extends React.PureComponent {
     // this.prevPos.y = rowIdx;
     // this.prevPos.x = colIdx;
   };
-  handleTouchStart = (e) => {
-    // e.preventDefault();
-    this.handleMouseDown(e);
-  };
 
-  handleMouseUp = (e) => {
+  handlePointerUp = (e) => {
     this.mode = IDLE;
-  };
-  handleTouchEnd = (e) => {
-    // e.preventDefault();
-    this.handleMouseUp(e);
   };
 
   // Could throttle this function to optimize performance
-  handleMouseMove = (e) => {
+  handlePointerMove = (e) => {
     let { start, finish } = this.props;
     const { updateNodeType, drawType } = this.props;
 
+    const realTarget =
+      e.type !== 'touchmove'
+        ? e.target
+        : document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+
     // e.target.className.indexOf('board__node') !== -1
-    if (!e.target.classList.contains('board__node')) {
+    if (!realTarget.classList.contains('board__node')) {
       return;
     }
 
-    const rowIdx = Number(e.target.dataset.rowIdx);
-    const colIdx = Number(e.target.dataset.colIdx);
+    const rowIdx = Number(realTarget.dataset.rowIdx);
+    const colIdx = Number(realTarget.dataset.colIdx);
     // if (this.prevPos.y === rowIdx && this.prevPos.x === colIdx) {
     //   return;
     // }
@@ -122,10 +121,6 @@ export default class Board extends React.PureComponent {
     }
     // this.prevPos.y = rowIdx;
     // this.prevPos.x = colIdx;
-  };
-  handleTouchMove = (e) => {
-    this.handleMouseMove(e);
-    // e.preventDefault();
   };
 
   dragNode = (rowIdx, colIdx, nodePos) => {
@@ -159,11 +154,11 @@ export default class Board extends React.PureComponent {
     return (
       <div
         id="board"
-        onMouseDown={this.handleMouseDown}
-        onMouseMove={this.handleMouseMove}
-        // TODO: Handle issue of touch events not working properly - note: browser emulator simultaneously calls both mouse and touch events
-        onTouchStart={this.handleTouchStart}
-        onTouchMove={this.handleTouchMove}
+        onMouseDown={this.handlePointerDown}
+        onMouseMove={this.handlePointerMove}
+        onTouchStart={this.handlePointerDown}
+        onTouchMove={this.handlePointerMove}
+        onTouchEnd={(e) => e.preventDefault()}
       >
         {board.map((row, rowIdx) => {
           return (
