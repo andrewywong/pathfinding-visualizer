@@ -153,7 +153,7 @@ export default class Board extends React.PureComponent {
   };
 
   render() {
-    console.log('board rendered');
+    // console.log('board rendered');
     // Could pass in board lengths instead for optimizing performance
     const { board, start, finish, updateNodeCache } = this.props;
     return (

@@ -79,7 +79,7 @@ export default class Node extends React.PureComponent {
   }
 
   render() {
-    console.log('node rendered');
+    // console.log('node rendered');
     const { rowIdx, colIdx } = this.props;
     return (
       <div

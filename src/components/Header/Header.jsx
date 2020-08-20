@@ -25,7 +25,6 @@ const styles = (theme) => ({
   grid: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    flex: 1,
   },
   center: {
     flex: '0 2',
@@ -108,7 +107,7 @@ class Header extends React.PureComponent {
   }
 
   render() {
-    console.log('header rendered');
+    // console.log('header rendered');
     const {
       classes,
       isVisualizing,
