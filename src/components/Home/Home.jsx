@@ -42,8 +42,8 @@ export default class Home extends Component {
   setupBoard = () => {
     const nodes = [];
     // Change rows and cols depending on the device width
-    const maxCol = window.innerWidth / 25;
-    const maxRow = window.innerHeight / 40;
+    const maxCol = Math.trunc(window.innerWidth / 25);
+    const maxRow = Math.trunc(window.innerHeight / 35);
     // Note: maxRow and maxCol can be floats
 
     if (!this.start || !this.finish) {
@@ -109,7 +109,6 @@ export default class Home extends Component {
     }
 
     this.board = nodes;
-    console.log('Set up board.');
   };
 
   // public class fields syntax

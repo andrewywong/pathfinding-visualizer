@@ -4,8 +4,6 @@
   height: 25px;
   border: 1px solid rgb(179, 229, 252);
   box-sizing: border-box;
-  /* display: flex;
-  flex: 1; */
 }
 
 /* .board__node:hover {
@@ -14,29 +12,20 @@
 
 .node-start {
   background-color: rgb(67, 160, 71);
-  animation-name: draw-start;
-  animation-duration: 0.2s;
-  animation-timing-function: ease-out;
-  /* animation-direction: alternate;
-  animation-fill-mode: forwards; */
+  animation: draw-start 0.2s ease-out;
+  /* animation-fill-mode: forwards; */
 }
 
 .node-finish {
   background-color: rgb(229, 57, 53);
-  animation-name: draw-finish;
-  animation-duration: 0.2s;
-  animation-timing-function: ease-out;
-  /* animation-direction: alternate;
-  animation-fill-mode: forwards; */
+  animation: draw-finish 0.2s ease-out;
+  /* animation-fill-mode: forwards; */
 }
 
 .node-wall {
   background-color: rgb(12, 53, 71);
-  animation-name: draw-wall;
-  animation-duration: 0.2s;
-  animation-timing-function: ease-out;
-  /* animation-direction: alternate;
-  animation-fill-mode: forwards; */
+  animation: draw-wall 0.2s ease-out;
+  /* animation-fill-mode: forwards; */
 }
 
 .node-weight-10 {
@@ -62,28 +51,18 @@
 .board__path {
   height: 100%;
   pointer-events: none;
-  /* display: flex;
-  flex: 1; */
-  /* border-right: 1px solid grey;
-  border-bottom: 1px solid grey; */
 }
 
 .node-visited {
   background-color: rgba(0, 188, 212, 0.75);
-  animation-name: draw-visited;
-  animation-duration: 1s;
-  animation-timing-function: ease-out;
-  /* animation-direction: alternate;
-  animation-fill-mode: forwards; */
+  animation: draw-visited 1s ease-out;
+  /* animation-fill-mode: forwards; */
 }
 
 .node-shortest-path {
   background-color: rgba(255, 238, 88, 0.75);
-  animation-name: draw-shortest;
-  animation-duration: 1s;
-  animation-timing-function: ease-out;
-  /* animation-direction: alternate;
-  animation-fill-mode: forwards; */
+  animation: draw-shortest 1s ease-out;
+  /* animation-fill-mode: forwards; */
 }
 
 .node-visited-unanimated {

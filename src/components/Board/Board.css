@@ -2,8 +2,7 @@
   margin: auto;
   display: table;
   border-collapse: collapse;
-  /* border-left: 1px solid grey;
-  border-top: 1px solid grey; */
+  margin-bottom: 4px;
 }
 
 .board__row {

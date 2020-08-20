@@ -22,9 +22,13 @@ import { Pause, PlayArrow } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
-  grid: {},
-  centergrid: {
-    flexShrink: 2,
+  grid: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    flex: 1,
+  },
+  center: {
+    flex: '0 2',
   },
   pause: { width: '40px', minWidth: '40px' },
   slider: { width: 200 },
@@ -53,7 +57,7 @@ class Header extends React.PureComponent {
         // setIsPathVisualized(true);
         setIsVisualizing(false);
         pathfinder.current.timers.shift();
-      }, //pathfinder.current.clearTimers()
+      }, // pathfinder.current.clearTimers()
       finalCounter * delayInterval // delay
     );
     pathfinder.current.timers.push(timer);
@@ -118,94 +122,117 @@ class Header extends React.PureComponent {
         container
         justify="center"
         alignItems="center"
-        spacing={0}
-        // wrap="nowrap"
+        spacing={2}
+        wrap="nowrap"
+        className={classes.grid}
       >
-        <Grid item>
-          <FormControl>
-            {/* <InputLabel htmlFor="select-algorithm">Algorithm</InputLabel> */}
-            <Select
-              native
-              value={algorithmType}
-              onChange={this.handleSelectAlgorithm}
-              id="select-algorithm"
-              labelId="select-algorithm-label"
+        <Grid container item justify="flex-end" alignItems="center" spacing={2}>
+          <Grid item>
+            <FormControl>
+              {/* <InputLabel htmlFor="select-algorithm">Algorithm</InputLabel> */}
+              <Select
+                native
+                value={algorithmType}
+                onChange={this.handleSelectAlgorithm}
+                id="select-algorithm"
+                labelId="select-algorithm-label"
+              >
+                {ALGORITHM_TYPES.map((algorithm) => {
+                  return (
+                    <option key={algorithm.value} value={algorithm.value}>
+                      {algorithm.name}
+                    </option>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <FormControl>
+              {/* <InputLabel htmlFor="select-speed">Speed</InputLabel> */}
+              <Select
+                native
+                value={delayInterval}
+                onChange={this.handleSelectSpeed}
+                id="select-speed"
+                labelId="select-speed-label"
+              >
+                {DELAY_SPEEDS.map((delay) => {
+                  return (
+                    <option key={delay.value} value={delay.value}>
+                      {delay.name}
+                    </option>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="outlined"
+              onClick={this.handlePause}
+              disabled={!isVisualizing}
+              className={classes.pause}
             >
-              {ALGORITHM_TYPES.map((algorithm) => {
-                return (
-                  <option key={algorithm.value} value={algorithm.value}>
-                    {algorithm.name}
-                  </option>
-                );
-              })}
-            </Select>
-          </FormControl>
+              {pause ? <PlayArrow /> : <Pause />}
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-          <FormControl>
-            {/* <InputLabel htmlFor="select-speed">Speed</InputLabel> */}
-            <Select
-              native
-              value={delayInterval}
-              onChange={this.handleSelectSpeed}
-              id="select-speed"
-              labelId="select-speed-label"
+        <Grid
+          container
+          item
+          justify="center"
+          alignItems="center"
+          spacing={2}
+          className={classes.center}
+        >
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleVisualize}
             >
-              {DELAY_SPEEDS.map((delay) => {
-                return (
-                  <option key={delay.value} value={delay.value}>
-                    {delay.name}
-                  </option>
-                );
-              })}
-            </Select>
-          </FormControl>
+              Visualize
+            </Button>
+          </Grid>
         </Grid>
+        <Grid
+          container
+          item
+          justify="flex-start"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item>
+            <ButtonGroup color="secondary" aria-label="clear button group">
+              <Button onClick={() => this.handleClear(true)}>
+                Clear Board
+              </Button>
+              <Button onClick={() => this.handleClear(false)}>
+                Clear Path
+              </Button>
+            </ButtonGroup>
+          </Grid>
 
-        <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleVisualize}
-          >
-            Visualize
-          </Button>
-        </Grid>
-
-        <Grid item>
-          <ButtonGroup color="secondary" aria-label="clear button group">
-            <Button onClick={() => this.handleClear(true)}>Clear Board</Button>
-            <Button onClick={() => this.handleClear(false)}>Clear Path</Button>
-          </ButtonGroup>
-        </Grid>
-        <Grid item>
-          <Button
-            variant="outlined"
-            onClick={this.handlePause}
-            disabled={!isVisualizing}
-            className={classes.pause}
-          >
-            {pause ? <PlayArrow /> : <Pause />}
-          </Button>
-        </Grid>
-        <Grid item>
-          <div className={classes.slider}>
-            <Typography id="weight-slider" gutterBottom>
-              Weight
-            </Typography>
-            <Slider
-              value={WEIGHT_MAPPING[drawType]}
-              onChange={this.handleSelectDrawType}
-              getAriaValueText={this.valuetext}
-              aria-labelledby="weight-slider"
-              step={10}
-              valueLabelDisplay="off"
-              marks={MARKS}
-              min={10}
-              max={60}
-              track={false}
-            />
-          </div>
+          <Grid item>
+            <div className={classes.slider}>
+              <Typography variant="subtitle2" id="weight-slider">
+                Weight
+              </Typography>
+              <Slider
+                value={WEIGHT_MAPPING[drawType]}
+                onChange={this.handleSelectDrawType}
+                getAriaValueText={this.valuetext}
+                aria-labelledby="weight-slider"
+                step={10}
+                valueLabelDisplay="off"
+                marks={MARKS}
+                min={10}
+                max={60}
+                track={false}
+              />
+            </div>
+          </Grid>
         </Grid>
       </Grid>
     );
