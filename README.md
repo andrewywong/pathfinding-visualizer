@@ -1,6 +1,6 @@
 # Pathfinding Visualizer
 
-### [DEMO](https://andrewywong.github.io/pathfinding-visualizer/)
+### [DEMO](https://andrewywong.github.io/pathfinding-visualizer)
 
 <img src="./images/visualized.png">
 

@@ -1,5 +1,6 @@
 {
   "name": "pathfinding-visualizer",
+  "homepage": "https://andrewywong.github.io/pathfinding-visualizer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,12 +11,15 @@
     "@testing-library/user-event": "^7.2.1",
     "denque": "^1.4.1",
     "fontsource-roboto": "^3.0.3",
+    "gh-pages": "^3.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
     "tinyqueue": "^2.0.3"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
