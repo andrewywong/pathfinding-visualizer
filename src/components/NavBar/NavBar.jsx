@@ -28,7 +28,7 @@ export default function NavBar(props) {
     <AppBar position="static" elevation={0}>
       <Toolbar>
         <Typography variant="h6" color="inherit" noWrap>
-          <Link href="/" color="inherit" underline="none">
+          <Link href="/pathfinding-visualizer" color="inherit" underline="none">
             Pathfinding Visualizer
           </Link>
         </Typography>

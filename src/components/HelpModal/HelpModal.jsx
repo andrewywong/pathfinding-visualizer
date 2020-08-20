@@ -69,7 +69,9 @@ export default function HelpModal(props) {
             account. <br />
             8. Unweighted algorithms(BFS and DFS) will ignore weight nodes (i.e.
             treat the nodes as unweighted). <br />
-            9. DFS does not guarantee the shortest path.
+            9. DFS does not guarantee the shortest path. <br />
+            10. When the visualizer runs, it captures and uses a snapshot of the
+            board and configs.
           </Typography>
         </DialogContent>
       </Dialog>
