@@ -62,18 +62,18 @@ export default function HelpModal(props) {
             2. Click and drag the start/end nodes to move them. <br />
             3. Choose the algorithm and speed from the drop-down menus. <br />
             4. Choose between adding walls or weights from the slider. <br />
-            5. Choose the cost of the weight node from the slider. <br />
-            6. Empty nodes cost 1 to pass through, whereas weights are more
-            costly to traverse. Walls are impenetrable, meaning they cannot be
-            traversed. <br />
+            5. Choose the cost of the weights from the slider. <br />
+            6. Empty nodes &quot;cost&quot; 1 to traverse, whereas weights are
+            more costly to pass through. Walls are impenetrable, meaning they
+            cannot be traversed. <br />
             7. Weighted algorithms (Djikstra and A*) will take weight nodes into
             account. <br />
-            8. Unweighted algorithms(BFS and DFS) will ignore weight nodes (i.e.
-            treat the nodes as empty). <br />
+            8. Unweighted algorithms (BFS and DFS) will ignore weight nodes
+            (i.e. treat the nodes as empty). <br />
             9. DFS does not guarantee the shortest path, whereas the other
             algorithms do. <br />
             10. When the visualizer runs, it captures and uses a snapshot of the
-            board and configs.
+            board and configurations.
           </Typography>
         </DialogContent>
       </Dialog>
