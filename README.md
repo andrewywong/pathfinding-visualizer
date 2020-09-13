@@ -2,7 +2,7 @@
 
 ### [DEMO](https://andrewywong.github.io/pathfinding-visualizer)
 
-<img src="./images/visualized.png">
+<img src="./images/visualizing.gif">
 
 ## Installation
 
