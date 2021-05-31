@@ -14,7 +14,7 @@ export default class Home extends Component {
     this.updateNodeCache = new Map();
     this.pathfinder = {};
 
-    this.dragToVisualize = { current: false };
+    this.canDragToVisualize = { current: false };
     this.drawType = { current: NODE_WALL };
     this.state = {
       isVisualizing: false,
@@ -81,8 +81,8 @@ export default class Home extends Component {
     this.setState({ isVisualizing: value });
   };
 
-  setDragToVisualize = (value) => {
-    this.dragToVisualize.current = value;
+  setCanDragToVisualize = (value) => {
+    this.canDragToVisualize.current = value;
   };
 
   setAlgorithmType = (value) => {
@@ -206,7 +206,7 @@ export default class Home extends Component {
           drawType={this.state.drawType}
           pathfinder={this.pathfinder}
           setIsVisualizing={this.setIsVisualizing}
-          setDragToVisualize={this.setDragToVisualize}
+          setCanDragToVisualize={this.setCanDragToVisualize}
           setDelayInterval={this.setDelayInterval}
           setAlgorithmType={this.setAlgorithmType}
           setPause={this.setPause}
@@ -216,7 +216,7 @@ export default class Home extends Component {
         />
         <Board
           board={this.board}
-          dragToVisualize={this.dragToVisualize}
+          canDragToVisualize={this.canDragToVisualize}
           drawType={this.drawType}
           updateNodeType={this.updateNodeType}
           start={this.start}

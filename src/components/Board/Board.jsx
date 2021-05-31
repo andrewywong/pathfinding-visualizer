@@ -112,12 +112,12 @@ export default class Board extends React.PureComponent {
 
   recomputeShortestPath = () => {
     const {
-      dragToVisualize,
+      canDragToVisualize,
       clearBoard,
       initPathfinder,
       pathfinder,
     } = this.props;
-    if (dragToVisualize.current) {
+    if (canDragToVisualize.current) {
       clearBoard(false);
       initPathfinder(false);
       pathfinder.current.run();

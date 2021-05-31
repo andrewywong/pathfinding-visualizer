@@ -40,7 +40,7 @@ class Header extends React.PureComponent {
       setIsVisualizing,
       initPathfinder,
       pathfinder,
-      setDragToVisualize,
+      setCanDragToVisualize,
       delayInterval,
     } = this.props;
 
@@ -58,13 +58,13 @@ class Header extends React.PureComponent {
       finalCounter * delayInterval // delay
     );
     pathfinder.current.timers.push(timer);
-    setDragToVisualize(true);
+    setCanDragToVisualize(true);
   };
 
   handleClear = (clearWalls) => {
-    const { clearBoard, setDragToVisualize } = this.props;
+    const { clearBoard, setCanDragToVisualize } = this.props;
     clearBoard(clearWalls);
-    setDragToVisualize(false);
+    setCanDragToVisualize(false);
   };
 
   handlePause = () => {
