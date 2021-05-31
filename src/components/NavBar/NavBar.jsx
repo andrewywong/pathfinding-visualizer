@@ -10,11 +10,7 @@ import {
 import { GitHub, Help } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  // toolbar: {
-  //   display: 'flex',
-  //   justifyContent: 'space-between',
-  // },
+const useStyles = makeStyles(() => ({
   separator: {
     flex: 1,
   },

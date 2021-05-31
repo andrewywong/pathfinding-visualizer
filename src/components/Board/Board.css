@@ -3,9 +3,11 @@
   display: table;
   border-collapse: collapse;
   margin-bottom: 4px;
-  touch-action: none;
+  touch-action: pinch-zoom;
 }
 
 .board__row {
   display: table-row;
+  margin: 0 auto;
+  max-width: 100%;
 }

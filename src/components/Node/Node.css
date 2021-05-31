@@ -13,19 +13,16 @@
 .node-start {
   background-color: rgb(67, 160, 71);
   animation: draw-start 0.2s ease-out;
-  /* animation-fill-mode: forwards; */
 }
 
 .node-finish {
   background-color: rgb(229, 57, 53);
   animation: draw-finish 0.2s ease-out;
-  /* animation-fill-mode: forwards; */
 }
 
 .node-wall {
   background-color: rgb(12, 53, 71);
   animation: draw-wall 0.2s ease-out;
-  /* animation-fill-mode: forwards; */
 }
 
 .node-weight-10 {
@@ -49,30 +46,28 @@
 }
 
 .board__path {
+  flex: 1;
   height: 100%;
   pointer-events: none;
 }
 
 .node-visited {
   background-color: rgba(0, 188, 212, 0.75);
+}
+
+.node-visited.animated {
   animation: draw-visited 1s ease-out;
-  /* animation-fill-mode: forwards; */
 }
 
 .node-shortest-path {
   background-color: rgba(255, 238, 88, 0.75);
+}
+
+.node-shortest-path.animated {
   animation: draw-shortest 1s ease-out;
-  /* animation-fill-mode: forwards; */
 }
 
-.node-visited-unanimated {
-  background-color: rgba(0, 188, 212, 0.75);
-}
-
-.node-shortest-path-unanimated {
-  background-color: rgba(255, 238, 88, 0.75);
-}
-
+/* Animations */
 @keyframes draw-start {
   0% {
     transform: scale(0.3);
@@ -95,9 +90,6 @@
   0% {
     transform: scale(0.3);
   }
-  /* 75% {
-    transform: scale(1.2);
-  } */
   100% {
     transform: scale(1);
   }
@@ -108,9 +100,6 @@
     transform: scale(0.3);
     border-radius: 100%;
   }
-  /* 50% {
-    transform: scale(0.6);
-  } */
   75% {
     transform: scale(1.2);
   }

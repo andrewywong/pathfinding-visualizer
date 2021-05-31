@@ -52,7 +52,7 @@ export const WEIGHT_MAPPING = {
   [NODE_WEIGHT_30]: 30,
   [NODE_WEIGHT_40]: 40,
   [NODE_WEIGHT_50]: 50,
-  [NODE_WALL]: 60, // Infinity
+  [NODE_WALL]: 60, // Conceptually Infinity
 };
 
 // Node Weight Reverse Mapping
@@ -62,7 +62,7 @@ WEIGHT_REVERSE[20] = NODE_WEIGHT_20;
 WEIGHT_REVERSE[30] = NODE_WEIGHT_30;
 WEIGHT_REVERSE[40] = NODE_WEIGHT_40;
 WEIGHT_REVERSE[50] = NODE_WEIGHT_50;
-WEIGHT_REVERSE[WEIGHT_MAPPING[NODE_WALL]] = NODE_WALL;
+WEIGHT_REVERSE[60] = NODE_WALL;
 
 // Marks array for weight/wall slider
 export const MARKS = [
@@ -87,7 +87,7 @@ export const MARKS = [
     label: '50',
   },
   {
-    value: WEIGHT_MAPPING[NODE_WALL],
+    value: 60,
     label: 'Wall',
   },
 ];

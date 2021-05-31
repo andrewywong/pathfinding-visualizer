@@ -7,6 +7,7 @@ import {
   NODE_START,
   NODE_FINISH,
 } from '../../constants';
+import { isFinishPos, isStartPos } from '../../utils';
 
 export default class Node extends React.PureComponent {
   constructor(props) {
@@ -51,10 +52,10 @@ export default class Node extends React.PureComponent {
   // Helper methods
   getNodeClassNames() {
     const { rowIdx, colIdx, start, finish } = this.props;
-    if (rowIdx === start.y && colIdx === start.x) {
+    if (isStartPos(colIdx, rowIdx, start)) {
       return ' ' + NODE_START;
     }
-    if (rowIdx === finish.y && colIdx === finish.x) {
+    if (isFinishPos(colIdx, rowIdx, finish)) {
       return ' ' + NODE_FINISH;
     }
     if (this.state.type === NODE_INITIAL) {
@@ -67,21 +68,20 @@ export default class Node extends React.PureComponent {
     let extraClassNames = '';
     if (this.state.isVisited) {
       extraClassNames += ' ' + NODE_VISITED;
-      if (!this.state.isAnimated) {
-        extraClassNames += '-unanimated';
+      if (this.state.isAnimated) {
+        extraClassNames += ' animated';
       }
     }
     if (this.state.isShortest) {
       extraClassNames += ' ' + NODE_SHORTEST;
-      if (!this.state.isAnimated) {
-        extraClassNames += '-unanimated';
+      if (this.state.isAnimated) {
+        extraClassNames += ' animated';
       }
     }
     return extraClassNames;
   }
 
   render() {
-    // console.log('node rendered');
     const { rowIdx, colIdx } = this.props;
     return (
       <div

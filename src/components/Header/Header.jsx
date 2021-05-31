@@ -40,7 +40,7 @@ class Header extends React.PureComponent {
       setIsVisualizing,
       initPathfinder,
       pathfinder,
-      setIsPathVisualized,
+      setDragToVisualize,
       delayInterval,
     } = this.props;
 
@@ -50,22 +50,21 @@ class Header extends React.PureComponent {
     initPathfinder();
     const finalCounter = pathfinder.current.run();
     const timer = new Timer(
-      // callback
       () => {
-        // setIsPathVisualized(true);
         setIsVisualizing(false);
         pathfinder.current.timers.shift();
-      }, // pathfinder.current.clearTimers()
+        // pathfinder.current.clearTimers()
+      }, // callback
       finalCounter * delayInterval // delay
     );
     pathfinder.current.timers.push(timer);
-    setIsPathVisualized(true);
+    setDragToVisualize(true);
   };
 
   handleClear = (clearWalls) => {
-    const { clearBoard } = this.props;
-
+    const { clearBoard, setDragToVisualize } = this.props;
     clearBoard(clearWalls);
+    setDragToVisualize(false);
   };
 
   handlePause = () => {
@@ -98,12 +97,11 @@ class Header extends React.PureComponent {
   };
 
   valuetext(value) {
-    if (value === WEIGHT_MAPPING[NODE_WALL]) value = 'Wall';
+    if (value === WEIGHT_MAPPING[NODE_WALL]) return 'Wall';
     return value;
   }
 
   render() {
-    // console.log('header rendered');
     const {
       classes,
       isVisualizing,

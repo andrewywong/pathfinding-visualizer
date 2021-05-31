@@ -14,7 +14,6 @@ export default class Pathfinder {
     this.updateNodeIsShortest = updateNodeIsShortest;
     this.delayedIteration = delayedIteration;
     this._init(board);
-    // this.board = board;
     this.timers = new Denque();
   }
 
@@ -42,10 +41,6 @@ export default class Pathfinder {
   }
 
   clearTimers = () => {
-    // this.timers.toArray().forEach((timer) => {
-    //   timer.clear();
-    // });
-    // this.timers = new Denque();
     while (!this.timers.isEmpty()) {
       let timer = this.timers.shift();
       timer.clear();

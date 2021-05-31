@@ -14,7 +14,7 @@ export default class Home extends Component {
     this.updateNodeCache = new Map();
     this.pathfinder = {};
 
-    this.isPathVisualized = { current: false };
+    this.dragToVisualize = { current: false };
     this.drawType = { current: NODE_WALL };
     this.state = {
       isVisualizing: false,
@@ -24,19 +24,9 @@ export default class Home extends Component {
       pause: false,
       drawType: NODE_WALL,
     };
+
     this.setupBoard();
   }
-
-  // componentDidMount() {
-  //   // this.setupBoard();
-  //   // TODO: Optimize board rerendering
-  //   // Should throttle this event to optimize performance
-  //   window.addEventListener('resize', this.setupBoard);
-  // }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener('resize', this.setupBoard);
-  // }
 
   // public class fields syntax
   setupBoard = () => {
@@ -80,33 +70,7 @@ export default class Home extends Component {
         nodes[rowIdx][colIdx] = {
           type: NODE_INITIAL,
         };
-        // nodes[rowIdx][colIdx] = NODE_INITIAL;
       }
-    }
-
-    // Copy over preexisting board
-    if (this.board && this.board.length) {
-      // board and board.length are truthy
-      const shorterRow = this.board.length < nodes.length ? this.board : nodes;
-      const shorterCol =
-        this.board[0].length < nodes[0].length ? this.board : nodes;
-      for (let rowIdx = 0; rowIdx < shorterRow.length; ++rowIdx) {
-        for (let colIdx = 0; colIdx < shorterCol[rowIdx].length; ++colIdx) {
-          // Deep Copy Methods:
-          // JSON.parse(JSON.stringify(this.start));
-          // Object.assign({}, this.start);
-
-          nodes[rowIdx][colIdx] = { type: this.board[rowIdx][colIdx].type };
-        }
-      }
-
-      this.updateNodeCache
-        .get(`${this.start.y}-${this.start.x}`)
-        .forceNodeUpdate();
-      this.updateNodeCache
-        .get(`${this.finish.y}-${this.finish.x}`)
-        .forceNodeUpdate();
-      this.forceUpdate();
     }
 
     this.board = nodes;
@@ -117,8 +81,8 @@ export default class Home extends Component {
     this.setState({ isVisualizing: value });
   };
 
-  setIsPathVisualized = (value) => {
-    this.isPathVisualized.current = value;
+  setDragToVisualize = (value) => {
+    this.dragToVisualize.current = value;
   };
 
   setAlgorithmType = (value) => {
@@ -194,24 +158,23 @@ export default class Home extends Component {
   };
 
   // Helper methods
-  clearBoard = (clearWalls = true, delayedIteration = true) => {
+  clearBoard = (clearWalls = true) => {
     if (this.pathfinder.current) {
       this.pathfinder.current.clearTimers();
     }
 
     this.board.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
+        // clear walls/weights
         if (clearWalls) {
           this.updateNodeType(rowIdx, colIdx, NODE_INITIAL);
         }
-        // clearing path
+        // clear path
         this.updateNodeIsVisited(rowIdx, colIdx, false);
         this.updateNodeIsShortest(rowIdx, colIdx, false);
       });
     });
-    if (delayedIteration) {
-      this.setIsPathVisualized(false);
-    }
+
     this.setIsVisualizing(false);
     this.setState({ pause: false });
   };
@@ -243,7 +206,7 @@ export default class Home extends Component {
           drawType={this.state.drawType}
           pathfinder={this.pathfinder}
           setIsVisualizing={this.setIsVisualizing}
-          setIsPathVisualized={this.setIsPathVisualized}
+          setDragToVisualize={this.setDragToVisualize}
           setDelayInterval={this.setDelayInterval}
           setAlgorithmType={this.setAlgorithmType}
           setPause={this.setPause}
@@ -253,7 +216,7 @@ export default class Home extends Component {
         />
         <Board
           board={this.board}
-          isPathVisualized={this.isPathVisualized}
+          dragToVisualize={this.dragToVisualize}
           drawType={this.drawType}
           updateNodeType={this.updateNodeType}
           start={this.start}
